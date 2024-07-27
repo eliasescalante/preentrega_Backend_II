@@ -1,0 +1,41 @@
+[
+  {
+    "title": "Camiseta Azul",
+    "description": "Camiseta de algodón azul",
+    "code": "TSHIRT-BLUE",
+    "price": 20,
+    "status": true,
+    "stock": 50,
+    "category": "Ropa",
+    "thumbnails": [
+      "http://example.com/tshirt-blue.jpg"
+    ],
+    "id": 1
+  },
+  {
+    "title": "Pantalon rojo",
+    "description": "marca duvon",
+    "code": "pantalon-12",
+    "price": 50,
+    "status": true,
+    "stock": 10,
+    "category": "Ropa",
+    "thumbnails": [
+      "http://example.com/tshirt-blue.jpg"
+    ],
+    "id": 2
+  },
+  {
+    "title": "Coca",
+    "description": "gaseosa cola x1.5lts",
+    "code": "P001",
+    "price": 100,
+    "status": true,
+    "stock": 10,
+    "category": "Gaseosa",
+    "thumbnails": [
+      "ruta/a/imagen1.jpg"
+    ],
+    "id": null
+  }
+]
