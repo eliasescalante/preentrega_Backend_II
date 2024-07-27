@@ -37,6 +37,6 @@ Este servidor proporciona una API para manejar productos y carritos de compra. L
 
 ## Cómo Ejecutar el Proyecto
 
-1 . descarga el repositorio
-2 . inicia el server con "npm start"
-3 . la pagina inicial describe los metodos a utilizar
+- 1 . descarga el repositorio
+- 2 . inicia el server con "npm start"
+- 3 . la pagina inicial describe los metodos a utilizar
