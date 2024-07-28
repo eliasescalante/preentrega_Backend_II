@@ -13,7 +13,7 @@ const cartsRouter = require('./routes/carts');
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 
-// Servir archivo estático (index.html)
+// para acceder a los archivos estaticos
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.listen(port, () => {

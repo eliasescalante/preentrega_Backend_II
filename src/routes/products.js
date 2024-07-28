@@ -6,7 +6,7 @@ const router = express.Router();
 // Ruta para acceder a mis archivos JSON
 const productsFilePath = path.resolve(__dirname, '../../data/products.json');
 
-// Obtener todos los productos
+// Para obtener todos los productos
 router.get('/', (req, res) => {
     fs.readFile(productsFilePath, 'utf-8', (err, data) => {
         if (err) {
@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
     });
 });
 
-// Obtener producto por ID
+// Para obtener el producto por ID
 router.get('/:pid', (req, res) => {
     const pid = req.params.pid;
     fs.readFile(productsFilePath, 'utf-8', (err, data) => {
@@ -32,7 +32,7 @@ router.get('/:pid', (req, res) => {
     });
 });
 
-// Agregar un nuevo producto
+// Para agregar un nuevo producto
 router.post('/', (req, res) => {
     const newProduct = req.body;
     fs.readFile(productsFilePath, 'utf-8', (err, data) => {

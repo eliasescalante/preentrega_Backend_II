@@ -1,6 +1,10 @@
 # Ecommerce Server - Primera preentrega del curso de CODER HOUSE - BACKEND AVANZADO 1
 
-Este proyecto es un servidor para gestionar productos y carritos de compra para una plataforma de comercio electrónico, desarrollado con Node.js y Express.
+# Alumno: Elias Escalante
+# Tutor : Mariano Damian Macias Gandulfo
+# Comision : 70125
+
+Este proyecto es un servidor para gestionar productos y carritos de compra para una plataforma de comercio de productos varios, lo  desarrolle con Node.js y Express.
 
 ## Descripción del Proyecto
 

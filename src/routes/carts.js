@@ -55,7 +55,7 @@ router.get('/:cid', (req, res) => {
     }
 });
 
-// Agrego un producto a un carrito
+// Para agregar un producto a un carrito
 router.post('/:cid/product/:pid', (req, res) => {
     try {
         const cid = parseInt(req.params.cid, 10);
