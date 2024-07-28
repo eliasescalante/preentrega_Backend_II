@@ -1,4 +1,4 @@
-# Ecommerce Server - Primera preentrega del curso de CODER HOUSE - BACKEND AVANZADO 1
+# Ecommerce Server - Primera preentrega del curso de CODER HOUSE - Programación Backend I: Desarrollo Avanzado de Backend
 
 ----
 
