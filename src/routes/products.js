@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const router = express.Router();
 
-// Ruta correcta al archivo JSON
+// Ruta para acceder a mis archivos JSON
 const productsFilePath = path.resolve(__dirname, '../../data/products.json');
 
 // Obtener todos los productos
@@ -54,7 +54,7 @@ router.post('/', (req, res) => {
     });
 });
 
-// Actualizar un producto
+// Para actualizar un producto
 router.put('/:pid', (req, res) => {
     const pid = req.params.pid;
     const updatedProduct = req.body;
@@ -77,7 +77,7 @@ router.put('/:pid', (req, res) => {
     });
 });
 
-// Eliminar un producto
+// Para eliminar un producto
 router.delete('/:pid', (req, res) => {
     const pid = req.params.pid;
     fs.readFile(productsFilePath, 'utf-8', (err, data) => {

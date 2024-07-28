@@ -3,8 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const router = express.Router();
 
-// Ruta corregida para acceder al archivo de carritos
-const cartsFilePath = path.join(__dirname, '../../data/carts.json'); // Subir dos niveles desde src/routes
+// Ruta  para acceder al archivo de carritos
+const cartsFilePath = path.join(__dirname, '../../data/carts.json');
 
 // Función para leer el archivo de carritos
 function readCartsFile() {
@@ -27,7 +27,7 @@ function writeCartsFile(carts) {
     }
 }
 
-// Crear un nuevo carrito
+// Creo un nuevo carrito
 router.post('/', (req, res) => {
     try {
         const newCart = req.body;
@@ -43,7 +43,7 @@ router.post('/', (req, res) => {
     }
 });
 
-// Obtener productos de un carrito
+// Obtengo productos de un carrito
 router.get('/:cid', (req, res) => {
     try {
         const cid = parseInt(req.params.cid, 10);
@@ -55,7 +55,7 @@ router.get('/:cid', (req, res) => {
     }
 });
 
-// Agregar un producto a un carrito
+// Agrego un producto a un carrito
 router.post('/:cid/product/:pid', (req, res) => {
     try {
         const cid = parseInt(req.params.cid, 10);
