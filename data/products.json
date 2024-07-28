@@ -26,16 +26,14 @@
     "id": 2
   },
   {
-    "title": "Coca",
-    "description": "gaseosa cola x1.5lts",
-    "code": "P001",
-    "price": 100,
+    "id": 4,
+    "title": "Remera azul chica",
+    "description": "remera azul tamaño m",
+    "code": "TSHIRT-BLUE-M",
+    "price": 123.45,
     "status": true,
-    "stock": 10,
-    "category": "Gaseosa",
-    "thumbnails": [
-      "../public/img/coca_gaseosa.png"
-    ],
-    "id": 3
+    "stock": 3,
+    "category": "REMERA",
+    "thumbnails": "../public/img/remera_Azul.png"
   }
 ]

@@ -1,14 +1,24 @@
 # Ecommerce Server - Primera preentrega del curso de CODER HOUSE - BACKEND AVANZADO 1
 
+----
+
+
 # Alumno: Elias Escalante
 # Tutor : Mariano Damian Macias Gandulfo
 # Comision : 70125
 
-Este proyecto es un servidor para gestionar productos y carritos de compra para una plataforma de comercio de productos varios, lo  desarrolle con Node.js y Express.
+----
 
 ## Descripción del Proyecto
 
 Este servidor proporciona una API para manejar productos y carritos de compra. Los productos y carritos se almacenan en archivos JSON, y el servidor permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre estos datos.
+
+## Cómo Ejecutar el Proyecto
+
+- 1 . descargar el repositorio
+- 2 . inicia el server con "npm start"
+- 3 . la pagina inicial describe los metodos a utilizar
+
 
 ## Funcionalidades
 
@@ -39,11 +49,7 @@ Este servidor proporciona una API para manejar productos y carritos de compra. L
 - **`public/`**: Contiene archivos estáticos y documentación.
   - **`index.html`**: Documentación de la API en formato HTML.
 
-## Cómo Ejecutar el Proyecto
 
-- 1 . descarga el repositorio
-- 2 . inicia el server con "npm start"
-- 3 . la pagina inicial describe los metodos a utilizar
 
 
 CAPTURA DEL PROYECTO:
