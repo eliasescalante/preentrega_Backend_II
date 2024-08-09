@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Ecommerce Server - Primera preentrega del curso de CODER HOUSE - 
 # Programación Backend I: Desarrollo Avanzado de Backend
 
@@ -56,3 +57,7 @@ Este servidor proporciona una API para manejar productos y carritos de compra. L
 CAPTURA DEL PROYECTO:
 
 ![Captura](https://github.com/eliasescalante/api_e-commerce/blob/main/public/img/capture.png)
+=======
+# api_e_commerce_v1
+Segunda pre-entrega
+>>>>>>> 1090a96a8aeeeb0bbb54ffa060277dbd5406c3c3
