@@ -17,7 +17,8 @@ const readProductsFromFile = (callback) => {
         callback(null, products);
     });
 };
-// Para escribir productos en el archivo
+
+// Escribir productos en el archivo
 const writeProductsToFile = (products, callback) => {
     fs.writeFile(productsFilePath, JSON.stringify(products, null, 2), (err) => {
         if (err) {
@@ -27,6 +28,15 @@ const writeProductsToFile = (products, callback) => {
         callback(null);
     });
 };
+
+// Exportar las funciones
+module.exports = {
+    readProductsFromFile,
+    writeProductsToFile,
+    router
+};
+
+// Rutas para la API
 // Para obtener todos los productos
 router.get('/', (req, res) => {
     readProductsFromFile((err, products) => {
@@ -34,6 +44,7 @@ router.get('/', (req, res) => {
         res.json(products);
     });
 });
+
 // Para obtener el producto por ID
 router.get('/:pid', (req, res) => {
     const pid = req.params.pid;
@@ -43,6 +54,7 @@ router.get('/:pid', (req, res) => {
         product ? res.json(product) : res.status(404).send('Product not found');
     });
 });
+
 // Para agregar un nuevo producto
 router.post('/', (req, res) => {
     const { title, description, code, price, stock, category, thumbnails } = req.body;
@@ -53,7 +65,7 @@ router.post('/', (req, res) => {
     }
     readProductsFromFile((err, products) => {
         if (err) return res.status(500).send('Error reading file');
-        // para generar el ID
+        // Para generar el ID
         const newId = products.length ? Math.max(...products.map(p => p.id)) + 1 : 1;
         const newProduct = {
             id: newId,
@@ -102,5 +114,3 @@ router.delete('/:pid', (req, res) => {
         });
     });
 });
-
-module.exports = router;

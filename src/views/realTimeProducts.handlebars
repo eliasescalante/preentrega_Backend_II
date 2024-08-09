@@ -1,0 +1,182 @@
+<!-- src/views/realTimeProducts.handlebars -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos en Tiempo Real</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .form-container h2 {
+            margin-bottom: 15px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input[type="text"], 
+        .form-group input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-group button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+        .product-list {
+            margin-top: 30px;
+        }
+        .product-list table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .product-list th, .product-list td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .product-list th {
+            background-color: #f2f2f2;
+        }
+        .product-list img {
+            max-width: 100px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Administrar Productos</h1>
+        <div class="form-container">
+            <h2>Agregar Producto</h2>
+            <form id="productForm">
+                <div class="form-group">
+                    <label for="title">Nombre del Producto</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Descripción</label>
+                    <input type="text" id="description" name="description" required>
+                </div>
+                <div class="form-group">
+                    <label for="code">Código</label>
+                    <input type="text" id="code" name="code" required>
+                </div>
+                <div class="form-group">
+                    <label for="price">Precio</label>
+                    <input type="number" id="price" name="price" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="stock">Stock</label>
+                    <input type="number" id="stock" name="stock" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Categoría</label>
+                    <input type="text" id="category" name="category" required>
+                </div>
+                <div class="form-group">
+                    <label for="thumbnails">URL de la Imagen</label>
+                    <input type="text" id="thumbnails" name="thumbnails" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Agregar Producto</button>
+                </div>
+            </form>
+        </div>
+        <div class="product-list">
+            <h2>Lista de Productos</h2>
+            <table id="productsTable">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Código</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Categoría</th>
+                        <th>Imagen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Los productos se insertarán aquí dinámicamente con JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        const socket = io();
+        const form = document.getElementById('productForm');
+        const tableBody = document.querySelector('#productsTable tbody');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const formData = new FormData(form);
+            socket.emit('addProduct', Object.fromEntries(formData.entries()));
+            form.reset();
+        });
+
+        socket.on('updateProducts', (products) => {
+            console.log('Received products:', products); // Depura aquí
+            if (Array.isArray(products)) {
+                tableBody.innerHTML = '';
+                products.forEach(product => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${product.title}</td>
+                        <td>${product.description}</td>
+                        <td>${product.code}</td>
+                        <td>${product.price}</td>
+                        <td>${product.stock}</td>
+                        <td>${product.category}</td>
+                        <td><img src="${product.thumbnails}" alt="${product.title}"></td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } else {
+                console.error('Products is not an array');
+            }
+        });
+
+    </script>
+</body>
+</html>
