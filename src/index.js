@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const http = require('http');
 const socketIo = require('socket.io');
+const cartsRoutes = require('./routes/carts');  // Importar rutas de carritos
 
 const app = express();
 const PORT = 8080;
@@ -24,6 +25,9 @@ app.use(express.static(path.join(__dirname, '../public')));
 // Middleware para analizar datos JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Usar las rutas de carritos
+app.use('/api/carts', cartsRoutes);
 
 // Crear servidor HTTP y configurar Socket.IO
 const server = http.createServer(app);

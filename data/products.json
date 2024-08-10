@@ -79,5 +79,16 @@
     "category": "Pantalon",
     "thumbnails": "https://images.app.goo.gl/GSDdwJu4VZ3HidTU7",
     "status": true
+  },
+  {
+    "id": 10,
+    "title": "Remera Azul T3",
+    "description": "Remera azul talle 3",
+    "code": "RA-3",
+    "price": 12321,
+    "stock": 34,
+    "category": "Remeras",
+    "thumbnails": "/img/remera_azul.png",
+    "status": true
   }
 ]
