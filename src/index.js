@@ -50,34 +50,8 @@ app.get('/realtimeproducts', (req, res) => {
     res.render('realTimeProducts');
 });
 
-// Configuración de Socket.IO para actualizaciones en tiempo real
-io.on('connection', (socket) => {
-    console.log('A user connected');
-
-    // Enviar los productos al cliente cuando se conecta
-    socket.emit('updateProducts', getProducts());
-
-    // Escuchar eventos de agregar producto
-    socket.on('addProduct', (product) => {
-        // Agregar el nuevo producto
-        addProduct(product, (err, newProduct) => {
-            if (err) {
-                console.error('Error al agregar producto:', err);
-                return;
-            }
-            // Emitir la lista completa de productos a todos los clientes conectados
-            io.emit('updateProducts', getProducts());
-        });
-    });
-
-    socket.on('disconnect', () => {
-        console.log('User disconnected');
-    });
-});
-
 // Función para agregar un producto
 const addProduct = (product, callback) => {
-    // Leer productos, agregar el nuevo y escribir en el archivo
     require('./routes/products').readProductsFromFile((err, products) => {
         if (err) return callback(err);
         const newId = products.length ? Math.max(...products.map(p => p.id)) + 1 : 1;
@@ -95,6 +69,52 @@ const addProduct = (product, callback) => {
         });
     });
 };
+
+// Función para eliminar un producto
+const deleteProduct = (productId, callback) => {
+    require('./routes/products').readProductsFromFile((err, products) => {
+        if (err) return callback(err);
+        products = products.filter(p => p.id != productId);
+        require('./routes/products').writeProductsToFile(products, (err) => {
+            if (err) return callback(err);
+            callback(null);
+        });
+    });
+};
+
+// Configuración de Socket.IO para actualizaciones en tiempo real
+io.on('connection', (socket) => {
+    console.log('A user connected');
+
+    // Enviar los productos al cliente cuando se conecta
+    socket.emit('updateProducts', getProducts());
+
+    // Escuchar eventos de agregar producto
+    socket.on('addProduct', (product) => {
+        addProduct(product, (err, newProduct) => {
+            if (err) {
+                console.error('Error al agregar producto:', err);
+                return;
+            }
+            io.emit('updateProducts', getProducts());
+        });
+    });
+
+    // Escuchar eventos de eliminar producto
+    socket.on('deleteProduct', (productId) => {
+        deleteProduct(productId, (err) => {
+            if (err) {
+                console.error('Error al eliminar producto:', err);
+                return;
+            }
+            io.emit('updateProducts', getProducts());
+        });
+    });
+
+    socket.on('disconnect', () => {
+        console.log('User disconnected');
+    });
+});
 
 // Iniciar el servidor
 server.listen(PORT, () => {

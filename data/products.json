@@ -48,39 +48,6 @@
     "id": 6
   },
   {
-    "id": 7,
-    "title": "Gorra Verde",
-    "description": "Gorra verde de tela deportiva",
-    "code": "Gorra - Verde - 3",
-    "price": 15000,
-    "stock": 4,
-    "category": "Accesorios",
-    "thumbnails": "https://images.app.goo.gl/xqMdYLjhX7N83i7W9",
-    "status": true
-  },
-  {
-    "id": 8,
-    "title": "Remera Negra",
-    "description": "Remera negra de algodon",
-    "code": "R-N",
-    "price": 23000,
-    "stock": 6,
-    "category": "Remeras",
-    "thumbnails": "https://images.app.goo.gl/YJgqdLBzjYutN4YM6",
-    "status": true
-  },
-  {
-    "id": 9,
-    "title": "Pantalon Verde",
-    "description": "Pantalon Verde de tela deportiva",
-    "code": "PANTALON - V",
-    "price": 45760,
-    "stock": 67,
-    "category": "Pantalon",
-    "thumbnails": "https://images.app.goo.gl/GSDdwJu4VZ3HidTU7",
-    "status": true
-  },
-  {
     "id": 10,
     "title": "Remera Azul T3",
     "description": "Remera azul talle 3",
