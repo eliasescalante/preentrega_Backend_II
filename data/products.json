@@ -57,5 +57,27 @@
     "category": "Remeras",
     "thumbnails": "/img/remera_azul.png",
     "status": true
+  },
+  {
+    "id": 11,
+    "title": "Traje Wushu",
+    "description": "Traje de competencia wushu moderno",
+    "code": "Wushu-K-1",
+    "price": 56000,
+    "stock": 1,
+    "category": "Artes marciales",
+    "thumbnails": "https://ae-pic-a1.aliexpress-media.com/kf/H4b9b39bbb1af4e7ea74f0e121a5f60af5/Traje-de-Tai-Chi-Wushu-para-hombre-y-mujer-ropa-de-Wing-Chun-uniforme-de-Kung.jpg_.webp",
+    "status": true
+  },
+  {
+    "id": 12,
+    "title": "Traje moderno - Nanquan",
+    "description": "Traje de competencia estilo sureño",
+    "code": "NANQUAN - m",
+    "price": 103567,
+    "stock": 1,
+    "category": "Artes marciales",
+    "thumbnails": "https://m.media-amazon.com/images/I/81O6BJYkm7L._AC_UY580_.jpg",
+    "status": true
   }
 ]
