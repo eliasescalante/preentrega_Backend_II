@@ -22,7 +22,7 @@ Se agrego Websockets al proyecto.
 - 3 . la pagina inicial describe los metodos a utilizar
 
 
-## Funcionalidades pre-entraga 1
+## Funcionalidades pre-entrega 1
 
 - **Gestión de Productos**:
   - **Listar Todos los Productos**: `GET /api/products`
