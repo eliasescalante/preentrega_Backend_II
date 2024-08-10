@@ -47,7 +47,7 @@ Se agrego Websockets al proyecto.
 
 CAPTURA DEL PROYECTO:
 
-![Captura](https://github.com/eliasescalante/api_e-commerce/blob/main/public/img/capture.png)
+![Captura](https://github.com/eliasescalante/api_e_commerce_v1/blob/main/public/img/capture.png)
 
 ----
 
