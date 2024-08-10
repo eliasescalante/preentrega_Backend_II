@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Ecommerce Server v 1.0 - Segunda preentrega del curso de CODER HOUSE - 
 # Programación Backend I: Desarrollo Avanzado de Backend
 
