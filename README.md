@@ -41,9 +41,9 @@ Se agrego Websockets al proyecto.
 
 - Se agrego al proyecto Websockets y se integro el trabajo con vistas.
 - Se implemento handlebars.
-- Se creo la vista **realTimeProducts.handlebars**: 'Permite agregar productos nuevos mediante un formulario al archivo products.json'. El id no se repite y se autogenera, y el status se setea en true desde el servidor.
+- Se creo la vista `realTimeProducts.handlebars`: 'Permite agregar productos nuevos mediante un formulario al archivo products.json'. El id no se repite y se autogenera, y el status se setea en true desde el servidor.
 - Cada elemento que aparece en la vista `realTimerProducts` tiene un boton que borra el producto de la vista y tambien del archivo products.json
-- Se creo la vista **products.handlebars**: la cual contiene una lista de todos los productos agregados hasta el momento.
+- Se creo la vista `products.handlebars`: la cual contiene una lista de todos los productos agregados hasta el momento.
 - se utilizo sweetAlert2 para los mensajes emergentes.
 - Se utilizo CSS nativo para los estilos.
 
