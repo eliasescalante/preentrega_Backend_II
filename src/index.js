@@ -4,36 +4,36 @@ const path = require('path');
 const fs = require('fs');
 const http = require('http');
 const socketIo = require('socket.io');
-const cartsRoutes = require('./routes/carts');  // Importar rutas de carritos
+const cartsRoutes = require('./routes/carts');
 
 const app = express();
 const PORT = 8080;
 
-// Configuración del motor de plantillas
+// configuro el motor de plantillas
 app.engine('handlebars', engine({
     defaultLayout: 'main',
     extname: '.handlebars'
 }));
 app.set('view engine', 'handlebars');
 
-// Configuración del directorio de vistas
+// configuro el directorio de vistas
 app.set('views', path.join(__dirname, 'views'));
 
-// Configuración de la carpeta pública para archivos estáticos
+// configuro la carpeta pública para archivos estáticos
 app.use(express.static(path.join(__dirname, '../public')));
 
 // Middleware para analizar datos JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Usar las rutas de carritos
+// ruta de carritos
 app.use('/api/carts', cartsRoutes);
 
-// Crear servidor HTTP y configurar Socket.IO
+// creo el servidor HTTP y configuro Socket.IO
 const server = http.createServer(app);
 const io = socketIo(server);
 
-// Leer productos desde el archivo JSON
+// para leer los productos desde el archivo JSON
 const getProducts = () => {
     const data = fs.readFileSync(path.join(__dirname, '../data/products.json'));
     return JSON.parse(data);
@@ -58,9 +58,9 @@ const addProduct = (product, callback) => {
         const newProduct = {
             id: newId,
             ...product,
-            status: true,  // Asegurar que el status esté en true
-            price: parseFloat(product.price),  // Convertir a número
-            stock: parseInt(product.stock)    // Convertir a número entero
+            status: true,  // seteo status en true
+            price: parseFloat(product.price),
+            stock: parseInt(product.stock)
         };
         products.push(newProduct);
         require('./routes/products').writeProductsToFile(products, (err) => {
@@ -82,14 +82,14 @@ const deleteProduct = (productId, callback) => {
     });
 };
 
-// Configuración de Socket.IO para actualizaciones en tiempo real
+// configuro el Socket.IO para actualizar en tiempo real
 io.on('connection', (socket) => {
     console.log('A user connected');
 
-    // Enviar los productos al cliente cuando se conecta
+    // envio los productos al cliente cuando se conecta
     socket.emit('updateProducts', getProducts());
 
-    // Escuchar eventos de agregar producto
+    // para escuchar el evento de agregar producto
     socket.on('addProduct', (product) => {
         addProduct(product, (err, newProduct) => {
             if (err) {
@@ -100,7 +100,7 @@ io.on('connection', (socket) => {
         });
     });
 
-    // Escuchar eventos de eliminar producto
+    // para escuchar eventos de eliminar producto
     socket.on('deleteProduct', (productId) => {
         deleteProduct(productId, (err) => {
             if (err) {
@@ -116,7 +116,7 @@ io.on('connection', (socket) => {
     });
 });
 
-// Iniciar el servidor
+// Inicio el servidor
 server.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
