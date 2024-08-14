@@ -1,63 +1,32 @@
 const express = require('express');
-const fs = require('fs');
 const path = require('path');
+const { readJsonFile, writeJsonFile, generateNewId } = require('../utils/jsonFileHandler');
+
 const router = express.Router();
+const productsFilePath = path.join(__dirname, '../../data/products.json');
 
-// Ruta para acceder a los archivos JSON
-const productsFilePath = path.resolve(__dirname, '../../data/products.json');
-
-// Para leer los productos desde el archivo
-const readProductsFromFile = (callback) => {
-    fs.readFile(productsFilePath, 'utf-8', (err, data) => {
-        if (err) {
-            console.error('Error reading file:', err);
-            return callback(err);
-        }
-        const products = JSON.parse(data);
-        callback(null, products);
-    });
-};
-
-// Para grabar productos en el archivo
-const writeProductsToFile = (products, callback) => {
-    fs.writeFile(productsFilePath, JSON.stringify(products, null, 2), (err) => {
-        if (err) {
-            console.error('Error writing file:', err);
-            return callback(err);
-        }
-        callback(null);
-    });
-};
-// exporto las funciones y el enrutador para usar en otros módulos
-module.exports = {
-    readProductsFromFile,
-    writeProductsToFile,
-    router
-};
-
-// Rutas para la API
 // Para obtener todos los productos
 router.get('/', (req, res) => {
-    readProductsFromFile((err, products) => {
-        if (err) return res.status(500).send('Error reading file');
+    try {
+        const products = readJsonFile(productsFilePath);
         res.json(products);
-    });
+    } catch (error) {
+        res.status(500).send('Error al procesar la solicitud');
+    }
 });
 
 // Para agregar un nuevo producto
 router.post('/', (req, res) => {
-    const { title, description, code, price, stock, category, thumbnails } = req.body;
+    try {
+        const products = readJsonFile(productsFilePath);
+        const { title, description, code, price, stock, category, thumbnails } = req.body;
 
-    // Valido los campos obligatorios
-    if (!title || !description || !code || price == null || stock == null || !category) {
-        return res.status(400).send('Todos los campos son obligatorios, a excepción de thumbnails');
-    }
-    readProductsFromFile((err, products) => {
-        if (err) return res.status(500).send('Error reading file');
-        // genero el ID
-        const newId = products.length ? Math.max(...products.map(p => p.id)) + 1 : 1;
+        if (!title || !description || !code || price == null || stock == null || !category) {
+            return res.status(400).send('Todos los campos son obligatorios, a excepción de thumbnails');
+        }
+
         const newProduct = {
-            id: newId,
+            id: generateNewId(products),
             title,
             description,
             code,
@@ -67,23 +36,25 @@ router.post('/', (req, res) => {
             category,
             thumbnails: thumbnails || []
         };
+
         products.push(newProduct);
-        writeProductsToFile(products, (err) => {
-            if (err) return res.status(500).send('Error writing file');
-            res.status(201).json(newProduct);
-        });
-    });
+        writeJsonFile(productsFilePath, products);
+        res.status(201).json(newProduct);
+    } catch (error) {
+        res.status(500).send('Error al procesar la solicitud');
+    }
 });
 
 // Para eliminar un producto
 router.delete('/:pid', (req, res) => {
-    const pid = req.params.pid;
-    readProductsFromFile((err, products) => {
-        if (err) return res.status(500).send('Error reading file');
-        products = products.filter(p => p.id != pid);
-        writeProductsToFile(products, (err) => {
-            if (err) return res.status(500).send('Error writing file');
-            res.status(204).send();
-        });
-    });
+    try {
+        let products = readJsonFile(productsFilePath);
+        products = products.filter(p => p.id !== parseInt(req.params.pid, 10));
+        writeJsonFile(productsFilePath, products);
+        res.status(204).send();
+    } catch (error) {
+        res.status(500).send('Error al procesar la solicitud');
+    }
 });
+
+module.exports = router;

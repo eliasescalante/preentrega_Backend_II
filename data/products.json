@@ -70,14 +70,13 @@
     "status": true
   },
   {
-    "id": 12,
-    "title": "Traje moderno - Nanquan",
-    "description": "Traje de competencia estilo sureño",
-    "code": "NANQUAN - m",
-    "price": 103567,
-    "stock": 1,
+    "title": "Traje tradicional",
+    "description": "Traje tradicional de seda kung fu",
+    "code": "T-KungFu-01",
+    "price": "45300",
+    "stock": "1",
     "category": "Artes marciales",
-    "thumbnails": "https://m.media-amazon.com/images/I/81O6BJYkm7L._AC_UY580_.jpg",
-    "status": true
+    "thumbnails": "https://http2.mlstatic.com/D_NQ_NP_700964-MLA46990239416_082021-O.webp",
+    "id": 12
   }
 ]
