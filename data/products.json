@@ -70,33 +70,25 @@
     "status": true
   },
   {
-    "title": "Traje tradicional",
-    "description": "Traje tradicional de seda kung fu",
-    "code": "T-KungFu-01",
-    "price": "45300",
-    "stock": "1",
+    "title": "Karate Kimono",
+    "description": "traje de entrenamiento ultra resistente",
+    "code": "KARATE-1",
+    "price": "67000",
+    "stock": "6",
     "category": "Artes marciales",
-    "thumbnails": "https://http2.mlstatic.com/D_NQ_NP_700964-MLA46990239416_082021-O.webp",
-    "id": 12
-  },
-  {
-    "title": "Kimono Karate",
-    "description": "Traje de entrenamiento super resistente Karate",
-    "code": "K-Traje-01",
-    "price": "65000",
-    "stock": "4",
-    "category": "Artes marciales",
-    "thumbnails": "https://m.media-amazon.com/images/I/51aPK9yp5wL._AC_SL1080_.jpg",
-    "id": 13
+    "thumbnails": "https://http2.mlstatic.com/D_NQ_NP_692382-MLA31012843861_062019-O.webp",
+    "id": 12,
+    "status": true
   },
   {
     "title": "Taichi Traje",
-    "description": "Traje de practica de Tai Chi Chuan",
-    "code": "TAI-01",
-    "price": "54000",
-    "stock": "6",
+    "description": "Traje de seda de competencia",
+    "code": "TAICHI-1",
+    "price": "87000",
+    "stock": "1",
     "category": "Artes marciales",
     "thumbnails": "https://ae-pic-a1.aliexpress-media.com/kf/Sd588972473d04adba86eb121883ff055R.jpg_640x640Q90.jpg_.webp",
-    "id": 14
+    "id": 13,
+    "status": true
   }
 ]

@@ -52,7 +52,7 @@ io.on('connection', (socket) => {
     socket.on('addProduct', (product) => {
         try {
             const products = readJsonFile(path.join(__dirname, '../data/products.json'));
-            const newProduct = { ...product, id: generateNewId(products) };
+            const newProduct = { ...product, id: generateNewId(products), status: true  };
             products.push(newProduct);
             writeJsonFile(path.join(__dirname, '../data/products.json'), products);
             io.emit('updateProducts', products);
