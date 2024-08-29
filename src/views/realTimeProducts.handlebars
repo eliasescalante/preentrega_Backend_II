@@ -160,7 +160,7 @@
             </table>
         </div>
     </div>
-    <script>
+<script>
         const socket = io();
         const form = document.getElementById('productForm');
         const tableBody = document.querySelector('#productsTable tbody');
@@ -185,7 +185,7 @@
                         <td>${product.stock}</td>
                         <td>${product.category}</td>
                         <td><img src="${product.thumbnails}" alt="${product.title}"></td>
-                        <td><button class="delete-button" data-id="${product.id}">Eliminar</button></td>
+                        <td><button class="delete-button" data-id="${product._id}">Eliminar</button></td>
                     `;
                     tableBody.appendChild(row);
                 });
@@ -197,7 +197,7 @@
 
         function attachDeleteEvent() {
             document.querySelectorAll('.delete-button').forEach(button => {
-                button.addEventListener('click', (event) => {
+                button.addEventListener('click', async (event) => {
                     const productId = event.target.getAttribute('data-id');
                     Swal.fire({
                         title: '¿Estás seguro?',

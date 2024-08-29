@@ -3,17 +3,25 @@ const { engine } = require('express-handlebars');
 const path = require('path');
 const http = require('http');
 const socketIo = require('socket.io');
+const mongoose = require('mongoose');
 const cartsRoutes = require('./routes/carts');
 const productsRoutes = require('./routes/products');
-const { readJsonFile, writeJsonFile, generateNewId } = require('./utils/jsonFileHandler');
+const Product = require('./models/productModel'); // Importa el modelo de producto
+const Cart = require('./models/cartModel'); // Importa el modelo de carrito
+const connectToMongo = require('./config/mongo'); // Importa la configuración de MongoDB
 
 const app = express();
 const PORT = 8080;
 
-// Configuro  Handlebars
+
+// Configuro Handlebars
 app.engine('handlebars', engine({
     defaultLayout: 'main',
-    extname: '.handlebars'
+    extname: '.handlebars',
+    runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+        allowProtoMethodsByDefault: true
+    }
 }));
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
@@ -29,11 +37,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/carts', cartsRoutes);
 app.use('/api/products', productsRoutes);
 
-// Ruta para ver todos los productos
-app.get('/products', (req, res) => {
-    const products = readJsonFile(path.join(__dirname, '../data/products.json'));
-    res.render('products', { products });
-});
+// Ruta de productos
+app.use('/products', productsRoutes);
 
 // Ruta para ver productos en tiempo real
 app.get('/realtimeproducts', (req, res) => {
@@ -44,40 +49,48 @@ app.get('/realtimeproducts', (req, res) => {
 const server = http.createServer(app);
 const io = socketIo(server);
 
-// Configuro el Socket.IO para actualización en tiempo real
+
+
+// Cargar productos y emitir a los clientes
+async function loadProducts() {
+    try {
+        const products = await Product.find();
+        io.emit('updateProducts', products);
+    } catch (error) {
+        console.error('Error al obtener productos:', error);
+    }
+}
+
+// Manejo de conexión de Socket.IO
 io.on('connection', (socket) => {
-    console.log('A user connected');
-    socket.emit('updateProducts', readJsonFile(path.join(__dirname, '../data/products.json')));
+    console.log('Nuevo cliente conectado');
+    
+    // Enviar los productos actuales al nuevo cliente
+    loadProducts();
 
-    socket.on('addProduct', (product) => {
+    // Manejar la adición de productos
+    socket.on('addProduct', async (productData) => {
         try {
-            const products = readJsonFile(path.join(__dirname, '../data/products.json'));
-            const newProduct = { ...product, id: generateNewId(products), status: true  };
-            products.push(newProduct);
-            writeJsonFile(path.join(__dirname, '../data/products.json'), products);
-            io.emit('updateProducts', products);
-        } catch (err) {
-            console.error('Error al agregar producto:', err);
+            const newProduct = new Product(productData);
+            await newProduct.save();
+            loadProducts(); // Recargar productos y actualizar a todos los clientes
+        } catch (error) {
+            console.error('Error al agregar producto:', error);
         }
     });
 
-    socket.on('deleteProduct', (productId) => {
+    // Manejar la eliminación de productos
+    socket.on('deleteProduct', async (productId) => {
         try {
-            let products = readJsonFile(path.join(__dirname, '../data/products.json'));
-            products = products.filter(p => p.id !== parseInt(productId, 10));
-            writeJsonFile(path.join(__dirname, '../data/products.json'), products);
-            io.emit('updateProducts', products);
-        } catch (err) {
-            console.error('Error al eliminar producto:', err);
+            await Product.findByIdAndDelete(productId);
+            loadProducts(); // Recargar productos y actualizar a todos los clientes
+        } catch (error) {
+            console.error('Error al eliminar producto:', error);
         }
-    });
-
-    socket.on('disconnect', () => {
-        console.log('User disconnected');
     });
 });
 
-// Arranco el servidor
-server.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+// Iniciar el servidor
+server.listen(8080, () => {
+    console.log('Servidor en funcionamiento en http://localhost:8080');
 });

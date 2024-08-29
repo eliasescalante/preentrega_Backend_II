@@ -1,59 +1,64 @@
 const express = require('express');
-const path = require('path');
-const { readJsonFile, writeJsonFile, generateNewId } = require('../utils/jsonFileHandler');
-
+const Product = require('../models/productModel');
 const router = express.Router();
-const productsFilePath = path.join(__dirname, '../../data/products.json');
 
-// Para obtener todos los productos
-router.get('/', (req, res) => {
+// Ruta para agregar un nuevo producto
+router.post('/', async (req, res) => {
     try {
-        const products = readJsonFile(productsFilePath);
-        res.json(products);
-    } catch (error) {
-        res.status(500).send('Error al procesar la solicitud');
-    }
-});
-
-// Para agregar un nuevo producto
-router.post('/', (req, res) => {
-    try {
-        const products = readJsonFile(productsFilePath);
         const { title, description, code, price, stock, category, thumbnails } = req.body;
 
         if (!title || !description || !code || price == null || stock == null || !category) {
             return res.status(400).send('Todos los campos son obligatorios, a excepción de thumbnails');
         }
 
-        const newProduct = {
-            id: generateNewId(products),
+        // Crear un nuevo producto utilizando el modelo de Mongoose
+        const newProduct = new Product({
             title,
             description,
             code,
             price,
-            status: true,
             stock,
             category,
             thumbnails: thumbnails || []
-        };
+        });
 
-        products.push(newProduct);
-        writeJsonFile(productsFilePath, products);
+        await newProduct.save(); // Guardar el producto en la base de datos
         res.status(201).json(newProduct);
     } catch (error) {
+        console.error('Error al agregar el producto:', error);
         res.status(500).send('Error al procesar la solicitud');
     }
 });
 
-// Para eliminar un producto
-router.delete('/:pid', (req, res) => {
+// Ruta para obtener todos los productos
+router.get('/', async (req, res) => {
     try {
-        let products = readJsonFile(productsFilePath);
-        products = products.filter(p => p.id !== parseInt(req.params.pid, 10));
-        writeJsonFile(productsFilePath, products);
-        res.status(204).send();
+        const products = await Product.find();
+        res.render('products', { products });
     } catch (error) {
-        res.status(500).send('Error al procesar la solicitud');
+        console.error('Error al obtener productos:', error);
+        res.status(500).send('Error al obtener productos');
+    }
+});
+
+// Ruta para eliminar un producto
+// Ruta para eliminar un producto
+router.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+
+    // Verificar si el ID es una cadena no vacía y un ObjectId válido
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ error: 'ID inválido' });
+    }
+
+    try {
+        const deletedProduct = await Product.findByIdAndDelete(id);
+        if (!deletedProduct) {
+            return res.status(404).json({ error: 'Producto no encontrado' });
+        }
+        res.status(200).json({ message: 'Producto eliminado con éxito', product: deletedProduct });
+    } catch (error) {
+        res.status(500).json({ error: 'Error al eliminar producto' });
     }
 });
 
