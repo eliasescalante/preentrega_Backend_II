@@ -2,8 +2,6 @@
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb+srv://ninja:671905@commerce.yr759.mongodb.net/', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
     serverSelectionTimeoutMS: 5000
 });
 
