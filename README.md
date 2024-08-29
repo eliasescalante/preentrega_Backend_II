@@ -1,8 +1,7 @@
-# E-commerce Server v 1.0 - Segunda preentrega del curso de CODER HOUSE - 
+# E-commerce Server v 2 - Entrega final del curso de CODER HOUSE - 
 # Programación Backend I: Desarrollo Avanzado de Backend
 
 ----
-
 
 # Alumno: Elias Escalante
 # Tutor : Mariano Damian Macias Gandulfo
@@ -20,6 +19,7 @@ Se agrego Websockets al proyecto.
 - 1 . descargar el repositorio
 - 2 . inicia el server con "npm start"
 - 3 . la pagina inicial describe los metodos a utilizar
+
 
 
 ## Funcionalidades primera pre-entrega
@@ -46,8 +46,15 @@ Se agrego Websockets al proyecto.
 - Se creo la vista `products.handlebars`: la cual contiene una lista de todos los productos agregados hasta el momento.
 - se utilizo sweetAlert2 para los mensajes emergentes.
 - Se utilizo CSS nativo para los estilos.
-
 ----
+## Funcionalidades Entrega Final
+- Se cambio la persistencia alojada en data/carts.json y data/products.json por mongodb la cual se hizo el deploy en mongo atlas.
+- El Alta y la eliminacion de un producto se realiza sobre la base de datos en la nube utilizando el front en `realTimeProducts`.
+- `realTimeProducts` muestra ademas en tiempo real cuando se agrega un producto y cuando se elimina.
+- `products` ahora muestra todos los productos desde la nueva base de datos en la nube. 
+- 
+-
+
 
 CAPTURA DEL PROYECTO:
 ![Captura](https://github.com/eliasescalante/api_e_commerce_v1/blob/main/public/img/capture_index.png)
@@ -58,9 +65,9 @@ CAPTURA DEL PROYECTO:
 
 ----
 
-![GitHub repo size](https://img.shields.io/github/repo-size/eliasescalante/api_e_commerce_v1
+![GitHub repo size](https://img.shields.io/github/repo-size/eliasescalante/proyectoFinal_api_commerce
 )
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/eliasescalante/api_e_commerce_v1
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/eliasescalante/proyectoFinal_api_commerce
 )
-![GitHub last commit](https://img.shields.io/github/last-commit/eliasescalante/api_e_commerce_v1
+![GitHub last commit](https://img.shields.io/github/last-commit/eliasescalante/proyectoFinal_api_commerce
 )
