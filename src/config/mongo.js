@@ -1,7 +1,7 @@
 // src/config/mongo.js
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/api_e_commerce', {
+mongoose.connect('mongodb+srv://ninja:671905@commerce.yr759.mongodb.net/', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     serverSelectionTimeoutMS: 5000
