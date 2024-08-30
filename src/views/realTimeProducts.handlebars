@@ -4,102 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos en Tiempo Real</title>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        h1, h2 {
-            text-align: center;
-            margin: 20px 0;
-            font-size: 2em; /* Tamaño de fuente más grande para los encabezados */
-        }
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        .form-container {
-            background-color: #fff;
-            padding: 30px; /* Aumentar el relleno */
-            border-radius: 10px; /* Hacer bordes más redondeados */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Aumentar la sombra */
-            margin-bottom: 40px; /* Aumentar el margen inferior */
-        }
-        .form-container h2 {
-            margin-bottom: 20px; /* Aumentar el margen inferior del encabezado */
-            font-size: 1.5em; /* Tamaño de fuente más grande para el encabezado del formulario */
-        }
-        .form-group {
-            margin-bottom: 20px; /* Aumentar el margen inferior */
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 10px; /* Aumentar el margen inferior */
-            font-size: 1.5em; /* Tamaño de fuente más grande para las etiquetas */
-            font-weight: bold;
-        }
-        .form-group input[type="text"], 
-        .form-group input[type="number"] {
-            width: 100%;
-            padding: 15px; /* Aumentar el relleno */
-            border: 1px solid #ccc;
-            border-radius: 5px; /* Hacer bordes más redondeados */
-            box-sizing: border-box;
-            font-size: 2em; /* Tamaño de fuente más grande para los campos de entrada */
-        }
-        .form-group button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 15px 20px; /* Aumentar el relleno */
-            font-size: 1.2em; /* Tamaño de fuente más grande para el botón */
-            border-radius: 5px; /* Hacer bordes más redondeados */
-            cursor: pointer;
-        }
-        .form-group button:hover {
-            background-color: #0056b3;
-        }
-        .product-list {
-            margin-top: 40px; /* Aumentar el margen superior */
-        }
-        .product-list table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: #fff;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Aumentar la sombra */
-        }
-        .product-list th, .product-list td {
-            padding: 15px; /* Aumentar el relleno */
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-            font-size: 2em; /* Tamaño de fuente más grande para las celdas de la tabla */
-        }
-        .product-list th {
-            background-color: #f2f2f2;
-        }
-        .product-list img {
-            max-width: 150px; /* Aumentar el ancho máximo de la imagen */
-            height: auto;
-        }
-        .delete-button {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            font-size: 1em;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .delete-button:hover {
-            background-color: #c82333;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/realStyle.css">
+
 </head>
 <body>
     <div class="container">
@@ -160,62 +66,8 @@
             </table>
         </div>
     </div>
-<script>
-        const socket = io();
-        const form = document.getElementById('productForm');
-        const tableBody = document.querySelector('#productsTable tbody');
-
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const formData = new FormData(form);
-            socket.emit('addProduct', Object.fromEntries(formData.entries()));
-            form.reset();
-        });
-
-        socket.on('updateProducts', (products) => {
-            if (Array.isArray(products)) {
-                tableBody.innerHTML = '';
-                products.forEach(product => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${product.title}</td>
-                        <td>${product.description}</td>
-                        <td>${product.code}</td>
-                        <td>$${product.price}</td>
-                        <td>${product.stock}</td>
-                        <td>${product.category}</td>
-                        <td><img src="${product.thumbnails}" alt="${product.title}"></td>
-                        <td><button class="delete-button" data-id="${product._id}">Eliminar</button></td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-                attachDeleteEvent();
-            } else {
-                console.error('Products is not an array');
-            }
-        });
-
-        function attachDeleteEvent() {
-            document.querySelectorAll('.delete-button').forEach(button => {
-                button.addEventListener('click', async (event) => {
-                    const productId = event.target.getAttribute('data-id');
-                    Swal.fire({
-                        title: '¿Estás seguro?',
-                        text: "¡No podrás revertir esta acción!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Sí, eliminarlo',
-                        cancelButtonText: 'Cancelar'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            socket.emit('deleteProduct', productId);
-                        }
-                    });
-                });
-            });
-        }
-    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/realTimeScript.js"></script>
 </body>
 </html>

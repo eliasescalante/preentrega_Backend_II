@@ -1,3 +1,5 @@
+// Define un esquema para los carritos de compras
+
 const mongoose = require('mongoose');
 
 const cartSchema = new mongoose.Schema({

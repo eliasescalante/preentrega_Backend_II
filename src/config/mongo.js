@@ -1,4 +1,4 @@
-// src/config/mongo.js
+// Conexion con la base de datos
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb+srv://ninja:671905@commerce.yr759.mongodb.net/', {

@@ -1,3 +1,5 @@
+// Define un esquema para los productos
+
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
@@ -10,7 +12,7 @@ const productSchema = new mongoose.Schema({
     category: { type: String, required: true },
     thumbnails: [String] // Array de Strings para las URLs de las imágenes
 });
-
+// creo el modelo Product
 const Product = mongoose.model('Product', productSchema);
-
+// exporto el modelo para ser usado
 module.exports = Product;

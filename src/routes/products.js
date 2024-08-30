@@ -42,11 +42,10 @@ router.get('/', async (req, res) => {
 });
 
 // Ruta para eliminar un producto
-// Ruta para eliminar un producto
 router.delete('/:id', async (req, res) => {
     const { id } = req.params;
 
-    // Verificar si el ID es una cadena no vacía y un ObjectId válido
+    // Verifico si el ID es una cadena no vacía y un ObjectId válido
     if (!id || !mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({ error: 'ID inválido' });
     }
