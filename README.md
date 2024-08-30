@@ -49,9 +49,9 @@ Se agrego Websockets al proyecto.
 ----
 ## Funcionalidades Entrega Final
 - Se cambio la persistencia alojada en data/carts.json y data/products.json por mongodb la cual se hizo el deploy en mongo atlas.
-- El Alta y la eliminacion de un producto se realiza sobre la base de datos en la nube utilizando el front en `realTimeProducts`.
-- `realTimeProducts` muestra ademas en tiempo real cuando se agrega un producto y cuando se elimina.
-- `products` ahora muestra todos los productos desde la nueva base de datos en la nube. 
+-  `realTimeProducts` : realiza el alta y la eliminacion de un producto en la base de datos que se encuentra en la nube, utilizando el frontend .
+- `realTimeProducts` : muestra ademas en tiempo real cuando se agrega un producto y cuando se elimina.
+- `products` : ahora muestra todos los productos desde la nueva base de datos en la nube. 
 - 
 -
 
