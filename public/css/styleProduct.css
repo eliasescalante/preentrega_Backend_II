@@ -59,9 +59,10 @@ p {
 .form-inline {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items:center;
     gap: 15px; /* Espacio entre los elementos */
     margin-top: 20px;
+    margin-left: 20px;
 }
 
 .form-inline label {
