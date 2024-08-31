@@ -9,6 +9,7 @@ const productsRoutes = require('./routes/products');
 const Product = require('./models/productModel'); // Importa el modelo de producto
 const Cart = require('./models/cartModel'); // Importa el modelo de carrito
 const connectToMongo = require('./config/mongo'); // Importa la configuración de MongoDB
+const helpers = require('handlebars-helpers')();
 
 const app = express();
 const PORT = 8080;
@@ -17,6 +18,7 @@ const PORT = 8080;
 // Configuro Handlebars
 app.engine('handlebars', engine({
     defaultLayout: 'main',
+    helpers: helpers,
     extname: '.handlebars',
     runtimeOptions: {
         allowProtoPropertiesByDefault: true,

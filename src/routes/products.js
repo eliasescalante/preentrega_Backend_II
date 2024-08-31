@@ -33,11 +33,33 @@ router.post('/', async (req, res) => {
 // Ruta para obtener todos los productos
 router.get('/', async (req, res) => {
     try {
-        const products = await Product.find();
-        res.render('products', { products });
-    } catch (error) {
-        console.error('Error al obtener productos:', error);
-        res.status(500).send('Error al obtener productos');
+        const { limit = 10, page = 1, sort, query } = req.query;
+
+        const filter = query ? { category: query } : {}; // Ajusta según tu esquema y necesidades de filtro
+        const sortOption = sort === 'asc' ? { price: 1 } : sort === 'desc' ? { price: -1 } : {};
+
+        const products = await Product.find(filter)
+            .limit(Number(limit))
+            .skip((Number(page) - 1) * Number(limit))
+            .sort(sortOption);
+
+        const totalProducts = await Product.countDocuments(filter);
+
+        res.render('products', {
+            products: products,
+            currentPage: Number(page),
+            totalPages: Math.ceil(totalProducts / limit),
+            hasNextPage: Number(page) < Math.ceil(totalProducts / limit),
+            hasPreviousPage: Number(page) > 1,
+            nextPage: Number(page) + 1,
+            previousPage: Number(page) - 1,
+            limit: Number(limit),
+            sort,
+            query,
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
     }
 });
 
