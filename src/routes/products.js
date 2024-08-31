@@ -63,6 +63,19 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Ruta para obtener los detalles de un producto
+router.get('/:id', async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id);
+        if (!product) {
+            return res.status(404).send('Product not found');
+        }
+        res.render('productDetails', { product }); // Renderiza la vista productDetails.handlebars
+    } catch (error) {
+        res.status(500).send('Server error');
+    }
+});
+
 // Ruta para eliminar un producto
 router.delete('/:id', async (req, res) => {
     const { id } = req.params;

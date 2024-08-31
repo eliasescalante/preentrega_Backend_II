@@ -25,8 +25,8 @@
     <label for="sort">Sort:</label>
     <select id="sort" name="sort">
         <option value="">None</option>
-        <option value="asc" {{#if (eq sort "asc")}}selected{{/if}}>Price Ascending</option>
-        <option value="desc" {{#if (eq sort "desc")}}selected{{/if}}>Price Descending</option>
+        <option value="asc" {{#if (eq sort "asc")}}selected{{/if}}>Por precio mas bajo</option>
+        <option value="desc" {{#if (eq sort "desc")}}selected{{/if}}>Por precio mas alto</option>
     </select>
 
     <button type="submit">Apply Filters</button>
@@ -43,6 +43,11 @@
                 <p>Price: ${{this.price}}</p>
                 <p>Stock: {{this.stock}}</p>
                 <p>Categoria: {{this.category}}</p>
+                <div class="button-container">
+                    <form action="/products/{{this._id}}" method="GET">
+                        <button type="submit" class="btn-details">Ver Detalle</button>
+                    </form>
+                </div>
             </div>
         </div>
         {{/each}}
@@ -50,13 +55,13 @@
 
 <div>
     {{#if hasPreviousPage}}
-        <a href="/products?page={{previousPage}}&limit={{limit}}&query={{query}}&sort={{sort}}">Previous</a>
+        <p><a href="/products?page={{previousPage}}&limit={{limit}}&query={{query}}&sort={{sort}}">Anterior</a></p>
     {{/if}}
 
     <p>Page {{currentPage}} of {{totalPages}}</p>
 
     {{#if hasNextPage}}
-        <a href="/products?page={{nextPage}}&limit={{limit}}&query={{query}}&sort={{sort}}">Next</a>
+        <p><a href="/products?page={{nextPage}}&limit={{limit}}&query={{query}}&sort={{sort}}">Siguiente</a></p>
     {{/if}}
 </div>
 
