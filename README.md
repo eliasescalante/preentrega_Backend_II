@@ -78,11 +78,13 @@ CAPTURA DEL PROYECTO:
 
 ### Express.js
 
-<img src="https://img.icons8.com/ios/50/000000/express.png" alt="Express.js Logo" width="48"/>
+<img src="https://img.icons8.com/ios/50/000000/express-js.png" alt="Express.js Logo" width="48"/>
 
 ### JavaScript
 
 <img src="https://img.icons8.com/color/48/000000/javascript.png" alt="JavaScript Logo" width="48"/>
+
+----
 
 
 
