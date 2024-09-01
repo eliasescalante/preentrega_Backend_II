@@ -74,15 +74,16 @@ CAPTURA DEL PROYECTO:
 
 ### Node.js
 
-![Node.js Logo](https://nodejs.org/static/images/logos/nodejs-new-256-green.png)
+<img src="https://cdn.worldvectorlogo.com/logos/node-js.svg" alt="Node.js Logo" width="100"/>
 
 ### Express.js
 
-![Express.js Logo](https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png)
+<img src="https://cdn.worldvectorlogo.com/logos/express-109.svg" alt="Express.js Logo" width="100"/>
 
 ### JavaScript
 
-![JavaScript Logo](https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png)
+<img src="https://cdn.worldvectorlogo.com/logos/javascript.svg" alt="JavaScript Logo" width="100"/>
+
 
 
 
