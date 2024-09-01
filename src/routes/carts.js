@@ -119,9 +119,15 @@ router.put('/:id/empty', async (req, res) => {
 router.put('/:cid/products/:pid', async (req, res) => {
     try {
         const { cid, pid } = req.params;
-        const { quantity } = req.body;
+        const { quantity } = parseInt(req.body);
 
         console.log('Datos recibidos en el servidor:', { cid, pid, quantity });
+
+        // Verificar si el ID de producto es válido
+        if (!mongoose.Types.ObjectId.isValid(pid)) {
+            console.error('ID de carrito no válido');
+            return res.status(400).json({ message: 'ID de producto no válido' });
+        }
 
         const cart = await Cart.findById(cid);
         if (!cart) {
@@ -131,10 +137,8 @@ router.put('/:cid/products/:pid', async (req, res) => {
 
         const productIndex = cart.products.findIndex(p => p.product.toString() === pid);
         if (productIndex !== -1) {
-            // Si el producto ya está en el carrito, actualiza la cantidad
             cart.products[productIndex].quantity += quantity;
         } else {
-            // Si el producto no está en el carrito, agrégalo
             cart.products.push({ product: pid, quantity });
         }
 
@@ -146,11 +150,5 @@ router.put('/:cid/products/:pid', async (req, res) => {
         res.status(500).json({ message: 'Error al agregar el producto al carrito' });
     }
 });
-
-
-
-
-
-    
 
 module.exports = router;

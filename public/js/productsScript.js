@@ -1,41 +1,23 @@
-// public/js/productsScript.js
 console.log('productsScript.js cargado');
-document.querySelector('form').addEventListener('submit', function (event) {
-    const limit = parseInt(document.getElementById('limit').value, 10);
-    const page = parseInt(document.getElementById('page').value, 10);
-
-    if (limit <= 0 || page <= 0) {
-        // Usar SweetAlert2 para mostrar un mensaje de error
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Limit and page must be greater than 0.',
-            confirmButtonText: 'OK'
-        });
-        event.preventDefault(); // Previene el envío del formulario
-    }
-});
 
 // public/js/productsScript.js
 document.addEventListener('DOMContentLoaded', () => {
     console.log('productsScript.js cargado');
 
-    // Asumiendo que tienes un botón con id 'add-to-cart-btn'
-    const addToCartButton = document.getElementById('add-to-cart-btn');
-    if (addToCartButton) {
-        addToCartButton.addEventListener('click', () => {
-            const productId = addToCartButton.getAttribute('data-product-id');
+    // Asumiendo que tienes botones con la clase 'add-to-cart-btn'
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const productId = button.getAttribute('data-product-id');
             addToCart(productId);
         });
-    }
+    });
 });
 
-
-async function addToCart(productId) {
+async function addToCart(product) {
+    console.log('Intentando agregar producto al carrito:', product);
     try {
-        console.log('Intentando agregar producto al carrito:', productId);
-
-        if (!productId) {
+        if (!product) {
             console.error('ID del producto no válido');
             return;
         }
@@ -71,12 +53,12 @@ async function addToCart(productId) {
         }
 
         // Agrega el producto al carrito seleccionado
-        const addResponse = await fetch(`/carts/${selectedCartId}/products/${productId}`, {
+        const addResponse = await fetch(`/carts/${selectedCartId}/products/${product}`, {
             method: 'PUT',
             headers: { 
                 'Content-Type': 'application/json' 
             },
-            body: JSON.stringify({ quantity: 1 })
+            body: JSON.stringify({ quantity: 1 })  // Cantidad predeterminada
         });
 
         const result = await addResponse.json();
@@ -92,6 +74,3 @@ async function addToCart(productId) {
         Swal.fire('Error', error.message || 'No se pudo agregar el producto al carrito', 'error');
     }
 }
-
-
-
