@@ -2,31 +2,47 @@ function modifyQuantity(cartId, productId) {
     Swal.fire({
         title: 'Modificar Cantidad',
         input: 'number',
-        inputLabel: 'Nueva cantidad',
-        inputAttributes: {
-            min: 1,
-            step: 1
-        },
+        inputLabel: 'Cantidad',
+        inputPlaceholder: 'Introduce la nueva cantidad',
         showCancelButton: true,
-        confirmButtonText: 'Modificar',
+        confirmButtonText: 'Actualizar',
         cancelButtonText: 'Cancelar',
-        preConfirm: (quantity) => {
-            return fetch(`/carts/${cartId}/products/${productId}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ quantity: quantity })
-            }).then(response => response.json())
-            .catch(error => {
-                Swal.showValidationMessage(`Error: ${error}`);
-            });
+        inputValidator: (value) => {
+            if (!value) {
+                return 'Debes introducir una cantidad!';
+            }
+            if (isNaN(value) || value <= 0) {
+                return 'La cantidad debe ser un número positivo!';
+            }
         }
     }).then((result) => {
         if (result.isConfirmed) {
-            Swal.fire('Modificado!', 'La cantidad ha sido modificada.', 'success')
-                .then(() => window.location.reload());
+            const quantity = parseInt(result.value, 10);
+            fetch(`/carts/${cartId}/products/${productId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ quantity })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire('Actualizado!', 'La cantidad se ha modificado correctamente.', 'success');
+                } else {
+                    Swal.fire('Error!', 'No se pudo actualizar la cantidad.', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire('Error!', 'Hubo un error al actualizar la cantidad.', 'error');
+            });
         }
     });
 }
+
+
+
 
 function removeProduct(cartId, productId) {
     Swal.fire({
@@ -39,7 +55,10 @@ function removeProduct(cartId, productId) {
     }).then((result) => {
         if (result.isConfirmed) {
             fetch(`/carts/${cartId}/products/${productId}`, { method: 'DELETE' })
-                .then(() => {
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al eliminar el producto');
+                    }
                     Swal.fire(
                         'Eliminado!',
                         'El producto ha sido eliminado.',
@@ -50,7 +69,6 @@ function removeProduct(cartId, productId) {
         }
     });
 }
-
 
 function emptyCart(cartId) {
     Swal.fire({
@@ -63,7 +81,10 @@ function emptyCart(cartId) {
     }).then((result) => {
         if (result.isConfirmed) {
             fetch(`/carts/${cartId}/empty`, { method: 'PUT' })
-                .then(() => {
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al vaciar el carrito');
+                    }
                     Swal.fire(
                         'Vaciado!',
                         'El carrito ha sido vaciado.',
