@@ -36,7 +36,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Rutas
-app.use('/api/carts', cartsRoutes);
+app.use('/carts', cartsRoutes);
 
 // Ruta de productos
 app.use('/products', productsRoutes);

@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="/css/cartsStyle.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<h1>Gestión de Carritos</h1>
+
+{{#if carts.length}}
+    <button id="createCartButton" class="create-cart-btn">Crear Nuevo Carrito</button>
+    <div class="carts-container">
+        {{#each carts}}
+            <div class="cart-card">
+                <h2>Carrito #{{this._id}}</h2>
+                <button class="btn" onclick="window.location.href='/carts/{{this._id}}'">Ver Carrito</button>
+                <button class="btn btn-danger" onclick="deleteCart('{{this._id}}')">Eliminar Carrito</button>
+            </div>
+        {{/each}}
+    </div>
+{{else}}
+    <p>No hay carritos creados. <button id="createCartButton">Crear Nuevo Carrito</button></p>
+{{/if}}
+
+<script src="/js/cartScript.js"></script>

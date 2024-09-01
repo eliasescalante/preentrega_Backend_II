@@ -1,0 +1,20 @@
+<link rel="stylesheet" href="/css/cartsStyle.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<h1>Carrito ID: {{cart._id}}</h1>
+
+{{#if cart.products.length}}
+    {{#each cart.products}}
+        <div class="cart-card">
+            <h2>Producto: {{this.product.title}}</h2>
+            <p>Cantidad: {{this.quantity}}</p>
+            <button class="btn" onclick="modifyQuantity('{{cart._id}}', '{{this.product._id}}')">Modificar Cantidad</button>
+            <button class="btn btn-danger" onclick="removeProduct('{{cart._id}}', '{{this.product._id}}')">Eliminar Producto</button>
+        </div>
+    {{/each}}
+    <button class="btn btn-danger" onclick="emptyCart('{{cart._id}}')">Vaciar Carrito</button>
+{{else}}
+    <p class="empty-cart">Carrito vacío</p>
+{{/if}}
+
+<script src="/js/viewCartScript.js"></script>
