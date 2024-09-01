@@ -1,3 +1,5 @@
+// public/js/productsScript.js
+console.log('productsScript.js cargado');
 document.querySelector('form').addEventListener('submit', function (event) {
     const limit = parseInt(document.getElementById('limit').value, 10);
     const page = parseInt(document.getElementById('page').value, 10);
@@ -14,53 +16,82 @@ document.querySelector('form').addEventListener('submit', function (event) {
     }
 });
 
-    // Función para agregar un producto al carrito
-function addToCart(productId) {
-    // Obtener la lista de carritos desde el servidor (esto es un ejemplo, ajusta según tu ruta y datos)
-    fetch('/carts')
-        .then(response => response.json())
-        .then(data => {
-            // Crear un dropdown con los carritos disponibles
-            const cartOptions = data.carts.map(cart => `<option value="${cart._id}">${cart._id}</option>`).join('');
-            
-            // Mostrar SweetAlert2 con el dropdown para seleccionar el carrito
-            Swal.fire({
-                title: 'Selecciona un carrito',
-                input: 'select',
-                inputOptions: {
-                    'carritos': cartOptions
-                },
-                inputPlaceholder: 'Selecciona un carrito',
-                showCancelButton: true,
-                confirmButtonText: 'Agregar',
-                cancelButtonText: 'Cancelar'
-            }).then(result => {
-                if (result.isConfirmed) {
-                    // Obtener el carrito seleccionado
-                    const selectedCart = result.value;
+// public/js/productsScript.js
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('productsScript.js cargado');
 
-                    // Enviar la solicitud para agregar el producto al carrito
-                    fetch(`/carts/${selectedCart}/products/${productId}`, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ quantity: 1 }) // Puedes ajustar la cantidad según sea necesario
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        // Mostrar mensaje de éxito
-                        Swal.fire('Producto agregado', '', 'success');
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        Swal.fire('Error al agregar el producto', '', 'error');
-                    });
-                }
-            });
-        })
-        .catch(error => {
-            console.error('Error al obtener los carritos:', error);
-            Swal.fire('Error al obtener los carritos', '', 'error');
+    // Asumiendo que tienes un botón con id 'add-to-cart-btn'
+    const addToCartButton = document.getElementById('add-to-cart-btn');
+    if (addToCartButton) {
+        addToCartButton.addEventListener('click', () => {
+            const productId = addToCartButton.getAttribute('data-product-id');
+            addToCart(productId);
         });
+    }
+});
+
+
+async function addToCart(productId) {
+    try {
+        console.log('Intentando agregar producto al carrito:', productId);
+
+        if (!productId) {
+            console.error('ID del producto no válido');
+            return;
+        }
+
+        // Obtén la lista de carritos
+        const cartsResponse = await fetch('/carts/all');
+        const carts = await cartsResponse.json();
+
+        console.log('Carritos obtenidos:', carts);
+
+        if (carts.length === 0) {
+            console.error('No hay carritos disponibles');
+            return;
+        }
+
+        // Muestra la ventana SweetAlert con el dropdown de carritos
+        const { value: selectedCartId } = await Swal.fire({
+            title: 'Selecciona un carrito',
+            input: 'select',
+            inputOptions: carts.reduce((options, cart) => {
+                options[cart._id] = cart._id;
+                return options;
+            }, {}),
+            inputPlaceholder: 'Selecciona un carrito',
+            showCancelButton: true
+        });
+
+        console.log('Carrito seleccionado:', selectedCartId);
+
+        if (!selectedCartId) {
+            console.error('No se seleccionó un carrito');
+            return;
+        }
+
+        // Agrega el producto al carrito seleccionado
+        const addResponse = await fetch(`/carts/${selectedCartId}/products/${productId}`, {
+            method: 'PUT',
+            headers: { 
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify({ quantity: 1 })
+        });
+
+        const result = await addResponse.json();
+        console.log('Respuesta del servidor:', result);
+
+        if (addResponse.ok) {
+            Swal.fire('Éxito', 'Producto agregado al carrito', 'success');
+        } else {
+            throw new Error(result.message || 'Error al agregar el producto al carrito');
+        }
+    } catch (error) {
+        console.error('Error al agregar el producto al carrito:', error);
+        Swal.fire('Error', error.message || 'No se pudo agregar el producto al carrito', 'error');
+    }
 }
+
+
+

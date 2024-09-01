@@ -2,18 +2,33 @@ const express = require('express');
 const router = express.Router();
 const Cart = require('../models/cartModel');
 
+// Endpoint para obtener todos los carritos
+router.get('/all', async (req, res) => {
+    try {
+        const carts = await Cart.find().select('_id'); // Obtén solo los IDs de los carritos
+        res.json(carts);
+    } catch (error) {
+        console.error('Error al obtener carritos:', error);
+        res.status(500).json({ message: 'Error al obtener los carritos' });
+    }
+});
+
+
 // Ruta para mostrar la vista de gestión de carritos
 router.get('/', async (req, res) => {
     try {
+        console.log('Intentando obtener los carritos...');
         const carts = await Cart.find().populate('products.product');
         if (req.query.format === 'json') {
             // Si el parámetro de consulta 'format' es 'json', retorna los datos en formato JSON
+            console.log('Carritos obtenidos:', carts);
             return res.json({ carts });
+        } else {
+            // Si no se solicita formato JSON, renderiza la vista HTML
+            res.render('manageCarts', { carts });
         }
-
-        // Si no se solicita formato JSON, renderiza la vista HTML
-        res.render('manageCarts', { carts });
     } catch (error) {
+        console.error('Error al obtener los carritos:', error);
         res.status(500).send('Error al cargar los carritos.');
     }
 });
@@ -99,5 +114,43 @@ router.put('/:id/empty', async (req, res) => {
         res.status(500).send('Error al vaciar el carrito.');
     }
 });
+
+// Ruta para agregar un producto a un carrito específico
+router.put('/:cid/products/:pid', async (req, res) => {
+    try {
+        const { cid, pid } = req.params;
+        const { quantity } = req.body;
+
+        console.log('Datos recibidos en el servidor:', { cid, pid, quantity });
+
+        const cart = await Cart.findById(cid);
+        if (!cart) {
+            console.error('Carrito no encontrado');
+            return res.status(404).json({ message: 'Carrito no encontrado' });
+        }
+
+        const productIndex = cart.products.findIndex(p => p.product.toString() === pid);
+        if (productIndex !== -1) {
+            // Si el producto ya está en el carrito, actualiza la cantidad
+            cart.products[productIndex].quantity += quantity;
+        } else {
+            // Si el producto no está en el carrito, agrégalo
+            cart.products.push({ product: pid, quantity });
+        }
+
+        await cart.save();
+        console.log('Producto agregado al carrito:', cart);
+        res.json({ message: 'Producto agregado al carrito' });
+    } catch (error) {
+        console.error('Error al agregar producto al carrito:', error);
+        res.status(500).json({ message: 'Error al agregar el producto al carrito' });
+    }
+});
+
+
+
+
+
+    
 
 module.exports = router;

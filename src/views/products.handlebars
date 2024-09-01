@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/styleProduct.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="/js/productsScript.js"></script>
     <title>Lista de Productos</title>
 </head>
 <body>
@@ -48,7 +47,7 @@
                     <form action="/products/{{this._id}}" method="GET">
                         <button type="submit" class="btn-details">Ver Detalle</button>
                     </form>
-                    <button class="btn-add-to-cart" onclick="addToCart('{{this._id}}')">Agregar a Carrito</button>
+                    <button id="add-to-cart-btn" class="btn-add-to-cart" onclick="addToCart('{{this._id}}')">Agregar a Carrito</button>
                 </div>
                 
             </div>
@@ -67,5 +66,6 @@
         <p><a href="/products?page={{nextPage}}&limit={{limit}}&query={{query}}&sort={{sort}}">Siguiente</a></p>
     {{/if}}
 </div>
+<script src="/js/productsScript.js"></script>
 </body>
 </html>
