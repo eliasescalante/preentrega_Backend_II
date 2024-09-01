@@ -1,4 +1,4 @@
-# E-commerce Server v 2 - Entrega final del curso de CODER HOUSE - 
+# API - COMMERCE - Entrega final del curso de CODER HOUSE - 
 # Programación Backend I: Desarrollo Avanzado de Backend
 
 ----
