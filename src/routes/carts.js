@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const Cart = require('../models/cartModel');
 
 // Endpoint para obtener todos los carritos
@@ -67,23 +68,6 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-// Ruta para modificar la cantidad de un producto en el carrito
-router.put('/:id/products/:productId', async (req, res) => {
-    try {
-        const cart = await Cart.findById(req.params.id);
-        if (!cart) {
-            return res.status(404).send('Carrito no encontrado.');
-        }
-        const productIndex = cart.products.findIndex(p => p.product.toString() === req.params.productId);
-        if (productIndex !== -1) {
-            cart.products[productIndex].quantity = req.body.quantity;
-            await cart.save();
-        }
-        res.json({ message: 'Cantidad modificada.' });
-    } catch (error) {
-        res.status(500).send('Error al modificar la cantidad.');
-    }
-});
 
 // Ruta para eliminar un producto del carrito
 router.delete('/:id/products/:productId', async (req, res) => {
@@ -116,36 +100,42 @@ router.put('/:id/empty', async (req, res) => {
 });
 
 //ruta para agregar a un carrito especifico un producto
-router.put('/:cartId/products/:productId', async (req, res) => {
+router.put('/:cid/products/:pid', async (req, res) => {
+    console.log('Endpoint /:cid/products/:pid alcanzado');
     try {
-        const { cartId, productId } = req.params;
+        const { cid, pid } = req.params;
         const { quantity } = req.body;
-    
-        const cart = await Cart.findById(cartId);
-    
+
+        console.log('Carrito ID:', cid);
+        console.log('Producto ID:', pid);
+        console.log('Cantidad:', quantity);
+
+        if (isNaN(quantity) || quantity <= 0) {
+            return res.status(400).json({ message: 'Cantidad no válida' });
+        }
+
+        if (!mongoose.Types.ObjectId.isValid(pid)) {
+            return res.status(400).json({ message: 'ID de producto no válido' });
+        }
+
+        const cart = await Cart.findById(cid);
         if (!cart) {
             return res.status(404).json({ message: 'Carrito no encontrado' });
         }
-    
-        // Busca el producto en el carrito
-        const productIndex = cart.products.findIndex(p => p.product.toString() === productId);
-    
-        if (productIndex !== -1) {
-            // Actualiza la cantidad si el producto ya existe
-            cart.products[productIndex].quantity += quantity;
-        } else {
-            // Agrega el producto al carrito si no existe
-            cart.products.push({ product: productId, quantity });
-        }
-    
+
+        cart.products.push({ product: pid, quantity });
+
+        console.log('Productos antes de guardar:', cart.products);
+
         await cart.save();
-    
-        res.json({ message: 'Producto agregado al carrito' });
-        } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error al agregar producto al carrito' });
-        }
+        console.log('Carrito actualizado:', cart);
+        res.json({ message: 'Producto agregado al carrito', cart });
+    } catch (error) {
+        console.error('Error al agregar el producto al carrito:', error);
+        res.status(500).json({ message: 'Error al modificar la cantidad' });
+    }
 });
+
 
 
 
