@@ -74,11 +74,16 @@ CAPTURA DEL PROYECTO:
 
 ### Node.js
 
-![Node.js Logo](https://nodejs.org/static/images/logos/nodejs-new-pantone-black.png)
+![Node.js Logo](https://nodejs.org/static/images/logos/nodejs-new-256-green.png)
 
 ### Express.js
 
-![Express.js Logo](https://expressjs.com/images/express-facebook-share.png)
+![Express.js Logo](https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png)
+
+### JavaScript
+
+![JavaScript Logo](https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png)
+
 
 
 
