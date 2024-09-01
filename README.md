@@ -62,11 +62,10 @@ Se agrego Websockets al proyecto y vistas con plantillas.
 
 
 CAPTURA DEL PROYECTO:
-![Captura](https://github.com/eliasescalante/api_e_commerce_v1/blob/main/public/img/capture_index.png)
-![Captura](https://github.com/eliasescalante/api_e_commerce_v1/blob/main/public/img/capture.png)
-![Captura](https://github.com/eliasescalante/api_e_commerce_v1/blob/main/public/img/capture_lista_de_productos.png)
-![Captura](https://github.com/eliasescalante/api_e_commerce_v1/blob/main/public/img/capture_lista_producto_borrar.png)
-![Captura](https://github.com/eliasescalante/api_e_commerce_v1/blob/main/public/img/capture_realTimeProducts_agregar.png)
+![Captura](https://github.com/eliasescalante/proyectoFinal_api_commerce/blob/main/public/img/capture_index.png)
+![Captura](https://github.com/eliasescalante/proyectoFinal_api_commerce/blob/main/public/img/capture_lista_productos.png)
+![Captura](https://github.com/eliasescalante/proyectoFinal_api_commerce/blob/main/public/img/capture_gestion_carritos.png)
+![Captura](https://github.com/eliasescalante/proyectoFinal_api_commerce/blob/main/public/img/capture_detalle_carrito.png)
 
 ----
 
