@@ -84,6 +84,8 @@ router.delete('/:id/products/:productId', async (req, res) => {
     }
 });
 
+
+
 // Ruta para vaciar un carrito
 router.put('/:id/empty', async (req, res) => {
     try {
@@ -135,9 +137,6 @@ router.put('/:cid/products/:pid', async (req, res) => {
         res.status(500).json({ message: 'Error al modificar la cantidad' });
     }
 });
-
-
-
 
 
 module.exports = router;

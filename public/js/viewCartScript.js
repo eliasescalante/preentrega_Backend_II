@@ -51,6 +51,7 @@ function removeProduct(cartId, productId) {
     });
 }
 
+
 function emptyCart(cartId) {
     Swal.fire({
         title: '¿Estás seguro?',

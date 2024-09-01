@@ -9,7 +9,7 @@
             <h2>Producto: {{this.product.tittle}}</h2>
             <p>Cantidad: {{this.quantity}}</p>
             <button class="btn" onclick="modifyQuantity('{{cart._id}}', '{{this.product._id}}')">Modificar Cantidad</button>
-            <button class="btn btn-danger" onclick="removeProduct('{{cart._id}}', '{{this.product._id}}')">Eliminar Producto</button>
+            <button class="btn btn-danger" onclick="removeProduct('{{../cart._id}}', '{{this.product._id}}')">Eliminar Producto</button>
         </div>
     {{/each}}
     <button class="btn btn-danger" onclick="emptyCart('{{cart._id}}')">Vaciar Carrito</button>
