@@ -3,22 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/styleProduct.css">
+    <link rel="stylesheet" href="/css/styleProductDetails.css">
     <title>Product Details</title>
 </head>
 <body>
     <header>
-        <h1>Product Details</h1>
+        <h1>Detalle del producto</h1>
     </header>
 
-    <div class="product-detail">
-        <img src="{{product.thumbnails}}" alt="{{product.title}}">
-        <h2>{{product.title}}</h2>
-        <p>{{product.description}}</p>
-        <p>Codigo: {{product.code}}</p>
-        <p>Price: ${{product.price}}</p>
-        <p>Stock: {{product.stock}}</p>
-        <p>Categoria: {{product.category}}</p>
+    <div class="product-detail-container"></div>
+        <div class="product-detail">
+            <img src="{{product.thumbnails}}" alt="{{product.title}}">
+            <h2>{{product.title}}</h2>
+            <p>{{product.description}}</p>
+            <p>Codigo: {{product.code}}</p>
+            <p>Price: ${{product.price}}</p>
+            <p>Stock: {{product.stock}}</p>
+            <p>Categoria: {{product.category}}</p>
+        </div>
     </div>
 
 </body>

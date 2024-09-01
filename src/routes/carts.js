@@ -6,6 +6,12 @@ const Cart = require('../models/cartModel');
 router.get('/', async (req, res) => {
     try {
         const carts = await Cart.find().populate('products.product');
+        if (req.query.format === 'json') {
+            // Si el parámetro de consulta 'format' es 'json', retorna los datos en formato JSON
+            return res.json({ carts });
+        }
+
+        // Si no se solicita formato JSON, renderiza la vista HTML
         res.render('manageCarts', { carts });
     } catch (error) {
         res.status(500).send('Error al cargar los carritos.');
