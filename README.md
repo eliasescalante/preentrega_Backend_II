@@ -11,8 +11,8 @@
 
 ## Descripción del Proyecto
 
-Este servidor proporciona una API para manejar productos y carritos de compra. Los productos y carritos se almacenan en archivos JSON, y el servidor permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre estos datos.
-Se agrego Websockets al proyecto.
+Este servidor proporciona una API para manejar productos y carritos de compra. Los productos y carritos se almacenan una base de datos (MongoDB), y el servidor permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre estos datos.
+Se agrego Websockets al proyecto y vistas con plantillas.
 
 ## Cómo Ejecutar el Proyecto
 
@@ -37,7 +37,7 @@ Se agrego Websockets al proyecto.
   - **Actualizar Producto**: `PUT /api/products/:pid`
   - **Eliminar Producto**: `DELETE /api/products/:pid`
 ----
-## Funcionalidades PRE-ENTREGA 2
+## Funcionalidades segunda pre-entrega
 
 - Se agrego al proyecto Websockets y se integro el trabajo con vistas.
 - Se implemento handlebars.
@@ -52,8 +52,13 @@ Se agrego Websockets al proyecto.
 -  `realTimeProducts` : realiza el alta y la eliminacion de un producto en la base de datos que se encuentra en la nube, utilizando el frontend .
 - `realTimeProducts` : muestra ademas en tiempo real cuando se agrega un producto y cuando se elimina.
 - `products` : ahora muestra todos los productos desde la nueva base de datos en la nube. 
-- 
--
+- `products` : permite ademas ver un detalle de cada producto.
+- `products` : cada elemento tiene un boton que permite agregar el producto al carrito seleccionado
+- `carts` : muestra todos los carritos creados.
+- `carts` : permite ver el contenido de cada carrito.
+- `carts` : permite modificar la cantidad de un producto en el carrito.
+- `carts` : permite eliminar un producto del carrito y vaciar el mismo
+- `carts` : permite eliminar el carrito.
 
 
 CAPTURA DEL PROYECTO:
