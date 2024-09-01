@@ -16,31 +16,19 @@
             <h2>Obtener el listado de todos los productos en la base de datos</h2>
             <p>Permite ordenar por precio, buscar por categoria y limitar la vista por pagina o ir a una determinada pagina</p>
             <p>Tambien se puede ver el detalle de cada producto</p>
+            <p>Permite agregar al carrito los productos</p>
             <p class="code">/products</p>
         </div>
         <div class="instruction">
-            <h2>Para agregar un producto en tiempo real o eliminarlo de la base de datos</h2>
+            <h2>Para agregar un producto o eliminarlo de la base de datos</h2>
+            <p>permite ver el producto agregado o eliminado reflejado en la pagina en tiempo real</p>
             <p class="code">/realtimeproducts</p>
         </div>
         <div class="instruction">
-            <h2>Crear un carrito</h2>
-            <p class="code">POST /api/carts</p>
-            <pre>{
-    "products": []
-}</pre>
-        </div>
-        <div class="instruction">
-            <h2>Obtener el producto del carrito</h2>
-            <p class="code">GET /api/carts/:cid</p>
-        </div>
-        
-        <div class="instruction">
-            <h2>Agregar un producto al carrito</h2>
-            <p class="code">POST /api/carts/:cid/product/:pid</p>
-            <pre>{
-    "quantity": 1
-}</pre>
-        </div>
+            <h2>Permite crear carritos de compras y ver en la pagina los ya existentes</h2>
+            <p>Tambien permite ver su contenido para modificarlo o vaciarlo</p>
+            <p>Tambien se puede eliminar el carrito creado</p>
+            <p class="code">/carts</p>
     </div>
 </body>
 </html>
