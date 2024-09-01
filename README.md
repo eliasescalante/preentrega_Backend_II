@@ -69,6 +69,18 @@ CAPTURA DEL PROYECTO:
 
 ----
 
+## Tecnologías Usadas
+
+### Node.js
+
+![Node.js Logo](https://nodejs.org/static/images/logos/nodejs-new-pantone-black.png)
+
+### Express.js
+
+![Express.js Logo](https://expressjs.com/images/express-facebook-share.png)
+
+
+
 ![GitHub repo size](https://img.shields.io/github/repo-size/eliasescalante/proyectoFinal_api_commerce
 )
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/eliasescalante/proyectoFinal_api_commerce
