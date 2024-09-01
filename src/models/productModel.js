@@ -1,4 +1,4 @@
-// Define un esquema para los productos
+// defino el esquema para los productos
 
 const mongoose = require('mongoose');
 

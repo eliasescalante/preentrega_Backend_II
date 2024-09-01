@@ -115,40 +115,39 @@ router.put('/:id/empty', async (req, res) => {
     }
 });
 
-// Ruta para agregar un producto a un carrito específico
-router.put('/:cid/products/:pid', async (req, res) => {
+//ruta para agregar a un carrito especifico un producto
+router.put('/:cartId/products/:productId', async (req, res) => {
     try {
-        const { cid, pid } = req.params;
-        const { quantity } = parseInt(req.body);
-
-        console.log('Datos recibidos en el servidor:', { cid, pid, quantity });
-
-        // Verificar si el ID de producto es válido
-        if (!mongoose.Types.ObjectId.isValid(pid)) {
-            console.error('ID de carrito no válido');
-            return res.status(400).json({ message: 'ID de producto no válido' });
-        }
-
-        const cart = await Cart.findById(cid);
+        const { cartId, productId } = req.params;
+        const { quantity } = req.body;
+    
+        const cart = await Cart.findById(cartId);
+    
         if (!cart) {
-            console.error('Carrito no encontrado');
             return res.status(404).json({ message: 'Carrito no encontrado' });
         }
-
-        const productIndex = cart.products.findIndex(p => p.product.toString() === pid);
+    
+        // Busca el producto en el carrito
+        const productIndex = cart.products.findIndex(p => p.product.toString() === productId);
+    
         if (productIndex !== -1) {
+            // Actualiza la cantidad si el producto ya existe
             cart.products[productIndex].quantity += quantity;
         } else {
-            cart.products.push({ product: pid, quantity });
+            // Agrega el producto al carrito si no existe
+            cart.products.push({ product: productId, quantity });
         }
-
+    
         await cart.save();
-        console.log('Producto agregado al carrito:', cart);
+    
         res.json({ message: 'Producto agregado al carrito' });
-    } catch (error) {
-        console.error('Error al agregar producto al carrito:', error);
-        res.status(500).json({ message: 'Error al agregar el producto al carrito' });
-    }
+        } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al agregar producto al carrito' });
+        }
 });
+
+
+
 
 module.exports = router;

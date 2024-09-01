@@ -6,7 +6,7 @@
 {{#if cart.products.length}}
     {{#each cart.products}}
         <div class="cart-card">
-            <h2>Producto: {{this.product.title}}</h2>
+            <h2>Producto: {{this.product.tittle}}</h2>
             <p>Cantidad: {{this.quantity}}</p>
             <button class="btn" onclick="modifyQuantity('{{cart._id}}', '{{this.product._id}}')">Modificar Cantidad</button>
             <button class="btn btn-danger" onclick="removeProduct('{{cart._id}}', '{{this.product._id}}')">Eliminar Producto</button>
