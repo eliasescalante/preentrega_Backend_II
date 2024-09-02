@@ -6,7 +6,7 @@ const Cart = require('../models/cartModel');
 // Endpoint para obtener todos los carritos
 router.get('/all', async (req, res) => {
     try {
-        const carts = await Cart.find().select('_id'); // Obtén solo los IDs de los carritos
+        const carts = await Cart.find().select('_id');
         res.json(carts);
     } catch (error) {
         console.error('Error al obtener carritos:', error);
@@ -14,7 +14,7 @@ router.get('/all', async (req, res) => {
     }
 });
 
-// Ruta para mostrar la vista de gestión de carritos
+// Ruta para mostrar la vista de gestión de carritos.
 router.get('/', async (req, res) => {
     try {
         console.log('Intentando obtener los carritos...');
@@ -31,24 +31,11 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Ruta para crear un nuevo carrito
-// Ruta para ver un carrito específico
-router.get('/:id', async (req, res) => {
-    try {
-        const cart = await Cart.findById(req.params.id).populate('products.product'); // Asegúrate de que los productos se pueblen correctamente
-        if (!cart) {
-            return res.status(404).send('Carrito no encontrado.');
-        }
-        res.render('viewCart', { cart });
-    } catch (error) {
-        res.status(500).send('Error al cargar el carrito.');
-    }
-});
 
 // Ruta para ver un carrito específico
 router.get('/:id', async (req, res) => {
     try {
-        const cart = await Cart.findById(req.params.id).populate('products.product');
+        const cart = await Cart.findById(req.params.id).populate('products.product'); // Asegúrate de que los productos se pueblen correctamente
         if (!cart) {
             return res.status(404).send('Carrito no encontrado.');
         }

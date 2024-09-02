@@ -1,16 +1,16 @@
 // script para manejar el DOM en realTimerProducts.handlebars
-
+// Establece la conexión con el servidor usando Socket.IO
 const socket = io();
 const form = document.getElementById('productForm');
 const tableBody = document.querySelector('#productsTable tbody');
-
+// evento de envío al formulario
 form.addEventListener('submit', (event) => {
     event.preventDefault();
     const formData = new FormData(form);
     socket.emit('addProduct', Object.fromEntries(formData.entries()));
     form.reset();
 });
-
+// evento 'updateProducts' desde el servidor
 socket.on('updateProducts', (products) => {
     if (Array.isArray(products)) {
         tableBody.innerHTML = '';
@@ -33,7 +33,7 @@ socket.on('updateProducts', (products) => {
         console.error('Products is not an array');
     }
 });
-
+// Función para añadir eventos de clic a los botones de eliminar
 function attachDeleteEvent() {
     document.querySelectorAll('.delete-button').forEach(button => {
         button.addEventListener('click', async (event) => {

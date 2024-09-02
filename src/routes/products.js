@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
             return res.status(400).send('Todos los campos son obligatorios, a excepción de thumbnails');
         }
 
-        // Crear un nuevo producto utilizando el modelo de Mongoose
+        // creo un nuevo producto utilizando el modelo de Mongoose
         const newProduct = new Product({
             title,
             description,
@@ -21,8 +21,8 @@ router.post('/', async (req, res) => {
             category,
             thumbnails: thumbnails || []
         });
-
-        await newProduct.save(); // Guardar el producto en la base de datos
+        // guardo el producto en la base de datos
+        await newProduct.save(); 
         res.status(201).json(newProduct);
     } catch (error) {
         console.error('Error al agregar el producto:', error);

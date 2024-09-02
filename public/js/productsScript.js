@@ -1,8 +1,9 @@
+// Mensaje para saber si carga el script
 console.log('productsScript.js cargado');
-
+// evento cuando el contenido del DOM se cargo
 document.addEventListener('DOMContentLoaded', () => {
     console.log('productsScript.js cargado');
-
+    // Añade un evento de clic a cada botón
     const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
     addToCartButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -11,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-
+// Función para agregar un producto al carrito
 async function addToCart(productId) {
     try {
         // Obtener la lista de carritos

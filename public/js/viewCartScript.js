@@ -1,3 +1,6 @@
+//NO FUNCIONA POR AHORA TENGO QUE DEPURAR!!!!
+
+// Función para modificar la cantidad de un producto en un carrito
 function modifyQuantity(cartId, productId) {
     Swal.fire({
         title: 'Modificar Cantidad',
@@ -41,9 +44,7 @@ function modifyQuantity(cartId, productId) {
     });
 }
 
-
-
-
+// Función para eliminar un producto del carrito
 function removeProduct(cartId, productId) {
     Swal.fire({
         title: '¿Estás seguro?',
@@ -70,6 +71,7 @@ function removeProduct(cartId, productId) {
     });
 }
 
+// Función para vaciar un carrito
 function emptyCart(cartId) {
     Swal.fire({
         title: '¿Estás seguro?',

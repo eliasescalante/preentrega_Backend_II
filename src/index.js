@@ -1,3 +1,4 @@
+//Server
 const express = require('express');
 const { engine } = require('express-handlebars');
 const path = require('path');
@@ -6,9 +7,9 @@ const socketIo = require('socket.io');
 const mongoose = require('mongoose');
 const cartsRoutes = require('./routes/carts');
 const productsRoutes = require('./routes/products');
-const Product = require('./models/productModel'); // Importa el modelo de producto
-const Cart = require('./models/cartModel'); // Importa el modelo de carrito
-const connectToMongo = require('./config/mongo'); // Importa la configuración de MongoDB
+const Product = require('./models/productModel');
+const Cart = require('./models/cartModel'); 
+const connectToMongo = require('./config/mongo');
 const helpers = require('handlebars-helpers')();
 
 const app = express();
@@ -37,7 +38,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Rutas
+// Ruta para carritos
 app.use('/carts', cartsRoutes);
 
 // Ruta de productos
@@ -51,8 +52,6 @@ app.get('/realtimeproducts', (req, res) => {
 // Configuro el servidor HTTP y Socket.IO
 const server = http.createServer(app);
 const io = socketIo(server);
-
-
 
 // Cargar productos y emitir a los clientes
 async function loadProducts() {
@@ -68,32 +67,32 @@ async function loadProducts() {
 io.on('connection', (socket) => {
     console.log('Nuevo cliente conectado');
     
-    // Enviar los productos actuales al nuevo cliente
+    // para enviar los productos actuales al nuevo cliente
     loadProducts();
 
-    // Manejar la adición de productos
+    // para manejar la adición de productos
     socket.on('addProduct', async (productData) => {
         try {
             const newProduct = new Product(productData);
             await newProduct.save();
-            loadProducts(); // Recargar productos y actualizar a todos los clientes
+            loadProducts();
         } catch (error) {
             console.error('Error al agregar producto:', error);
         }
     });
 
-    // Manejar la eliminación de productos
+    // para manejar la eliminación de productos
     socket.on('deleteProduct', async (productId) => {
         try {
             await Product.findByIdAndDelete(productId);
-            loadProducts(); // Recargar productos y actualizar a todos los clientes
+            loadProducts();
         } catch (error) {
             console.error('Error al eliminar producto:', error);
         }
     });
 });
 
-// Iniciar el servidor
+// para iniciar el servidor
 server.listen(8080, () => {
     console.log('Servidor en funcionamiento en http://localhost:8080');
 });
