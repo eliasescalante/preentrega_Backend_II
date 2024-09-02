@@ -12,7 +12,7 @@
 
 ## Descripción del Proyecto
 
-Este servidor proporciona una API para manejar productos y carritos de compra. Los productos y carritos se almacenan una base de datos (MongoDB), y el servidor permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre estos datos.
+Este servidor proporciona una API para manejar productos y carritos de compra. Los productos y carritos se almacenan en una base de datos que se encuentra en la nube(MongoDB Atlas), y el servidor permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre estos datos.
 Se agrego Websockets al proyecto y vistas con plantillas.
 
 ## Cómo Ejecutar el Proyecto
