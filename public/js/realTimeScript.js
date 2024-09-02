@@ -1,5 +1,4 @@
 // script para manejar el DOM en realTimerProducts.handlebars
-// Establece la conexión con el servidor usando Socket.IO
 const socket = io();
 const form = document.getElementById('productForm');
 const tableBody = document.querySelector('#productsTable tbody');

@@ -1,3 +1,4 @@
+//Función para modificar la cantidad de un producto en el carrito
 function modifyQuantity(cartId, productId) {
     Swal.fire({
         title: 'Modificar Cantidad',
@@ -42,7 +43,6 @@ function modifyQuantity(cartId, productId) {
         }
     });
 }
-
 
 // Función para eliminar un producto del carrito
 function removeProduct(cartId, productId) {

@@ -1,12 +1,13 @@
 // Conexion con la base de datos
 const mongoose = require('mongoose');
+//para depurar los errores
+mongoose.set('debug', true);
 
-mongoose.set('debug', true); // Esto mostrará consultas y comandos en la consola
-
-
+//conexión a mi base de datos en la nube
 mongoose.connect('mongodb+srv://ninja:671905@commerce.yr759.mongodb.net/', {
     serverSelectionTimeoutMS: 5000
 });
+
 /*
 mongoose.connect('mongodb://localhost:27017/mi_basedatos', {
     useNewUrlParser: true,

@@ -70,7 +70,7 @@ router.get('/:id', async (req, res) => {
         if (!product) {
             return res.status(404).send('Product not found');
         }
-        res.render('productDetails', { product }); // Renderiza la vista productDetails.handlebars
+        res.render('productDetails', { product });
     } catch (error) {
         res.status(500).send('Server error');
     }

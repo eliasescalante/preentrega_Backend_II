@@ -1,5 +1,4 @@
 /* Estilo específico para productDetails.handlebars */
-
 html, body {
     height: 100%;
     margin: 0;
@@ -25,7 +24,7 @@ header {
     text-align: center;
     font-size: larger;
     width: 100%; 
-    box-sizing: border-box; /* Incluye padding y border en el cálculo del ancho */
+    box-sizing: border-box;
 }
 
 h1 {
@@ -47,7 +46,7 @@ h1 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     width: 100%;
-    max-width: 800px; /* Ancho máximo para la tarjeta */
+    max-width: 800px;
     text-align: center;
 }
 

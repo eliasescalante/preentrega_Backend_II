@@ -3,7 +3,7 @@ console.log('productsScript.js cargado');
 // evento cuando el contenido del DOM se cargo
 document.addEventListener('DOMContentLoaded', () => {
     console.log('productsScript.js cargado');
-    // Añade un evento de clic a cada botón
+    // agrego evento al boton
     const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
     addToCartButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -12,11 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
 // Función para agregar un producto al carrito
 async function addToCart(productId) {
     try {
-        // Obtener la lista de carritos
-        
+        // obtengo la lista de carritos
         const cartsResponse = await fetch('/carts/all');
         if (!cartsResponse.ok) {
             throw new Error('No se pudo obtener la lista de carritos');
@@ -39,7 +39,7 @@ async function addToCart(productId) {
         });
 
         if (selectedCartId) {
-            // Enviar la solicitud para agregar el producto al carrito
+            // envio la solicitud para agregar el producto al carrito
             const response = await fetch(`/carts/${selectedCartId}/products/${productId}/add`, {
                 method: 'PUT',
                 headers: {
@@ -49,7 +49,7 @@ async function addToCart(productId) {
             });
 
             if (!response.ok) {
-                const errorText = await response.text(); // para leer el texto de error
+                const errorText = await response.text();
                 throw new Error(errorText);
             }
 

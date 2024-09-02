@@ -1,5 +1,4 @@
 /* Estilo para Products.handlebars */
-
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -35,7 +34,7 @@ h1 {
     border-radius: 5px;
     display: flex;
     align-items: center;
-    gap: 20px; /* Espacio entre la imagen y el contenido */
+    gap: 20px;
 }
 
 .product img {
@@ -45,7 +44,7 @@ h1 {
 }
 
 .product-info {
-    flex: 1; /* Permite que el contenido ocupe el espacio restante */
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -53,14 +52,14 @@ h1 {
 
 p {
     margin: 10px 0;
-    text-align: left; /* Alinea el texto a la izquierda para que se vea más natural */
+    text-align: left;
 }
 
 .form-inline {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 15px; /* Espacio entre los elementos */
+    gap: 15px;
     margin-top: 20px;
     margin-left: 20px;
 }
@@ -90,10 +89,10 @@ p {
 }
 
 .button-container {
-    margin-top: 10px; /* Añade un margen superior para el botón */
+    margin-top: 10px;
     display: flex;
-    gap: 10px; /* Espacio entre los botones */
-    justify-content: flex-end; /* Alinea los botones a la derecha */
+    gap: 10px; 
+    justify-content: flex-end;
 }
 
 .btn-details,
@@ -106,10 +105,10 @@ p {
     font-size: 16px;
     font-weight: bold;
     transition: background-color 0.3s ease;
-    height: 40px; /* Altura fija para los botones */
-    display: flex; /* Usa flexbox para centrar el texto dentro del botón */
-    align-items: center; /* Centra verticalmente el texto */
-    justify-content: center; /* Centra horizontalmente el texto */
+    height: 40px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
 }
 
 .btn-details {
