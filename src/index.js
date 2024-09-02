@@ -63,12 +63,23 @@ async function loadProducts() {
     }
 }
 
+// Cargar carritos y emitir a los clientes
+async function loadCarts() {
+    try {
+        const carts = await Cart.find().populate('products.product'); // Asegúrate de obtener los detalles del producto
+        io.emit('updateCarts', carts);
+    } catch (error) {
+        console.error('Error al obtener carritos:', error);
+    }
+}
+
 // Manejo de conexión de Socket.IO
 io.on('connection', (socket) => {
     console.log('Nuevo cliente conectado');
     
     // para enviar los productos actuales al nuevo cliente
     loadProducts();
+    loadCarts(); // Agregado para carritos
 
     // para manejar la adición de productos
     socket.on('addProduct', async (productData) => {
@@ -88,6 +99,17 @@ io.on('connection', (socket) => {
             loadProducts();
         } catch (error) {
             console.error('Error al eliminar producto:', error);
+        }
+    });
+
+     // para manejar la actualización de la cantidad del producto en el carrito
+    socket.on('updateCart', async (cartId) => {
+        console.log('Actualizar carrito:', cartId);
+        try {
+            const cart = await Cart.findById(cartId).populate('products.product');
+            io.emit('updateCart', cart);
+        } catch (error) {
+            console.error('Error al obtener carrito:', error);
         }
     });
 });

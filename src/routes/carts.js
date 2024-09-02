@@ -14,6 +14,18 @@ router.get('/all', async (req, res) => {
     }
 });
 
+// Ruta para crear un carrito
+router.post('/create', async (req, res) => {
+    try {
+        const newCart = new Cart();
+        await newCart.save();
+        res.status(201).json(newCart);
+    } catch (error) {
+        console.error('Error al crear carrito:', error);
+        res.status(500).send('Error al crear carrito');
+    }
+});
+
 // Ruta para mostrar la vista de gestión de carritos.
 router.get('/', async (req, res) => {
     try {

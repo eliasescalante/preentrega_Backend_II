@@ -1,28 +1,36 @@
 //NO FUNCIONA POR AHORA TENGO QUE DEPURAR!!!!
 
 // Función para actualizar la vista del carrito
-function updateCartView(cartId) {
-    fetch(`/carts/${cartId}`)
-    .then(response => response.json())
-    .then(cart => {
-        // Aquí actualiza la vista con los nuevos datos del carrito
-        // Por ejemplo, puedes re-renderizar la vista o actualizar los elementos DOM
-        console.log('Actualizando vista del carrito:', cart);
-        // Implementa la lógica para actualizar la vista con los datos del carrito
-    })
-    .catch(error => {
-        console.error('Error al actualizar la vista del carrito:', error);
-    });
-}
-
-// Configuración de Socket.IO para actualizaciones en tiempo real
+// Conectar con Socket.IO
 const socket = io();
 
-socket.on('cartUpdated', (cartId) => {
-    if (cartId) {
-        updateCartView(cartId);
-    }
+// Escuchar actualizaciones del carrito
+socket.on('updateCart', (cart) => {
+    console.log('Carrito actualizado:', cart);
+    updateCartView(cart);
 });
+
+// Función para actualizar la vista del carrito
+function updateCartView(cart) {
+    const cartContainer = document.querySelector('.cart-container'); // Verifica si esta clase existe
+    cartContainer.innerHTML = ''; // Limpiar el contenido actual
+
+    if (cart.products.length) {
+        cart.products.forEach(product => {
+            cartContainer.innerHTML += `
+                <div class="cart-card">
+                    <h2>Producto: ${product.product.title}</h2>
+                    <p>Precio: $${product.product.price}</p>
+                    <p>Cantidad: ${product.quantity}</p>
+                    <button class="btn" onclick="modifyQuantity('${cart._id}', '${product.product._id}')">Modificar Cantidad</button>
+                    <button class="btn btn-danger" onclick="removeProduct('${cart._id}', '${product.product._id}')">Eliminar Producto</button>
+                </div>
+            `;
+        });
+    } else {
+        cartContainer.innerHTML = '<p class="empty-cart">Carrito vacío</p>';
+    }
+}
 
 
 
