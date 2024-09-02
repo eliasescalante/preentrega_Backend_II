@@ -1,39 +1,3 @@
-//NO FUNCIONA POR AHORA TENGO QUE DEPURAR!!!!
-
-// Función para actualizar la vista del carrito
-// Conectar con Socket.IO
-const socket = io();
-
-// Escuchar actualizaciones del carrito
-socket.on('updateCart', (cart) => {
-    console.log('Carrito actualizado:', cart);
-    updateCartView(cart);
-});
-
-// Función para actualizar la vista del carrito
-function updateCartView(cart) {
-    const cartContainer = document.querySelector('.cart-container'); // Verifica si esta clase existe
-    cartContainer.innerHTML = ''; // Limpiar el contenido actual
-
-    if (cart.products.length) {
-        cart.products.forEach(product => {
-            cartContainer.innerHTML += `
-                <div class="cart-card">
-                    <h2>Producto: ${product.product.title}</h2>
-                    <p>Precio: $${product.product.price}</p>
-                    <p>Cantidad: ${product.quantity}</p>
-                    <button class="btn" onclick="modifyQuantity('${cart._id}', '${product.product._id}')">Modificar Cantidad</button>
-                    <button class="btn btn-danger" onclick="removeProduct('${cart._id}', '${product.product._id}')">Eliminar Producto</button>
-                </div>
-            `;
-        });
-    } else {
-        cartContainer.innerHTML = '<p class="empty-cart">Carrito vacío</p>';
-    }
-}
-
-
-
 function modifyQuantity(cartId, productId) {
     Swal.fire({
         title: 'Modificar Cantidad',
