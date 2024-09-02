@@ -40,7 +40,7 @@ async function addToCart(productId) {
 
         if (selectedCartId) {
             // Enviar la solicitud para agregar el producto al carrito
-            const response = await fetch(`/carts/${selectedCartId}/products/${productId}`, {
+            const response = await fetch(`/carts/${selectedCartId}/products/${productId}/add`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

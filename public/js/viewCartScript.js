@@ -1,6 +1,19 @@
 //NO FUNCIONA POR AHORA TENGO QUE DEPURAR!!!!
+const socket = io();
 
-// Función para modificar la cantidad de un producto en un carrito
+    socket.on('cartUpdated', (cart) => {
+        // Actualizar el carrito en la vista
+        document.querySelectorAll('.cart-card').forEach(card => {
+            const productId = card.querySelector('button').getAttribute('onclick').split(',')[1].trim().replace(/'/g, '');
+            const product = cart.products.find(p => p.product._id === productId);
+            if (product) {
+                card.querySelector('p').textContent = `Cantidad: ${product.quantity}`;
+            }
+        });
+    });
+
+
+
 function modifyQuantity(cartId, productId) {
     Swal.fire({
         title: 'Modificar Cantidad',
@@ -21,7 +34,8 @@ function modifyQuantity(cartId, productId) {
     }).then((result) => {
         if (result.isConfirmed) {
             const quantity = parseInt(result.value, 10);
-            fetch(`/carts/${cartId}/products/${productId}`, {
+            console.log('Realizando solicitud para:', `/carts/${cartId}/products/${productId}/quantity`);
+            fetch(`/carts/${cartId}/products/${productId}/quantity`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -30,6 +44,7 @@ function modifyQuantity(cartId, productId) {
             })
             .then(response => response.json())
             .then(data => {
+                console.log('Respuesta del servidor:', data);
                 if (data.success) {
                     Swal.fire('Actualizado!', 'La cantidad se ha modificado correctamente.', 'success');
                 } else {
@@ -43,6 +58,7 @@ function modifyQuantity(cartId, productId) {
         }
     });
 }
+
 
 // Función para eliminar un producto del carrito
 function removeProduct(cartId, productId) {

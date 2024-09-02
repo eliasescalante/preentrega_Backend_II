@@ -85,9 +85,46 @@ router.put('/:id/empty', async (req, res) => {
     }
 });
 
-// Ruta para agregar un producto a un carrito específico y modificar cantidad
-router.put('/:cid/products/:pid', async (req, res) => {
-    console.log('Endpoint /:cid/products/:pid alcanzado');
+// Ruta para agregar un producto a un carrito específico
+router.put('/:cid/products/:pid/add', async (req, res) => {
+    console.log('Endpoint /:cid/products/:pid/add alcanzado');
+    try {
+        const { cid, pid } = req.params;
+        const { quantity } = req.body;
+
+        if (isNaN(quantity) || quantity <= 0) {
+            return res.status(400).json({ message: 'Cantidad no válida' });
+        }
+
+        if (!mongoose.Types.ObjectId.isValid(pid)) {
+            return res.status(400).json({ message: 'ID de producto no válido' });
+        }
+
+        const cart = await Cart.findById(cid);
+        if (!cart) {
+            return res.status(404).json({ message: 'Carrito no encontrado' });
+        }
+
+        const productIndex = cart.products.findIndex(p => p.product.toString() === pid);
+        if (productIndex > -1) {
+            // Si el producto está en el carrito, incrementar la cantidad
+            cart.products[productIndex].quantity += quantity;
+        } else {
+            // Si el producto no está en el carrito, agregarlo
+            cart.products.push({ product: pid, quantity });
+        }
+
+        await cart.save();
+        res.json({ success: true, message: 'Producto agregado/modificado en el carrito', cart });
+    } catch (error) {
+        console.error('Error al agregar/modificar el producto en el carrito:', error);
+        res.status(500).json({ message: 'Error al agregar/modificar el producto' });
+    }
+});
+
+// Ruta para modificar la cantidad de un producto en un carrito específico
+router.put('/:cid/products/:pid/quantity', async (req, res) => {
+    console.log('Endpoint /:cid/products/:pid/quantity alcanzado');
     try {
         const { cid, pid } = req.params;
         const { quantity } = req.body;
@@ -110,18 +147,15 @@ router.put('/:cid/products/:pid', async (req, res) => {
         if (productIndex > -1) {
             // Si el producto está en el carrito, actualizar la cantidad
             cart.products[productIndex].quantity = quantity;
+            await cart.save();
+            res.json({ success: true, message: 'Cantidad actualizada', cart });
         } else {
-            // Si el producto no está en el carrito, agregarlo
-            cart.products.push({ product: pid, quantity });
+            res.status(404).json({ success: false, message: 'Producto no encontrado en el carrito' });
         }
-
-        await cart.save();
-        res.json({ message: 'Producto modificado en el carrito', cart });
     } catch (error) {
-        console.error('Error al modificar el producto en el carrito:', error);
+        console.error('Error al modificar la cantidad del producto en el carrito:', error);
         res.status(500).json({ message: 'Error al modificar la cantidad' });
     }
 });
-
 
 module.exports = router;
