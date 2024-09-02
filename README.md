@@ -1,4 +1,5 @@
-# E-commerce Server v 2 - Entrega final del curso de CODER HOUSE - 
+# API - COMMERCE 
+# Entrega final del curso de CODER HOUSE - 
 # Programación Backend I: Desarrollo Avanzado de Backend
 
 ----
@@ -11,7 +12,7 @@
 
 ## Descripción del Proyecto
 
-Este servidor proporciona una API para manejar productos y carritos de compra. Los productos y carritos se almacenan una base de datos (MongoDB), y el servidor permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre estos datos.
+Este servidor proporciona una API para manejar productos y carritos de compra. Los productos y carritos se almacenan en una base de datos que se encuentra en la nube(MongoDB Atlas), y el servidor permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre estos datos.
 Se agrego Websockets al proyecto y vistas con plantillas.
 
 ## Cómo Ejecutar el Proyecto
@@ -74,11 +75,20 @@ CAPTURA DEL PROYECTO:
 
 ### Node.js
 
-![Node.js Logo](https://nodejs.org/static/images/logos/nodejs-new-pantone-black.png)
+<img src="https://img.icons8.com/color/48/000000/nodejs.png" alt="Node.js Logo" width="48"/>
 
 ### Express.js
 
-![Express.js Logo](https://expressjs.com/images/express-facebook-share.png)
+<img src="https://img.icons8.com/ios/50/000000/express-js.png" alt="Express.js Logo" width="48"/>
+
+### JavaScript
+
+<img src="https://img.icons8.com/color/48/000000/javascript.png" alt="JavaScript Logo" width="48"/>
+
+----
+
+
+
 
 
 
