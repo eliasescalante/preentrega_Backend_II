@@ -1,16 +1,28 @@
 //NO FUNCIONA POR AHORA TENGO QUE DEPURAR!!!!
+
+// Función para actualizar la vista del carrito
+function updateCartView(cartId) {
+    fetch(`/carts/${cartId}`)
+    .then(response => response.json())
+    .then(cart => {
+        // Aquí actualiza la vista con los nuevos datos del carrito
+        // Por ejemplo, puedes re-renderizar la vista o actualizar los elementos DOM
+        console.log('Actualizando vista del carrito:', cart);
+        // Implementa la lógica para actualizar la vista con los datos del carrito
+    })
+    .catch(error => {
+        console.error('Error al actualizar la vista del carrito:', error);
+    });
+}
+
+// Configuración de Socket.IO para actualizaciones en tiempo real
 const socket = io();
 
-    socket.on('cartUpdated', (cart) => {
-        // Actualizar el carrito en la vista
-        document.querySelectorAll('.cart-card').forEach(card => {
-            const productId = card.querySelector('button').getAttribute('onclick').split(',')[1].trim().replace(/'/g, '');
-            const product = cart.products.find(p => p.product._id === productId);
-            if (product) {
-                card.querySelector('p').textContent = `Cantidad: ${product.quantity}`;
-            }
-        });
-    });
+socket.on('cartUpdated', (cartId) => {
+    if (cartId) {
+        updateCartView(cartId);
+    }
+});
 
 
 
