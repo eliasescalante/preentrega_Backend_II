@@ -12,8 +12,9 @@
 
 ## Descripción del Proyecto
 
-Este servidor proporciona una API para manejar productos y carritos de compra. Los productos y carritos se almacenan en una base de datos que se encuentra en la nube(MongoDB Atlas), y el servidor permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre estos datos.
-Se agrego Websockets al proyecto y vistas con plantillas.
+Este servidor proporciona una API para manejar productos y carritos de compra. Los productos y carritos se almacenan en una base de datos y el servidor permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre la misma.
+Se agrego Websockets al proyecto y vistas con plantillas (Motores de Plantillas "Handlebars"). Ademas de usar MongoDB como persistencia de los datos. (DB subida en la nube)
+Se usa como ODM la libreria mongoose. 
 
 ## Cómo Ejecutar el Proyecto
 
@@ -21,7 +22,7 @@ Se agrego Websockets al proyecto y vistas con plantillas.
 - 2 . inicia el server con "npm start"
 - 3 . la pagina inicial describe los metodos a utilizar
 
-## Funcionalidades primera pre-entrega
+### Funcionalidades primera pre-entrega
 
 - **Gestión de Carritos**:
   - **Crear Nuevo Carrito**: `POST /api/carts`
@@ -36,7 +37,7 @@ Se agrego Websockets al proyecto y vistas con plantillas.
   - **Actualizar Producto**: `PUT /api/products/:pid`
   - **Eliminar Producto**: `DELETE /api/products/:pid`
 ----
-## Funcionalidades segunda pre-entrega
+### Funcionalidades segunda pre-entrega
 
 - Se agrego al proyecto Websockets y se integro el trabajo con vistas.
 - Se implemento handlebars.
@@ -46,7 +47,7 @@ Se agrego Websockets al proyecto y vistas con plantillas.
 - se utilizo sweetAlert2 para los mensajes emergentes.
 - Se utilizo CSS nativo para los estilos.
 ----
-## Funcionalidades Entrega Final
+# Funcionalidades Entrega Final
 - Se cambio la persistencia alojada en data/carts.json y data/products.json por mongodb la cual se hizo el deploy en mongo atlas.
 -  `realTimeProducts` : realiza el alta y la eliminacion de un producto en la base de datos que se encuentra en la nube, utilizando el frontend .
 - `realTimeProducts` : muestra ademas en tiempo real cuando se agrega un producto y cuando se elimina.
