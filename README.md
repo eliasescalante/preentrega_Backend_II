@@ -46,13 +46,13 @@ Se agrego Websockets al proyecto y vistas con plantillas.
 - se utilizo sweetAlert2 para los mensajes emergentes.
 - Se utilizo CSS nativo para los estilos.
 ----
-## Funcionalidades Entrega Final
+# Funcionalidades Entrega Final
 - Se cambio la persistencia alojada en data/carts.json y data/products.json por mongodb la cual se hizo el deploy en mongo atlas.
 -  `realTimeProducts` : realiza el alta y la eliminacion de un producto en la base de datos que se encuentra en la nube, utilizando el frontend .
 - `realTimeProducts` : muestra ademas en tiempo real cuando se agrega un producto y cuando se elimina.
 - `products` : ahora muestra todos los productos desde la nueva base de datos en la nube. 
 - `products` : permite ademas ver un detalle de cada producto.
-- `products` : cada elemento tiene un boton que permite agregar el producto al carrito seleccionado
+- `products` : cada elemento tiene un boton que permite agregar el producto al carrito seleccionado (permite elegir el carrito al cual agregar el producto)
 - `products` : permite aplicar filtro sobre el listado general (buscar por categoria, ordenar por precio, visualizar n productos por paginas, elegir la pagina, y navegar por las paginas)
 - `carts` : muestra todos los carritos creados.
 - `carts` : permite ver el contenido de cada carrito.
