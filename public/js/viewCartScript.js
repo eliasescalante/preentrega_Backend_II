@@ -31,7 +31,10 @@ function modifyQuantity(cartId, productId) {
             .then(data => {
                 console.log('Respuesta del servidor:', data);
                 if (data.success) {
-                    Swal.fire('Actualizado!', 'La cantidad se ha modificado correctamente.', 'success');
+                    Swal.fire(
+                        'Actualizado!', 'La cantidad se ha modificado correctamente.', 'success'
+                    ).then(()=>window.location.reload());
+                    
                 } else {
                     Swal.fire('Error!', 'No se pudo actualizar la cantidad.', 'error');
                 }
