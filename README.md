@@ -21,11 +21,6 @@ Se agrego Websockets al proyecto y vistas con plantillas.
 - 2 . inicia el server con "npm start"
 - 3 . la pagina inicial describe los metodos a utilizar
 
-## Deploy del proyecto
-
-- https://proyectofinal-api-commerce.onrender.com
-
-
 ## Funcionalidades primera pre-entrega
 
 - **Gestión de Carritos**:
