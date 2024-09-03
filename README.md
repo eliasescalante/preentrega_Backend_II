@@ -22,7 +22,7 @@ Se usa como ODM la libreria mongoose.
 - 2 . inicia el server con "npm start"
 - 3 . la pagina inicial describe los metodos a utilizar
 
-### Funcionalidades primera pre-entrega
+#### Funcionalidades primera pre-entrega
 
 - **Gestión de Carritos**:
   - **Crear Nuevo Carrito**: `POST /api/carts`
@@ -37,7 +37,7 @@ Se usa como ODM la libreria mongoose.
   - **Actualizar Producto**: `PUT /api/products/:pid`
   - **Eliminar Producto**: `DELETE /api/products/:pid`
 ----
-### Funcionalidades segunda pre-entrega
+#### Funcionalidades segunda pre-entrega
 
 - Se agrego al proyecto Websockets y se integro el trabajo con vistas.
 - Se implemento handlebars.
