@@ -1,6 +1,7 @@
 // modelo para los productos
 
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const productSchema = new mongoose.Schema({
     title: { type: String, required: true },
@@ -12,6 +13,11 @@ const productSchema = new mongoose.Schema({
     category: { type: String, required: true },
     thumbnails: [String] // Array de Strings para las URLs de las imágenes
 });
+
+
+// agrego el plugin de paginación
+productSchema.plugin(mongoosePaginate);
+
 // creo el modelo Product
 const Product = mongoose.model('Product', productSchema);
 // exporto el modelo para ser usado

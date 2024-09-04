@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-// Ruta para obtener todos los productos
+// Ruta para obtener todos los productos con paginación
 router.get('/', async (req, res) => {
     try {
         const { limit = 10, page = 1, sort, query } = req.query;
@@ -38,22 +38,24 @@ router.get('/', async (req, res) => {
         const filter = query ? { category: query } : {};
         const sortOption = sort === 'asc' ? { price: 1 } : sort === 'desc' ? { price: -1 } : {};
 
-        const products = await Product.find(filter)
-            .limit(Number(limit))
-            .skip((Number(page) - 1) * Number(limit))
-            .sort(sortOption);
+        // Usando paginate
+        const options = {
+            page: Number(page),
+            limit: Number(limit),
+            sort: sortOption
+        };
 
-        const totalProducts = await Product.countDocuments(filter);
+        const result = await Product.paginate(filter, options);
 
         res.render('products', {
-            products: products,
-            currentPage: Number(page),
-            totalPages: Math.ceil(totalProducts / limit),
-            hasNextPage: Number(page) < Math.ceil(totalProducts / limit),
-            hasPreviousPage: Number(page) > 1,
-            nextPage: Number(page) + 1,
-            previousPage: Number(page) - 1,
-            limit: Number(limit),
+            products: result.docs,
+            currentPage: result.page,
+            totalPages: result.totalPages,
+            hasNextPage: result.hasNextPage,
+            hasPreviousPage: result.hasPrevPage,
+            nextPage: result.nextPage,
+            previousPage: result.prevPage,
+            limit: result.limit,
             sort,
             query,
         });
@@ -62,6 +64,7 @@ router.get('/', async (req, res) => {
         res.status(500).send('Server error');
     }
 });
+
 
 // Ruta para obtener los detalles de un producto
 router.get('/:id', async (req, res) => {
