@@ -35,7 +35,7 @@ router.get('/', async (req, res) => {
     try {
         const { limit = 10, page = 1, sort, query } = req.query;
 
-        const filter = query ? { category: query } : {}; // Ajusta según tu esquema y necesidades de filtro
+        const filter = query ? { category: query } : {};
         const sortOption = sort === 'asc' ? { price: 1 } : sort === 'desc' ? { price: -1 } : {};
 
         const products = await Product.find(filter)
