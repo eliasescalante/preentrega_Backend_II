@@ -117,3 +117,8 @@
     border-radius: 5px;
     background-color: #f9f9f9;
 }
+/* estilo agregado a la imagen del carrito*/
+.img-cart {
+    max-width: 10rem;
+}
+
