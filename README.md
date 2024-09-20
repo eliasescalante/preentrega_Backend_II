@@ -86,15 +86,3 @@ CAPTURA DEL PROYECTO:
 <img src="https://img.icons8.com/color/48/000000/javascript.png" alt="JavaScript Logo" width="48"/>
 
 ----
-
-
-
-
-
-
-![GitHub repo size](https://img.shields.io/github/repo-size/eliasescalante/proyectoFinal_api_commerce
-)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/eliasescalante/proyectoFinal_api_commerce
-)
-![GitHub last commit](https://img.shields.io/github/last-commit/eliasescalante/proyectoFinal_api_commerce
-)
