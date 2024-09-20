@@ -1,26 +1,35 @@
-// Conexion con la base de datos
-const mongoose = require('mongoose');
-//para depurar los errores
+// src/config/mongo.js
+import mongoose from 'mongoose';
+
+// Para depurar los errores
 mongoose.set('debug', true);
 
-//conexión a mi base de datos en la nube
-mongoose.connect('mongodb+srv://ninja:671905@commerce.yr759.mongodb.net/', {
-    serverSelectionTimeoutMS: 5000
-});
+// Función para conectar a la base de datos
+const connectToMongo = async () => {
+    /*
+    try {
+        // Conexión a la base de datos en la nube
+        await mongoose.connect('mongodb+srv://ninja:671905@commerce.yr759.mongodb.net/', {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            serverSelectionTimeoutMS: 5000
+        });
+        console.log('Conexión a MongoDB Atlas establecida');
+    } catch (error) {
+        console.error('Error de conexión a MongoDB Atlas:', error);
+    }
+    */
+    // Conexión a la base de datos local (opcional)
+    try {
+        await mongoose.connect('mongodb://localhost:27017/mi_basedatos', {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+        console.log('Conexión a MongoDB local establecida');
+    } catch (error) {
+        console.error('Error de conexión a MongoDB local:', error);
+    }
+};
 
-/*
-mongoose.connect('mongodb://localhost:27017/mi_basedatos', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
-*/
-
-const db = mongoose.connection;
-
-db.on('error', console.error.bind(console, 'Error de conexión:'));
-db.once('open', () => {
-    console.log('Conexión a MongoDB establecida');
-});
-
-module.exports = mongoose;
-
+// Exporto la función para que se pueda llamar en app.js
+export default connectToMongo;

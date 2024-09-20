@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const mongoose = require('mongoose');
-const Cart = require('../models/cartModel');
+import mongoose from 'mongoose';
+import Cart from '../models/cartModel.js';
+
 
 // Endpoint para obtener todos los carritos
 router.get('/all', async (req, res) => {
@@ -170,4 +171,4 @@ router.put('/:cid/products/:pid/quantity', async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

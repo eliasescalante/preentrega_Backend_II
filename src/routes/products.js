@@ -1,5 +1,5 @@
-const express = require('express');
-const Product = require('../models/productModel');
+import express from 'express';
+import Product from '../models/productModel.js';
 const router = express.Router();
 
 // Ruta para agregar un nuevo producto
@@ -99,4 +99,4 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

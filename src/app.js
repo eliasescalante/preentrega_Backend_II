@@ -1,19 +1,41 @@
 //Server
-const express = require('express');
-const { engine } = require('express-handlebars');
-const path = require('path');
-const http = require('http');
-const socketIo = require('socket.io');
-const mongoose = require('mongoose');
-const cartsRoutes = require('./routes/carts');
-const productsRoutes = require('./routes/products');
-const Product = require('./models/productModel');
-const Cart = require('./models/cartModel'); 
-const connectToMongo = require('./config/mongo');
-const helpers = require('handlebars-helpers')();
+import express from 'express';
+import { engine } from 'express-handlebars';
+import path from 'path';
+import http from 'http';
+import { Server } from 'socket.io';  // Cambiado a Server
+import cartsRoutes from './routes/carts.js';  // Asegúrate de agregar la extensión .js
+import productsRoutes from './routes/products.js';  // Asegúrate de agregar la extensión .js
+import Product from './models/productModel.js';  // Asegúrate de agregar la extensión .js
+import connectToMongo from './config/mongo.js';  // Asegúrate de agregar la extensión .js
+import helpers from 'handlebars-helpers';
+const helperFunctions = helpers();  // Para ejecutar los helpers
+import cookieParser from "cookie-parser";
+import passport from 'passport';
 
 const app = express();
 const PORT = 8080;
+
+// Conecta a MongoDB
+connectToMongo();
+
+//MIDDLEWARE
+
+app.use(cookieParser());
+
+// Carpeta pública para archivos estáticos
+app.use(express.static(path.resolve('public'))); // Uso ruta relativa
+
+// Middleware para analizar datos JSON
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Ruta para carritos
+app.use('/carts', cartsRoutes);
+
+// Ruta de productos
+app.use('/products', productsRoutes);
+
 
 // Configuro Handlebars
 app.engine('handlebars', engine({
@@ -26,29 +48,21 @@ app.engine('handlebars', engine({
     }
 }));
 app.set('view engine', 'handlebars');
-app.set('views', path.join(__dirname, 'views'));
 
-// Carpeta pública para archivos estáticos
-app.use(express.static(path.join(__dirname, '../public')));
+// Carpeta de vistas
+app.set('views', path.resolve('src/views')); // Usa ruta relativa
 
-// Middleware para analizar datos JSON
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-// Ruta para carritos
-app.use('/carts', cartsRoutes);
-
-// Ruta de productos
-app.use('/products', productsRoutes);
 
 // Ruta para ver productos en tiempo real
 app.get('/realtimeproducts', (req, res) => {
     res.render('realTimeProducts');
 });
 
+
 // Configuro el servidor HTTP y Socket.IO
 const server = http.createServer(app);
-const io = socketIo(server);
+const io = new Server(server); // Instancia correcta de Server
 
 // Cargar productos y emitir a los clientes
 async function loadProducts() {
@@ -90,6 +104,7 @@ io.on('connection', (socket) => {
 });
 
 // para iniciar el servidor
-server.listen(8080, () => {
-    console.log('Servidor en funcionamiento en http://localhost:8080');
+server.listen(PORT, () => {
+    console.log(`Servidor en funcionamiento en http://localhost:${PORT}`);
 });
+

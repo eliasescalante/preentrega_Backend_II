@@ -1,7 +1,8 @@
 //Por el momento este archivo esta en desuso
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+
 
 function readJsonFile(filePath) {
     //Funcion para leer el contenido de los archivos
