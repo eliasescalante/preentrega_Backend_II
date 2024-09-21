@@ -10,16 +10,18 @@ const router = Router();
 router.get("/register", (req, res) =>{
     res.render("register");
 })
+
 //ruta a login
 router.get("/login", (req, res) => {
     res.render("login"); 
 })
+
 //ruta a current
 router.get("/current", passport.authenticate("current", {session: false}), (req,res)=> {
-    console.log(req.user); // Para depurar
+    console.log(req.user); // para depurar
     res.render("home", {
         first_name: req.user.usuario,
-        cart_id: req.user.cart // Incluye el ID del carrito
+        cart_id: req.user.cart
     });
 
 })
@@ -42,7 +44,7 @@ router.post("/register", async(req, res) => {
         const nuevoCarrito = new Cart();
         await nuevoCarrito.save();
 
-        //si no existe, lo creo:
+        //si no existe el usuario, lo creo:
         const nuevoUsuario = new UserModel({
             first_name: nombre,
             last_name: apellido,
@@ -64,20 +66,19 @@ router.post("/register", async(req, res) => {
 
         console.log('paso');
 
-        //Lo mandamos con la cookie
+        //envio el token con la cookie
         res.cookie("cookieToken", token, {
             maxAge: 3600000,
             httpOnly: true,
         })
-
+        //mensaje para depurar donde corta el flujo
         console.log('paso');
-
         res.redirect("/api/sessions/current");
-
+        //mensaje para depurar donde corta el flujo
         console.log('paso');
 
     } catch (error) {
-        console.error("Error en el registro:", error); // Agrega esta línea
+        console.error("Error en el registro:", error); // para ver porque fallo
         res.status(500).send("Error interno del servidor")
     }
 
@@ -89,7 +90,7 @@ router.post("/login", async(req, res) =>{
     const {first_name, password} = req.body;
 
     try {
-        
+        // Busco el usuario por su nombre
         const usuarioEncontrado = await UserModel.findOne({first_name});
         console.log("Datos de login:", req.body);
 
@@ -103,15 +104,15 @@ router.post("/login", async(req, res) =>{
         }
 
 
-        // generamos el token
+        // genero el token
         const token = jwt.sign({usuario: usuarioEncontrado.first_name, rol: usuarioEncontrado.rol, cart: usuarioEncontrado.cart}, "coderhouse", {expiresIn: "1h"});
+        // envio el token como una cookie
         res.cookie("cookieToken", token, {
             maxAge: 3600000,
             httpOnly: true,
         })
+        //mensaje para ver si genero el token
         console.log("Token generado:", token);
-
-
         res.redirect("/api/sessions/current")
     } catch (error) {
         res.status(500).send("Error interno del servidor");

@@ -1,4 +1,4 @@
-// src/config/mongo.js
+//Conexion a la base de datos:
 import mongoose from 'mongoose';
 
 // Para depurar los errores
@@ -6,7 +6,7 @@ mongoose.set('debug', true);
 
 // Función para conectar a la base de datos
 const connectToMongo = async () => {
-    /*
+
     try {
         // Conexión a la base de datos en la nube
         await mongoose.connect('mongodb+srv://ninja:671905@commerce.yr759.mongodb.net/', {
@@ -18,7 +18,7 @@ const connectToMongo = async () => {
     } catch (error) {
         console.error('Error de conexión a MongoDB Atlas:', error);
     }
-    */
+/*
     // Conexión a la base de datos local (opcional)
     try {
         await mongoose.connect('mongodb://localhost:27017/mi_basedatos', {
@@ -29,6 +29,7 @@ const connectToMongo = async () => {
     } catch (error) {
         console.error('Error de conexión a MongoDB local:', error);
     }
+    */
 };
 
 // Exporto la función para que se pueda llamar en app.js

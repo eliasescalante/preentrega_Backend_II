@@ -3,13 +3,13 @@ import express from 'express';
 import { engine } from 'express-handlebars';
 import path from 'path';
 import http from 'http';
-import { Server } from 'socket.io';  // Cambiado a Server
-import cartsRoutes from './routes/carts.js';  // Asegúrate de agregar la extensión .js
-import productsRoutes from './routes/products.js';  // Asegúrate de agregar la extensión .js
-import Product from './models/productModel.js';  // Asegúrate de agregar la extensión .js
-import connectToMongo from './config/mongo.js';  // Asegúrate de agregar la extensión .js
+import { Server } from 'socket.io';
+import cartsRoutes from './routes/carts.js';
+import productsRoutes from './routes/products.js';
+import Product from './models/productModel.js';
+import connectToMongo from './config/mongo.js';
 import helpers from 'handlebars-helpers';
-const helperFunctions = helpers();  // Para ejecutar los helpers
+const helperFunctions = helpers();
 import cookieParser from "cookie-parser";
 import passport from 'passport';
 import users from "./routes/users.js";
@@ -52,15 +52,12 @@ app.engine('handlebars', engine({
 app.set('view engine', 'handlebars');
 
 // Carpeta de vistas
-app.set('views', path.resolve('src/views')); // Usa ruta relativa
-
-
+app.set('views', path.resolve('src/views'));
 
 // Ruta para ver productos en tiempo real
 app.get('/realtimeproducts', (req, res) => {
     res.render('realTimeProducts');
 });
-
 
 // Configuro el servidor HTTP y Socket.IO
 const server = http.createServer(app);
@@ -79,11 +76,9 @@ async function loadProducts() {
 // Manejo de conexión de Socket.IO
 io.on('connection', (socket) => {
     console.log('Nuevo cliente conectado');
-
     // para enviar los productos actuales al nuevo cliente
     loadProducts();
-
-    // para manejar la adición de productos
+    // para manejar el agregado de productos
     socket.on('addProduct', async (productData) => {
         try {
             const newProduct = new Product(productData);
