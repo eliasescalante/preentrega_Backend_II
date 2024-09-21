@@ -16,7 +16,7 @@ router.get("/login", (req, res) => {
 })
 //ruta a current
 router.get("/current", passport.authenticate("jwt", {session: false}), (req,res)=> {
-    res.render("home", {usuario: req.user.usuario});
+    res.render("home", {first_name: req.user.usuario});
 })
 
 
