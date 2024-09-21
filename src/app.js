@@ -12,6 +12,8 @@ import helpers from 'handlebars-helpers';
 const helperFunctions = helpers();  // Para ejecutar los helpers
 import cookieParser from "cookie-parser";
 import passport from 'passport';
+import users from "./routes/users.js";
+import initializePassport from "./config/passport.config.js";
 
 const app = express();
 const PORT = 8080;
@@ -22,19 +24,19 @@ connectToMongo();
 //MIDDLEWARE
 
 app.use(cookieParser());
-
+initializePassport();
+app.use(passport.initialize());
 // Carpeta pública para archivos estáticos
 app.use(express.static(path.resolve('public'))); // Uso ruta relativa
-
 // Middleware para analizar datos JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Ruta para carritos
 app.use('/carts', cartsRoutes);
-
 // Ruta de productos
 app.use('/products', productsRoutes);
+app.use("/api/sessions", users);
 
 
 // Configuro Handlebars
