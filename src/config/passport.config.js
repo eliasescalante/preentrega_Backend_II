@@ -6,7 +6,7 @@ const JWTStategy = jwt.Strategy;
 const ExtractJwt = jwt.ExtractJwt; 
 
 const initializePassport = () => {
-    passport.use("jwt", new JWTStategy({
+    passport.use("current", new JWTStategy({
         jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]), 
         secretOrKey: "coderhouse",
     }, async (jwt_payload, done) => {

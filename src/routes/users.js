@@ -15,8 +15,13 @@ router.get("/login", (req, res) => {
     res.render("login"); 
 })
 //ruta a current
-router.get("/current", passport.authenticate("jwt", {session: false}), (req,res)=> {
-    res.render("home", {first_name: req.user.usuario});
+router.get("/current", passport.authenticate("current", {session: false}), (req,res)=> {
+    console.log(req.user); // Para depurar
+    res.render("home", {
+        first_name: req.user.usuario,
+        cart_id: req.user.cart // Incluye el ID del carrito
+    });
+
 })
 
 
@@ -33,13 +38,18 @@ router.post("/register", async(req, res) => {
             return res.status(400).send("El usuario ya esta registrado")
         }
 
+         // Si no existe, creo el carrito
+        const nuevoCarrito = new Cart();
+        await nuevoCarrito.save();
+
         //si no existe, lo creo:
         const nuevoUsuario = new UserModel({
             first_name: nombre,
             last_name: apellido,
             age,
             email,
-            password: createHash(password)
+            password: createHash(password),
+            cart: nuevoCarrito._id, // Asocia el ID del carrito al usuario
         });
         
         await nuevoUsuario.save();
@@ -47,7 +57,10 @@ router.post("/register", async(req, res) => {
         console.log('paso');
 
         // Genero el token JWT
-        const token = jwt.sign({usuario: nuevoUsuario.first_name}, "coderhouse", {expiresIn: "1h"});
+        const token = jwt.sign({
+            usuario: nuevoUsuario.first_name,
+            cart: nuevoUsuario.cart
+        }, "coderhouse", {expiresIn: "1h"});
 
         console.log('paso');
 
@@ -64,6 +77,7 @@ router.post("/register", async(req, res) => {
         console.log('paso');
 
     } catch (error) {
+        console.error("Error en el registro:", error); // Agrega esta línea
         res.status(500).send("Error interno del servidor")
     }
 
@@ -90,7 +104,7 @@ router.post("/login", async(req, res) =>{
 
 
         // generamos el token
-        const token = jwt.sign({usuario: usuarioEncontrado.first_name, rol: usuarioEncontrado.rol}, "coderhouse", {expiresIn: "1h"});
+        const token = jwt.sign({usuario: usuarioEncontrado.first_name, rol: usuarioEncontrado.rol, cart: usuarioEncontrado.cart}, "coderhouse", {expiresIn: "1h"});
         res.cookie("cookieToken", token, {
             maxAge: 3600000,
             httpOnly: true,
