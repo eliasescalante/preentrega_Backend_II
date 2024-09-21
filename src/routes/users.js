@@ -106,9 +106,9 @@ router.post("/login", async(req, res) =>{
 
 
 //Logout
-router.post("logout", (req,res)=>{
+router.post("/logout", (req, res) => {
     res.clearCookie("cookieToken");
-    res.redirect("/login");
+    res.redirect("/api/sessions/login");
 })
 
 export default router;
