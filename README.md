@@ -66,22 +66,24 @@ En esta pre-entrega se agrego un "login", "registro de usuarios nuevos" y una vi
 
 ----
 
-### Node.js
-<div align="center">
-    <img src="https://img.icons8.com/color/48/000000/nodejs.png" alt="Node.js Logo" width="48"/>
-</div>
+<div style="display: flex; justify-content: center; align-items: center;">
 
-### Express.js
-<div align="center">
-    <img src="https://img.icons8.com/ios/50/000000/express-js.png" alt="Express.js Logo" width="48"/>
-</div>
+    <div style="text-align: center; margin: 10px;">
+        <div>Node.js</div>
+        <img src="https://img.icons8.com/color/48/000000/nodejs.png" alt="Node.js Logo" width="48"/>
+    </div>
 
-### JavaScript
-<div align="center">
-    <img src="https://img.icons8.com/color/48/000000/javascript.png" alt="JavaScript Logo" width="48"/>
+    <div style="text-align: center; margin: 10px;">
+        <div>Express.js</div>
+        <img src="https://img.icons8.com/ios/50/000000/express-js.png" alt="Express.js Logo" width="48"/>
+    </div>
+
+    <div style="text-align: center; margin: 10px;">
+        <div>JavaScript</div>
+        <img src="https://img.icons8.com/color/48/000000/javascript.png" alt="JavaScript Logo" width="48"/>
+    </div>
+
 </div>
 
 ----
 
-
-----
