@@ -24,6 +24,19 @@ En esta pre-entrega se agrego un "login", "registro de usuarios nuevos" y una vi
 - 2 . inicia el server con "npm start"
 - 3 . la pagina inicial describe los metodos a utilizar
 
+# Funcionalidades agregadas en esta pre-entrega:
+- `login` : permite iniciar sesion.
+- `register` : permite registrar un nuevo usuario.
+- `home` : muestra una vista con un mensaje de bienvenida y un boton para deslogearse.
+
+# Implementaciones:
+- Se agrego el uso de el paquete bcrypt para encriptar la contraseña.
+- Se agrego el uso de el paquete jsonwebtoken para generar un token de autenticacion
+- se agrego el modelo de usuario a la base de datos y se le asocio un id de un unico carrito.
+- Se implemento un sistema de login de usuario que trabaja con jwt. (se utilizo Passport para trabajar con el modelo de usuarios)
+- Se implemento la estrategia "current" para extraer cookies que contienen el token para obtener el usuario asociado. (se utliza extractor de cookie)
+- Se implemento la estrategia "jwt" para verificar el token y obtener el usuario asociado.
+
 #### Funcionalidades del proyecto entregado en backend 1.
 
 - Se cambio la persistencia alojada en data/carts.json y data/products.json por mongodb la cual se hizo el deploy en mongo atlas.
@@ -39,44 +52,36 @@ En esta pre-entrega se agrego un "login", "registro de usuarios nuevos" y una vi
 - `carts` : permite eliminar un producto del carrito y vaciar el mismo
 - `carts` : permite eliminar el carrito.
 
-## Funcionalidades agregadas en esta pre-entrega:
-- `login` : permite iniciar sesion.
-- `register` : permite registrar un nuevo usuario.
-- `home` : muestra una vista con un mensaje de bienvenida y un boton para deslogearse.
-
-## Implementaciones:
-- Se agrego el uso de el paquete bcrypt para encriptar la contraseña.
-- Se agrego el uso de el paquete jsonwebtoken para generar un token de autenticacion
-- se agrego el modelo de usuario a la base de datos y se le asocio un id de un unico carrito.
-- Se implemento un sistema de login de usuario que trabaja con jwt. (se utilizo Passport para trabajar con el modelo de usuarios)
-- Se implemento la estrategia "current" para extraer cookies que contienen el token para obtener el usuario asociado. (se utliza extractor de cookie)
-- Se implemento la estrategia "jwt" para verificar el token y obtener el usuario asociado.
-
-
+------
 
 ## CAPTURA DEL PROYECTO:
-
-<img src="https://github.com/eliasescalante/proyectoFinal_api_commerce/blob/main/public/img/capture_index.png" width="300" />
-<img src="https://github.com/eliasescalante/proyectoFinal_api_commerce/blob/main/public/img/capture_lista_productos.png" width="300" />
-<img src="https://github.com/eliasescalante/proyectoFinal_api_commerce/blob/main/public/img/capture_gestion_carritos.png" width="300" />
-<img src="https://github.com/eliasescalante/proyectoFinal_api_commerce/blob/main/public/img/capture_detalle_carrito.png" width="300" />
-<img src="https://github.com/eliasescalante/proyectoFinal_api_commerce/blob/main/public/img/capture_detalle_producto.png" width="300" />
-
+<img src="https://github.com/eliasescalante/preentrega_Backend_II/blob/main/public/img/captura_login.png" width="600" />
+<img src="https://github.com/eliasescalante/preentrega_Backend_II/blob/main/public/img/captura_register.png" width="600" />
+<img src="https://github.com/eliasescalante/preentrega_Backend_II/blob/main/public/img/capture_home.png" width="600" />
+<img src="https://github.com/eliasescalante/proyectoFinal_api_commerce/blob/main/public/img/capture_index.png" width="600" />
+<img src="https://github.com/eliasescalante/proyectoFinal_api_commerce/blob/main/public/img/capture_lista_productos.png" width="600" />
+<img src="https://github.com/eliasescalante/proyectoFinal_api_commerce/blob/main/public/img/capture_gestion_carritos.png" width="600" />
+<img src="https://github.com/eliasescalante/proyectoFinal_api_commerce/blob/main/public/img/capture_detalle_carrito.png" width="600" />
+<img src="https://github.com/eliasescalante/proyectoFinal_api_commerce/blob/main/public/img/capture_detalle_producto.png" width="600" />
 
 ----
 
-## Tecnologías Usadas
-
 ### Node.js
-
-<img src="https://img.icons8.com/color/48/000000/nodejs.png" alt="Node.js Logo" width="48"/>
+<div align="center">
+    <img src="https://img.icons8.com/color/48/000000/nodejs.png" alt="Node.js Logo" width="48"/>
+</div>
 
 ### Express.js
-
-<img src="https://img.icons8.com/ios/50/000000/express-js.png" alt="Express.js Logo" width="48"/>
+<div align="center">
+    <img src="https://img.icons8.com/ios/50/000000/express-js.png" alt="Express.js Logo" width="48"/>
+</div>
 
 ### JavaScript
+<div align="center">
+    <img src="https://img.icons8.com/color/48/000000/javascript.png" alt="JavaScript Logo" width="48"/>
+</div>
 
-<img src="https://img.icons8.com/color/48/000000/javascript.png" alt="JavaScript Logo" width="48"/>
+----
+
 
 ----
