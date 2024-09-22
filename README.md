@@ -4,10 +4,10 @@
 
 ----
 
-# Alumno: Elias Escalante
-# Profesor: Samuel Tocaimaza
-# Tutor : Saúl Belbey
-# Comision : 70085
+### Alumno: Elias Escalante
+### Profesor: Samuel Tocaimaza
+### Tutor : Saúl Belbey
+### Comision : 70085
 
 ----
 
