@@ -37,6 +37,8 @@ En esta pre-entrega se agrego un "login", "registro de usuarios nuevos" y una vi
 - Se implemento la estrategia "current" para extraer cookies que contienen el token para obtener el usuario asociado. (se utliza extractor de cookie)
 - Se implemento la estrategia "jwt" para verificar el token y obtener el usuario asociado.
 
+----
+
 #### Funcionalidades del proyecto entregado en backend 1.
 
 - Se cambio la persistencia alojada en data/carts.json y data/products.json por mongodb la cual se hizo el deploy en mongo atlas.
@@ -66,18 +68,19 @@ En esta pre-entrega se agrego un "login", "registro de usuarios nuevos" y una vi
 
 ----
 
-<table align="center">
-  <tr>
-    <th>Node.js</th>
-    <th>Express.js</th>
-    <th>JavaScript</th>
-  </tr>
-  <tr>
-    <td><img src="https://img.icons8.com/color/48/000000/nodejs.png" alt="Node.js Logo" width="48"/></td>
-    <td><img src="https://img.icons8.com/ios/50/000000/express-js.png" alt="Express.js Logo" width="48"/></td>
-    <td><img src="https://img.icons8.com/color/48/000000/javascript.png" alt="JavaScript Logo" width="48"/></td>
-  </tr>
-</table>
+<div align="center">
+
+### Node.js
+<img src="https://img.icons8.com/color/48/000000/nodejs.png" alt="Node.js Logo" width="48"/>
+
+### Express.js
+<img src="https://img.icons8.com/ios/50/000000/express-js.png" alt="Express.js Logo" width="48"/>
+
+### JavaScript
+<img src="https://img.icons8.com/color/48/000000/javascript.png" alt="JavaScript Logo" width="48"/>
+
+</div>
+
 
 
 ----
