@@ -7,22 +7,26 @@ import { Server } from 'socket.io';
 import cartsRoutes from './routes/carts.js';
 import productsRoutes from './routes/products.js';
 import Product from './models/productModel.js';
-import connectToMongo from './config/mongo.js';
 import helpers from 'handlebars-helpers';
 const helperFunctions = helpers();
 import cookieParser from "cookie-parser";
 import passport from 'passport';
 import users from "./routes/users.js";
 import initializePassport from "./config/passport.config.js";
+import configObject from './config/config.js';
+import mongoose from 'mongoose';
+
+const {mongo_url, puerto } = configObject;
 
 const app = express();
-const PORT = 8080;
 
-// Conecta a MongoDB
-connectToMongo();
+// conexion a la base de datos
+
+mongoose.connect(mongo_url)
+    .then(() => console.log("Conexion exitosa!"))
+    .catch((error) => console.log("error en la conexion", error))
 
 //MIDDLEWARE
-
 app.use(cookieParser());
 initializePassport();
 app.use(passport.initialize());
@@ -31,7 +35,6 @@ app.use(express.static(path.resolve('public'))); // Uso ruta relativa
 // Middleware para analizar datos JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 // Ruta para carritos
 app.use('/carts', cartsRoutes);
 // Ruta de productos
@@ -101,7 +104,7 @@ io.on('connection', (socket) => {
 });
 
 // para iniciar el servidor
-server.listen(PORT, () => {
-    console.log(`Servidor en funcionamiento en http://localhost:${PORT}`);
+server.listen(puerto, () => {
+    console.log(`Servidor en funcionamiento en http://localhost:${puerto}`);
 });
 
