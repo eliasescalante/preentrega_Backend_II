@@ -20,7 +20,7 @@ router.get("/login", (req, res) => {
 router.get("/current", passport.authenticate("current", {session: false}), (req,res)=> {
     console.log(req.user); // para depurar
     res.render("home", {
-        first_name: req.user.usuario,
+        email: req.user.usuario,
         cart_id: req.user.cart
     });
 
@@ -60,7 +60,7 @@ router.post("/register", async(req, res) => {
 
         // Genero el token JWT
         const token = jwt.sign({
-            usuario: nuevoUsuario.first_name,
+            usuario: nuevoUsuario.email,
             cart: nuevoUsuario.cart
         }, "coderhouse", {expiresIn: "1h"});
 
@@ -87,11 +87,11 @@ router.post("/register", async(req, res) => {
 
 //Login
 router.post("/login", async(req, res) =>{
-    const {first_name, password} = req.body;
+    const {email, password} = req.body;
 
     try {
         // Busco el usuario por su nombre
-        const usuarioEncontrado = await UserModel.findOne({first_name});
+        const usuarioEncontrado = await UserModel.findOne({email});
         console.log("Datos de login:", req.body);
 
 
@@ -105,7 +105,7 @@ router.post("/login", async(req, res) =>{
 
 
         // genero el token
-        const token = jwt.sign({usuario: usuarioEncontrado.first_name, rol: usuarioEncontrado.rol, cart: usuarioEncontrado.cart}, "coderhouse", {expiresIn: "1h"});
+        const token = jwt.sign({usuario: usuarioEncontrado.email, rol: usuarioEncontrado.rol, cart: usuarioEncontrado.cart}, "coderhouse", {expiresIn: "1h"});
         // envio el token como una cookie
         res.cookie("cookieToken", token, {
             maxAge: 3600000,
