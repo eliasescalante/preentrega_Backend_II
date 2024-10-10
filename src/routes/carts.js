@@ -33,7 +33,6 @@ router.get('/', async (req, res) => {
         console.log('Intentando obtener los carritos...');
         const carts = await Cart.find().populate('products.product');
         if (req.query.format === 'json') {
-            console.log('Carritos obtenidos:', carts);
             return res.json({ carts });
         } else {
             res.render('manageCarts', { carts });

@@ -6,11 +6,9 @@ const router = express.Router();
 router.post('/', async (req, res) => {
     try {
         const { title, description, code, price, stock, category, thumbnails } = req.body;
-
         if (!title || !description || !code || price == null || stock == null || !category) {
             return res.status(400).send('Todos los campos son obligatorios, a excepción de thumbnails');
         }
-
         // creo un nuevo producto utilizando el modelo de Mongoose
         const newProduct = new Product({
             title,
@@ -34,19 +32,15 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const { limit = 10, page = 1, sort, query } = req.query;
-
         const filter = query ? { category: query } : {};
         const sortOption = sort === 'asc' ? { price: 1 } : sort === 'desc' ? { price: -1 } : {};
-
         // Usando paginate
         const options = {
             page: Number(page),
             limit: Number(limit),
             sort: sortOption
         };
-
         const result = await Product.paginate(filter, options);
-
         res.render('products', {
             products: result.docs,
             currentPage: result.page,
@@ -65,7 +59,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-
 // Ruta para obtener los detalles de un producto
 router.get('/:id', async (req, res) => {
     try {
@@ -82,12 +75,10 @@ router.get('/:id', async (req, res) => {
 // Ruta para eliminar un producto
 router.delete('/:id', async (req, res) => {
     const { id } = req.params;
-
     // Verifico si el ID es una cadena no vacía y un ObjectId válido
     if (!id || !mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({ error: 'ID inválido' });
     }
-
     try {
         const deletedProduct = await Product.findByIdAndDelete(id);
         if (!deletedProduct) {
@@ -98,5 +89,4 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json({ error: 'Error al eliminar producto' });
     }
 });
-
 export default router;

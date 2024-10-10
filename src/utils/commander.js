@@ -6,5 +6,4 @@ program
     .option("--mode <mode>", "modo de trabajo", "desarrollo")
 program.parse();
 
-console.log("opciones: ", program.opts());
 export default program;
