@@ -17,6 +17,7 @@ import configObject from './config/config.js';
 import mongoose from 'mongoose';
 import session from 'express-session';
 import sessionRoutes from './routes/sessions.js';
+import {authenticateUser, authenticateAdmin} from './middleware/auth.js';
 
 
 const {mongo_url, puerto } = configObject;
@@ -61,9 +62,10 @@ app.use('/products', productsRoutes);
 app.use("/api/sessions", users);
 
 // Ruta para ver productos en tiempo real
-app.get('/realtimeproducts', (req, res) => {
+app.get('/realtimeproducts', authenticateAdmin, (req, res) => {
     res.render('realTimeProducts');
 });
+
 
 // Configuro Handlebars
 app.engine('handlebars', engine({

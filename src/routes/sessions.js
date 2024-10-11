@@ -1,7 +1,7 @@
 // src/routes/sessions.js
 import { Router } from 'express';
 import UserController from '../controllers/user.controller.js';
-import authenticateUser from '../middleware/auth.js'; // Asegúrate de que la ruta sea correcta
+import {authenticateUser} from '../middleware/auth.js'; // Asegúrate de que la ruta sea correcta
 
 const router = Router();
 

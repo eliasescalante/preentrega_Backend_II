@@ -8,6 +8,16 @@ const authenticateUser = (req, res, next) => {
     }
 };
 
+const authenticateAdmin = (req, res, next) => {
+    if (req.session.user && req.session.user.role === 'admin') {
+        req.user = req.session.user; // Establecer req.user desde la sesión
+        next();
+    } else {
+        return res.status(403).json({ message: 'Acceso denegado: Se requiere rol de administrador' });
+    }
+};
 
-export default authenticateUser;
+
+
+export { authenticateUser, authenticateAdmin };
 
