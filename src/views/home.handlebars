@@ -1,9 +1,9 @@
 <link rel="stylesheet" href="/css/styleHome.css">
 
 <div class="container">
-    <h1>Bienvenido, {{first_name}}!</h1>
+    <h1>Bienvenido, {{user.first_name}}!</h1>
     <p>Estamos encantados de tenerte aquí. Explora y disfruta de nuestros servicios.</p>
-    <p>Te asignamos el siguiente carrito: "{{cart_id}}"</p>
+    <p>Tienes el siguiente role: "{{user.role}}"</p>
     <form action="/api/sessions/logout" method="POST">
         <button>Logout</button>
     </form>

@@ -6,7 +6,7 @@ import http from 'http';
 import { Server } from 'socket.io';
 import cartsRoutes from './routes/carts.js';
 import productsRoutes from './routes/products.js';
-import Product from './models/productModel.js';
+import Product from './dao/models/productModel.js';
 import helpers from 'handlebars-helpers';
 const helperFunctions = helpers();
 import cookieParser from "cookie-parser";
@@ -17,11 +17,9 @@ import configObject from './config/config.js';
 import mongoose from 'mongoose';
 
 const {mongo_url, puerto } = configObject;
-
 const app = express();
 
 // conexion a la base de datos
-
 mongoose.connect(mongo_url)
     .then(() => console.log("Conexion exitosa!"))
     .catch((error) => console.log("error en la conexion", error))
@@ -30,17 +28,23 @@ mongoose.connect(mongo_url)
 app.use(cookieParser());
 initializePassport();
 app.use(passport.initialize());
+
 // Carpeta pública para archivos estáticos
 app.use(express.static(path.resolve('public'))); // Uso ruta relativa
+
 // Middleware para analizar datos JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// Ruta para carritos
+
+//Rutas
 app.use('/carts', cartsRoutes);
-// Ruta de productos
 app.use('/products', productsRoutes);
 app.use("/api/sessions", users);
 
+// Ruta para ver productos en tiempo real
+app.get('/realtimeproducts', (req, res) => {
+    res.render('realTimeProducts');
+});
 
 // Configuro Handlebars
 app.engine('handlebars', engine({
@@ -56,11 +60,6 @@ app.set('view engine', 'handlebars');
 
 // Carpeta de vistas
 app.set('views', path.resolve('src/views'));
-
-// Ruta para ver productos en tiempo real
-app.get('/realtimeproducts', (req, res) => {
-    res.render('realTimeProducts');
-});
 
 // Configuro el servidor HTTP y Socket.IO
 const server = http.createServer(app);
