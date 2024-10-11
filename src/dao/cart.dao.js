@@ -21,6 +21,10 @@ class CartDAO {
     async updateCart(id, data) {
         return await Cart.findByIdAndUpdate(id, data, { new: true });
     }
+
+    async findByUserId(userId) {
+        return await Cart.findOne({ userId }); // Cambia 'userId' por el campo correcto si es necesario
+    }
 }
 
 export default new CartDAO();

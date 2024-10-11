@@ -20,6 +20,10 @@ class CartRepository {
     async updateCart(id, data) {
         return await cartDAO.updateCart(id, data);
     }
+
+    async getCartByUserId(userId) {
+        return await cartDAO.findByUserId(userId); // Asegúrate de que esta función esté en cartDAO
+    }
 }
 
 export default new CartRepository();

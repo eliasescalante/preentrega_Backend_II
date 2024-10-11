@@ -16,7 +16,7 @@
 Este servidor proporciona una API para manejar productos y carritos de compra. Los productos y carritos se almacenan en una base de datos y el servidor permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre la misma.
 Se agrego Websockets al proyecto y vistas con plantillas (Motores de Plantillas "Handlebars"). Ademas de usar MongoDB como persistencia de los datos. (DB subida en la nube)
 Se usa como ODM la libreria mongoose.
-En esta pre-entrega se agrego un "login", "registro de usuarios nuevos" y una vista "home".
+Se agrego un "login", "registro de usuarios nuevos" y una vista "home".
 
 ## Cómo Ejecutar el Proyecto
 
@@ -36,6 +36,14 @@ En esta pre-entrega se agrego un "login", "registro de usuarios nuevos" y una vi
 - Se implemento un sistema de login de usuario que trabaja con jwt. (se utilizo Passport para trabajar con el modelo de usuarios)
 - Se implemento la estrategia "current" para extraer cookies que contienen el token para obtener el usuario asociado. (se utliza extractor de cookie)
 - Se implemento la estrategia "jwt" para verificar el token y obtener el usuario asociado.
+
+# Temas agregados para la entrega final
+
+- Patron DAO
+- Patron Repository
+- Variables de entorno
+- uso de DTO
+- 
 
 ----
 

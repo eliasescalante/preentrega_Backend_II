@@ -15,6 +15,9 @@ import users from "./routes/users.js";
 import initializePassport from "./config/passport.config.js";
 import configObject from './config/config.js';
 import mongoose from 'mongoose';
+import session from 'express-session';
+import sessionRoutes from './routes/sessions.js';
+
 
 const {mongo_url, puerto } = configObject;
 const app = express();
@@ -29,6 +32,21 @@ app.use(cookieParser());
 initializePassport();
 app.use(passport.initialize());
 
+// Middleware para manejar errores
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Error interno del servidor');
+});
+
+// Configura el middleware de sesiones
+app.use(session({
+    secret: 'tu_secreto', // Cambia esto a un secreto más seguro
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Cambia a true si estás usando HTTPS
+}));
+
+
 // Carpeta pública para archivos estáticos
 app.use(express.static(path.resolve('public'))); // Uso ruta relativa
 
@@ -37,6 +55,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //Rutas
+app.use('/api/sessions', sessionRoutes);
 app.use('/carts', cartsRoutes);
 app.use('/products', productsRoutes);
 app.use("/api/sessions", users);

@@ -11,6 +11,7 @@ class UserController {
 
             const token = jwt.sign({
                 usuario: `${nuevoUsuario.first_name} ${nuevoUsuario.last_name}`,
+                cart : nuevoUsuario.cart,
                 email: nuevoUsuario.email,
                 role: nuevoUsuario.role
             }, "coderhouse", {expiresIn: "1h"});
@@ -27,26 +28,34 @@ class UserController {
     }
 
     static async login(req, res) {
-        const {email, password} = req.body;
+        const { email, password } = req.body;
         try {
             const user = await userService.loginUser(email, password);
-            // genero el token
+            
+            // Ahora puedes acceder a req y establecer la sesión
+            req.session.user = { id: user._id, name: user.first_name, role: user.role, cart: user.cart };
+    
+            // Genera el token como antes
             const token = jwt.sign({
                 usuario: `${user.first_name} ${user.last_name}`,
+                cart: user.cart,
                 email: user.email,
                 role: user.role
-            }, "coderhouse", {expiresIn: "1h"});
-            // envio el token como una cookie
+            }, "coderhouse", { expiresIn: "1h" });
+    
+            // Envía el token como una cookie
             res.cookie("cookieToken", token, {
                 maxAge: 3600000,
                 httpOnly: true,
-            })
+            });
+    
             res.redirect("/api/sessions/current");
         } catch (error) {
+            console.error("Error en el inicio de sesión:", error.message); // Para depuración
             res.status(500).send("Error interno del servidor");
         }
-
     }
+    
 
     static async current(req, res) {
         if(req.user) {

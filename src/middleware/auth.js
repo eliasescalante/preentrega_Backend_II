@@ -1,20 +1,13 @@
-//Verificamos que seas admin: 
-
-
-export function soloAdmin(req, res, next) {
-    if(req.user.role === "admin") {
-        next(); 
+const authenticateUser = (req, res, next) => {
+    if (req.session.user) {
+        req.user = req.session.user; // Establecer req.user desde la sesión
+        console.log("Usuario autenticado:", req.user); // Agrega un log para verificar
+        next();
     } else {
-        res.status(403).send("Acceso denegado, este lugar es solo para admin queridooo"); 
+        return res.status(401).json({ message: 'Debes estar logueado para acceder' });
     }
-}
+};
 
 
-export function soloUser(req, res, next) {
-    if(req.user.role === "user") {
-        next(); 
-    } else {
-        res.status(403).send("Acceso denegado, este lugar es solo para usuarios comunachos");
-    }
+export default authenticateUser;
 
-}

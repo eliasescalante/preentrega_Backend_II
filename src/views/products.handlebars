@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/styleProduct.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="path/to/js-cookie.js"></script>
     <title>Lista de Productos</title>
 </head>
 <body>
@@ -47,7 +48,7 @@
                     <form action="/products/{{this._id}}" method="GET">
                         <button type="submit" class="btn-details">Ver Detalle</button>
                     </form>
-                    <button id="add-to-cart-btn" class="btn-add-to-cart" onclick="addToCart('{{this._id}}')">Agregar a Carrito</button>
+                    <button id="add-to-cart-btn" class="btn-add-to-cart" onclick="addToCart('{{this._id}}', this.dataset.userId)">Agregar a Carrito</button>
                 </div>
                 
             </div>

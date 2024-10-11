@@ -1,6 +1,26 @@
 import cartService from '../services/cart.service.js';
 
 class CartController {
+
+    async getCurrentCart(req, res) {
+        try {
+            const userId = req.user._id; // Asegúrate de que req.user esté definido
+            const cart = await cartService.getCartByUserId(userId); // Cambia esto a usar cartService
+            
+            console.log("ID de usuario:", userId); // Agrega un log para verificar el userId
+            
+            if (!cart) {
+                return res.status(404).json({ message: 'No hay carrito disponible para este usuario.' });
+            }
+            
+            res.json(cart); // Devolver el carrito del usuario en lugar de cart_id
+        } catch (error) {
+            console.error('Error al obtener el carrito:', error); // Agrega un log para ver el error
+            res.status(500).json({ message: 'Error al cargar el carrito' });
+        }
+    }
+    
+
     async getCart(req, res) {
         try {
             const carts = await cartService.getAllCarts();
@@ -21,12 +41,19 @@ class CartController {
 
     async viewCartManage(req, res) {
         try {
-            const carts = await cartService.getAllCarts();
-            res.render('manageCarts', { carts });
+            const userId = req.user._id; // Asegúrate de que req.user esté definido
+            const cart = await cartService.getCartByUserId(userId);
+            
+            if (!cart) {
+                return res.status(404).send('Carrito no encontrado');
+            }
+            
+            res.render('manageCarts', { cart });
         } catch (error) {
-            res.status(500).json({ message: 'Error al cargar los carritos' });
+            console.error('Error al cargar el carrito del usuario:', error);
+            res.status(500).send('Error al cargar el carrito del usuario');
         }
-    }
+    };
 
     async detailCart(req, res) {
         try {
@@ -49,16 +76,33 @@ class CartController {
         }
     }
 
+    // Ejemplo en tu controlador
     async addProductCart(req, res) {
         try {
-            const { cid, pid } = req.params;
-            const { quantity } = req.body;
-            const updatedCart = await cartService.addOrUpdateProductInCart(cid, pid, quantity);
+            const userId = req.user._id; // Asegúrate de que req.user esté definido
+            const { productId, quantity } = req.body;
+    
+            // Verificar que el usuario esté logueado
+            if (!userId) {
+                return res.status(401).json({ message: 'Usuario no autenticado.' });
+            }
+    
+            // Obtener el carrito del usuario
+            const cart = await cartService.getCartByUserId(userId);
+            if (!cart) {
+                return res.status(404).json({ message: 'No se pudo obtener el carrito del usuario.' });
+            }
+    
+            // Lógica para agregar el producto al carrito
+            const updatedCart = await cartService.addOrUpdateProductInCart(cart._id, productId, quantity);
             res.json(updatedCart);
         } catch (error) {
-            res.status(500).json({ message: 'Error al agregar/modificar el producto en el carrito' });
+            console.error('Error al agregar el producto al carrito:', error);
+            res.status(500).json({ message: 'Error al agregar el producto al carrito.' });
         }
     }
+    
+
 
     async updateProductQuantity(req, res) {
         const { cartId, productId } = req.params;
@@ -101,6 +145,10 @@ class CartController {
             res.status(500).json({ message: "Error al vaciar el carrito" });
         }
     }
+
+    
+    
+    
 }
 
 export default new CartController();

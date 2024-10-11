@@ -96,6 +96,14 @@ class CartService {
             throw new Error("Error al vaciar el carrito");
         }
     }
+
+    async getCartByUserId(userId) {
+        const cart = await cartRepository.getCartByUserId(userId);
+        if (!cart) {
+        throw new Error('Carrito no encontrado'); // Lanzar un error si no se encuentra el carrito
+        }
+        return cart;
+    }
 }
 
 export default new CartService();
