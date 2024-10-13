@@ -2,6 +2,7 @@ import productRepository from '../repositories/product.repository.js';
 
 class ProductService {
     async addProduct(data) {
+    // Método para añadir un nuevo producto
         const { title, description, code, price, stock, category, thumbnails = [] } = data;
         if (!title || !description || !code || price == null || stock == null || !category) {
             throw new Error('Todos los campos son obligatorios, a excepción de thumbnails');
@@ -10,6 +11,7 @@ class ProductService {
     }
 
     async getProducts(queryParams) {
+    // Método para obtener todos los productos
         const { limit = 10, page = 1, sort, query } = queryParams;
         const filter = query ? { category: query } : {};
         const sortOption = sort === 'asc' ? { price: 1 } : sort === 'desc' ? { price: -1 } : {};
@@ -19,6 +21,7 @@ class ProductService {
     }
 
     async getProductDetails(id) {
+    // Método para obtener los detalles de un producto
         const product = await productRepository.getProductById(id);
         if (!product) {
             throw new Error('Product not found');
@@ -27,6 +30,7 @@ class ProductService {
     }
 
     async deleteProduct(id) {
+    // Método para eliminar un producto
         if (!id || !mongoose.Types.ObjectId.isValid(id)) {
             throw new Error('ID inválido');
         }

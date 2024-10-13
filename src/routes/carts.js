@@ -3,10 +3,9 @@ import cartController from '../controllers/cart.controller.js';
 import {authenticateUser} from '../middleware/auth.js';
 const router = express.Router();
 
-router.get('/current', authenticateUser, (req, res, next) => {
-    console.log('Ruta /current alcanzada'); // Log para verificar el acceso a la ruta
-    next();
-}, cartController.getCurrentCart.bind(cartController));
+// Obtiene el carrito del usuario logueado
+router.get('/current', authenticateUser, cartController.getCurrentCart.bind(cartController));
+// Ruta para agregar un producto a un carrito específico
 router.put('/:cartId/products/:productId/add', cartController.addProductCart.bind(cartController));
 // Endpoint para obtener todos los carritos
 router.get('/all', cartController.getCart);
@@ -22,10 +21,7 @@ router.delete('/:id', cartController.deleteCart);
 router.delete('/:id/products/:productId', cartController.deleteProductFromCart);
 // Ruta para vaciar un carrito
 router.put('/:id/empty', cartController.emptyCart);
-// Ruta para agregar un producto a un carrito específico
 // Ruta para modificar la cantidad de un producto en un carrito específico
 router.put('/:cartId/products/:productId/quantity', cartController.updateProductQuantity);
-// Obtiene el carrito del usuario logueado
-
 
 export default router;

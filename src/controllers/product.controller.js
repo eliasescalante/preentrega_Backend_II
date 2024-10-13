@@ -1,6 +1,7 @@
 import productService from '../services/product.service.js';
 
 class ProductController {
+    // Método para agregar un nuevo producto
     async addProduct(req, res) {
         try {
             const newProduct = await productService.addProduct(req.body);
@@ -12,6 +13,7 @@ class ProductController {
     }
 
     async getProduct(req, res) {
+        // Método para obtener todos los productos
         try {
             const result = await productService.getProducts(req.query);
             res.render('products', {
@@ -33,6 +35,7 @@ class ProductController {
     }
 
     async getDetailProduct(req, res) {
+        // Método para obtener los detalles de un producto específico
         try {
             const product = await productService.getProductDetails(req.params.id);
             res.render('productDetails', { product });
@@ -42,6 +45,7 @@ class ProductController {
     }
 
     async deleteProduct(req, res) {
+        // Método para eliminar un producto
         try {
             const deletedProduct = await productService.deleteProduct(req.params.id);
             res.status(200).json({ message: 'Producto eliminado con éxito', product: deletedProduct });
@@ -50,5 +54,4 @@ class ProductController {
         }
     }
 }
-
 export default new ProductController();

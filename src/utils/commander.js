@@ -1,3 +1,4 @@
+//para definir y gestionar opciones de línea de comandos puerto y modo de trabajo
 import { Command } from "commander";
 const program = new Command();
 

@@ -3,44 +3,42 @@ import mongoose from 'mongoose';
 
 class CartService {
     async getAllCarts() {
+    // Método para obtener todos los carritos
         return await cartRepository.getCarts();
     }
 
     async createNewCart(userId) {
+    // Método para crear un nuevo carrito
         return await cartRepository.createCart(userId);
     }
 
     async getCartDetails(id) {
+    // Método para obtener los detalles de un carrito
         return await cartRepository.getCartById(id);
     }
 
     async deleteCartById(id) {
+    // Método para eliminar un carrito por su id
         return await cartRepository.deleteCart(id);
     }
 
     async addOrUpdateProductInCart(cartId, productId, quantity) {
-        console.log("estoy en service-", cartId, productId, quantity);
+    // Método para agregar o actualizar un producto en un carrito
         try {
-            console.log("estoy en service cart dentro del try");
             const cartObjectId = new mongoose.Types.ObjectId(cartId);
             const productObjectId = new mongoose.Types.ObjectId(productId);
     
             const cart = await cartRepository.getCartById(cartObjectId);
-            console.log('Carrito después de buscar en cart service:', cart); // Agregar log aquí
             if (!cart) throw new Error('Carrito no encontrado');
     
-            // Buscar el producto por su ID
             const productIndex = cart.products.findIndex(p => p.product.equals(productObjectId));
     
             if (productIndex > -1) {
-                // Si el producto ya existe, actualizar cantidad
                 cart.products[productIndex].quantity += quantity;
             } else {
-                // Si no existe, añadir nuevo producto
                 cart.products.push({ product: productObjectId, quantity });
             }
-    
-            // Actualizar el carrito en la base de datos
+            // actualizo el carrito en la base de datos
             const updatedCart = await cartRepository.updateCart(cartObjectId, { products: cart.products });
             return updatedCart;
         } catch (error) {
@@ -49,10 +47,8 @@ class CartService {
         }
     }
     
-    
-    
-
     async modifyProductQuantity(cartId, productId, newQuantity) {
+    // Método para modificar la cantidad de un producto en un carrito
         try {
             const cart = await cartRepository.getCartById(cartId);
             if (!cart) throw new Error('Carrito no encontrado');
@@ -62,8 +58,6 @@ class CartService {
             if (productIndex === -1) {
                 throw new Error('Producto no encontrado en el carrito');
             }
-
-            // Actualiza la cantidad
             cart.products[productIndex].quantity = newQuantity;
 
             const updatedCart = await cartRepository.updateCart(cartId, cart);
@@ -75,6 +69,7 @@ class CartService {
     }
 
     async deleteProductInCart(cartId, productId) {
+    // Método para eliminar un producto de un carrito
         try {
             const cart = await cartRepository.getCartById(cartId);
             if (!cart) throw new Error('Carrito no encontrado');
@@ -85,7 +80,6 @@ class CartService {
                 throw new Error('Producto no encontrado en el carrito');
             }
 
-            // Eliminar el producto
             cart.products.splice(productIndex, 1);
             return await cartRepository.updateCart(cartId, cart);
         } catch (error) {
@@ -95,6 +89,7 @@ class CartService {
     }
 
     async emptyCart(cartId) {
+    // Método para vaciar un carrito
         try {
             const cart = await cartRepository.getCartById(cartId);
             if (!cart) throw new Error('Carrito no encontrado');
@@ -107,8 +102,8 @@ class CartService {
         }
     }
 
-        // src/services/cart.service.js
     async getCartByUserId(userId) {
+    // Método para obtener un carrito por id de usuario
         try {
             return await cartRepository.findCartByUserId(userId); // Asegúrate de que esta función exista y funcione correctamente
         } catch (error) {
@@ -116,7 +111,6 @@ class CartService {
             throw error;
         }
     }
-
 }
 
 export default new CartService();

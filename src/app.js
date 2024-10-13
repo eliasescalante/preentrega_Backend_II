@@ -19,7 +19,6 @@ import session from 'express-session';
 import sessionRoutes from './routes/sessions.js';
 import {authenticateUser, authenticateAdmin} from './middleware/auth.js';
 
-
 const {mongo_url, puerto } = configObject;
 const app = express();
 
@@ -41,7 +40,6 @@ app.use(session({
     cookie: { secure: false } // Cambia a true si estás usando HTTPS
 }));
 
-
 // Carpeta pública para archivos estáticos
 app.use(express.static(path.resolve('public'))); // Uso ruta relativa
 
@@ -59,7 +57,6 @@ app.use("/api/sessions", users);
 app.get('/realtimeproducts', authenticateAdmin, (req, res) => {
     res.render('realTimeProducts');
 });
-
 
 // Configuro Handlebars
 app.engine('handlebars', engine({

@@ -1,10 +1,10 @@
 import { createHash, isValidPassword } from "../utils/util.js";
-//Importamos el repository: 
 import userRepository from "../repositories/user.repository.js";
 import cartService from './cart.service.js';
 
 class UserService {
     async registerUser(userData) {
+    // Método para registrar un nuevo usuario
         const existeUsuario = await userRepository.getUserByEmail(userData.email);
         if (existeUsuario) throw new Error("El usuario ya existe");
 
@@ -16,6 +16,7 @@ class UserService {
     }
 
     async loginUser(email, password) {
+    // Método para iniciar sesión
         const user = await userRepository.getUserByEmail(email);
         if (!user || !isValidPassword(password, user)) throw new Error("Credenciales incorrectas");
         return user;
