@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // productScript.js
 
 async function addToCart(productId) {
+// Obtener el producto del servidor
     try {
-        // Obtener el carrito actual del usuario logueado
         const response = await fetch('/carts/current', {
             method: 'GET',
             headers: {
@@ -26,20 +26,17 @@ async function addToCart(productId) {
         });
         console.log("Paso el try y estoy en la llamada a /carts/current", response);
 
-        // Verificar si la solicitud fue exitosa
         if (!response.ok) {
             throw new Error(`Error ${response.status}: ${response.statusText}`);
         }
 
         const currentCart = await response.json();
 
-        // Comprobar si el carrito actual tiene un ID válido
         if (!currentCart || !currentCart._id) {
             return Swal.fire('Error', 'No se pudo encontrar el carrito del usuario', 'error');
         }
 
         const cartId = currentCart._id;
-        console.log(`Intentando agregar producto al carrito: cartId=${cartId}, productId=${productId}`);
 
         // Agregar producto al carrito del usuario logueado
         const addResponse = await fetch(`/carts/${cartId}/products/${productId}/add`, {
@@ -60,7 +57,6 @@ async function addToCart(productId) {
             Swal.fire('Error', result.message || 'No se pudo agregar el producto', 'error');
         }
     } catch (error) {
-        console.log('Error al agregar producto al carrito:', error);
         Swal.fire('Error', `Hubo un problema al agregar el producto al carrito: ${error.message}`, 'error');
     }
 }
