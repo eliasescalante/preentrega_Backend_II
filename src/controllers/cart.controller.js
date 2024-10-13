@@ -2,31 +2,20 @@ import cartService from '../services/cart.service.js';
 
 class CartController {
 
-    // src/controllers/cart.controller.js
     async getCurrentCart(req, res) {
+        // metodo para obtener el carrito actual
         try {
-            const userId = req.user.id; // Asegúrate de que estés accediendo al ID correctamente
-            console.log("estoy en current adentro del try", userId);
-            const cartId = req.user.cart; // Obtén el ID del carrito desde el usuario autenticado
-            console.log("estoy en current adentro del try", cartId);
-            // Verifica que el cartId sea válido
+            const userId = req.user.id;
+            const cartId = req.user.cart;
             if (!cartId) {
                 return res.status(404).json({ message: 'Carrito no encontrado' });
             }
-            console.log("estoy en current adentro del try pase el primer if");
-            // Busca el carrito en el servicio usando el cartId
-            console.log('ID del carrito:', cartId);
             const cart = await cartService.getCartDetails(cartId);
-            console.log('estoy en current - Carrito obtenido:', cart);
 
             if (!cart) {
-                console.log("no pase el if de cart");
-                console.log("Carrito no encontrado para el usuario:", userId);
                 return res.status(404).json({ message: 'Carrito no encontrado' });
             }
-            console.log("estoy en current y pase al final", cart);
             res.json(cart);
-            
         } catch (error) {
             console.error('Error al cargar el carrito:', error);
             res.status(500).json({ message: 'Error al cargar el carrito' });
@@ -34,6 +23,7 @@ class CartController {
     }
 
     async getCart(req, res) {
+        // metodo para obtener el carrito del usuario
         try {
             const carts = await cartService.getAllCarts();
             res.json(carts);
@@ -43,8 +33,9 @@ class CartController {
     }
 
     async createCart(req, res) {
+        // metodo para crear un nuevo carrito para el usuario
         try {
-            const userId = req.body.userId; // Obtener el userId del cuerpo de la solicitud
+            const userId = req.body.userId;
             const newCart = await cartService.createNewCart(userId);
             res.status(201).json(newCart);
         } catch (error) {
@@ -53,14 +44,14 @@ class CartController {
     }
 
     async viewCartManage(req, res) {
+        // metodo obtener el carrito del usuario y mostrarlo
         try {
-            const userId = req.user._id; // Asegúrate de que req.user esté definido
+            const userId = req.user._id;
             const cart = await cartService.getCartByUserId(userId);
             
             if (!cart) {
                 return res.status(404).send('Carrito no encontrado');
             }
-            
             res.render('manageCarts', { cart });
         } catch (error) {
             console.error('Error al cargar el carrito del usuario:', error);
@@ -69,6 +60,7 @@ class CartController {
     };
 
     async detailCart(req, res) {
+        // metodo para obtener el detalle del carrito
         try {
             const cart = await cartService.getCartDetails(req.params.id);
             if (!cart) {
@@ -81,6 +73,7 @@ class CartController {
     }
 
     async deleteCart(req, res) {
+        // metodo para eliminar el carrito del usuario
         try {
             await cartService.deleteCartById(req.params.id);
             res.json({ message: 'Carrito eliminado' });
@@ -89,35 +82,26 @@ class CartController {
         }
     }
 
-    // Ejemplo en tu controlador
-    // En tu controlador
-async addProductCart(req, res) {
-    console.log("estoy en controller - addProductCart");
-    try {
-        console.log("entre al try en addproductcart");
-        const { cartId, productId } = req.params; // Asegúrate de que estos son los nombres correctos
-        const { quantity } = req.body;
-        // Verificar los parámetros
-        console.log("Parámetros en addProductCart:", cartId, productId, quantity);
-        // Lógica para agregar el producto al carrito
-        if (!cartId || !productId || quantity === undefined) {
-            return res.status(400).json({ message: "Faltan parámetros necesarios" });
+    async addProductCart(req, res) {
+        // metodo para agregar producto al carrito
+        try {
+            const { cartId, productId } = req.params; // Asegúrate de que estos son los nombres correctos
+            const { quantity } = req.body;
+            if (!cartId || !productId || quantity === undefined) {
+                return res.status(400).json({ message: "Faltan parámetros necesarios" });
+            }
+            const updatedCart = await cartService.addOrUpdateProductInCart(cartId, productId, quantity);
+            res.json({ success: true, message: "Producto agregado correctamente", cart: updatedCart });
+        } catch (error) {
+            console.error('Error al agregar el producto al carrito:', error.message);
+            res.status(500).json({ message: 'Error al agregar el producto al carrito.' });
         }
-        const updatedCart = await cartService.addOrUpdateProductInCart(cartId, productId, quantity);
-        res.json({ success: true, message: "Producto agregado correctamente", cart: updatedCart });
-    } catch (error) {
-        console.error('Error al agregar el producto al carrito:', error.message);
-        res.status(500).json({ message: 'Error al agregar el producto al carrito.' });
     }
-}
-
-    
-    
-
 
     async updateProductQuantity(req, res) {
+        // metodo para actualizar la cantidad de un producto en el carrito
         const { cartId, productId } = req.params;
-        const { quantity } = req.body; // Asegúrate de que estás recibiendo la cantidad correctamente
+        const { quantity } = req.body;
 
         try {
             const updatedCart = await cartService.modifyProductQuantity(cartId, productId, quantity);
@@ -134,6 +118,7 @@ async addProductCart(req, res) {
     }
 
     async deleteProductFromCart(req, res) {
+        // metodo para borrar un producto del carrito
         const { id, productId } = req.params;
 
         try {
@@ -146,6 +131,7 @@ async addProductCart(req, res) {
     }
 
     async emptyCart(req, res) {
+        //metodo para vaciar un carrito
         const { id } = req.params;
 
         try {
@@ -155,11 +141,7 @@ async addProductCart(req, res) {
             console.error("Error al vaciar el carrito:", error.message);
             res.status(500).json({ message: "Error al vaciar el carrito" });
         }
-    }
-
-    
-    
-    
+    }   
 }
 
 export default new CartController();

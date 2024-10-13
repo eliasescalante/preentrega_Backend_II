@@ -100,3 +100,42 @@ function emptyCart(cartId) {
         }
     });
 }
+
+async function finalizePurchase(cartId) {
+//para finalizar la compra
+    try {
+        const response = await fetch(`/carts/:cid/purchase`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ cartId }),
+        });
+
+        if (response.ok) {
+            const ticket = await response.json();
+            Swal.fire({
+                title: 'Compra finalizada!',
+                text: `Tu ticket es: ${ticket.code}`,
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            });
+        } else {
+            const errorData = await response.json();
+            Swal.fire({
+                title: 'Error!',
+                text: errorData.message,
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+        }
+    } catch (error) {
+        console.error('Error al finalizar la compra:', error);
+        Swal.fire({
+            title: 'Error!',
+            text: 'Error interno del servidor',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+        });
+    }
+}

@@ -73,8 +73,14 @@ class UserController {
 
     static async logout(req, res) {
         // Método para cerrar sesión
-        res.clearCookie("cookieToken");
-        res.redirect("/api/sessions/login");
+        req.session.destroy(err => {
+            if (err) {
+                console.error("Error al cerrar sesión:", err);
+                return res.status(500).json({ message: "Error al cerrar sesión" });
+            }
+            res.clearCookie("cookieToken"); // Limpiar la cookie si es necesario
+            res.redirect("/api/sessions/login"); // Redirigir a la página de login
+        });
     }
 }
 export default UserController;

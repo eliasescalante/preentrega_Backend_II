@@ -105,7 +105,7 @@ class CartService {
     async getCartByUserId(userId) {
     // Método para obtener un carrito por id de usuario
         try {
-            return await cartRepository.findCartByUserId(userId); // Asegúrate de que esta función exista y funcione correctamente
+            return await cartRepository.findCartByUserId(userId);
         } catch (error) {
             console.error('Error al obtener el carrito del usuario:', error);
             throw error;
