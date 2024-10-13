@@ -6,12 +6,14 @@ class CartDAO {
     }
 
     async create() {
-        const newCart = new Cart();
+        const newCart = new Cart()
         return await newCart.save();
     }
 
     async findById(id) {
+        console.log('estoy en dao.findbyid - Carrito encontrado:', id);
         return await Cart.findById(id).populate('products.product');
+        
     }
 
     async deleteById(id) {
@@ -22,9 +24,11 @@ class CartDAO {
         return await Cart.findByIdAndUpdate(id, data, { new: true });
     }
 
+    // src/dao/cart.dao.js
     async findByUserId(userId) {
-        return await Cart.findOne({ userId }); // Cambia 'userId' por el campo correcto si es necesario
+        return await Cart.findOne({ userId }); // Asegúrate de que 'userId' es el campo correcto en tu modelo
     }
+
 }
 
 export default new CartDAO();

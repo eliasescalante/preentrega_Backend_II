@@ -33,12 +33,6 @@ app.use(cookieParser());
 initializePassport();
 app.use(passport.initialize());
 
-// Middleware para manejar errores
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Error interno del servidor');
-});
-
 // Configura el middleware de sesiones
 app.use(session({
     secret: 'tu_secreto', // Cambia esto a un secreto más seguro
@@ -56,7 +50,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //Rutas
-app.use('/api/sessions', sessionRoutes);
+//app.use('/api/sessions', sessionRoutes);
 app.use('/carts', cartsRoutes);
 app.use('/products', productsRoutes);
 app.use("/api/sessions", users);

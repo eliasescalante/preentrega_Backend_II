@@ -6,8 +6,8 @@ class CartService {
         return await cartRepository.getCarts();
     }
 
-    async createNewCart() {
-        return await cartRepository.createCart();
+    async createNewCart(userId) {
+        return await cartRepository.createCart(userId);
     }
 
     async getCartDetails(id) {
@@ -19,28 +19,38 @@ class CartService {
     }
 
     async addOrUpdateProductInCart(cartId, productId, quantity) {
+        console.log("estoy en service-", cartId, productId, quantity);
         try {
-            const cart = await cartRepository.getCartById(cartId);
-            if (!cart) throw new Error('Carrito no encontrado');
-
+            console.log("estoy en service cart dentro del try");
+            const cartObjectId = new mongoose.Types.ObjectId(cartId);
             const productObjectId = new mongoose.Types.ObjectId(productId);
+    
+            const cart = await cartRepository.getCartById(cartObjectId);
+            console.log('Carrito después de buscar en cart service:', cart); // Agregar log aquí
+            if (!cart) throw new Error('Carrito no encontrado');
+    
+            // Buscar el producto por su ID
             const productIndex = cart.products.findIndex(p => p.product.equals(productObjectId));
-
-            // Si el producto ya existe, se actualiza la cantidad
+    
             if (productIndex > -1) {
-                cart.products[productIndex].quantity += Number(quantity) || 1;
+                // Si el producto ya existe, actualizar cantidad
+                cart.products[productIndex].quantity += quantity;
             } else {
-                // Si el producto no existe, se agrega al carrito
-                cart.products.push({ product: productObjectId, quantity: Number(quantity) || 1 });
+                // Si no existe, añadir nuevo producto
+                cart.products.push({ product: productObjectId, quantity });
             }
-
-            const updatedCart = await cartRepository.updateCart(cartId, cart);
+    
+            // Actualizar el carrito en la base de datos
+            const updatedCart = await cartRepository.updateCart(cartObjectId, { products: cart.products });
             return updatedCart;
         } catch (error) {
             console.error("Error al agregar/modificar el producto en el carrito:", error.message);
             throw new Error("Error al agregar/modificar el producto en el carrito");
         }
     }
+    
+    
+    
 
     async modifyProductQuantity(cartId, productId, newQuantity) {
         try {
@@ -97,13 +107,16 @@ class CartService {
         }
     }
 
+        // src/services/cart.service.js
     async getCartByUserId(userId) {
-        const cart = await cartRepository.getCartByUserId(userId);
-        if (!cart) {
-        throw new Error('Carrito no encontrado'); // Lanzar un error si no se encuentra el carrito
+        try {
+            return await cartRepository.findCartByUserId(userId); // Asegúrate de que esta función exista y funcione correctamente
+        } catch (error) {
+            console.error('Error al obtener el carrito del usuario:', error);
+            throw error;
         }
-        return cart;
     }
+
 }
 
 export default new CartService();

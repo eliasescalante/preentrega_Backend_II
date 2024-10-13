@@ -10,6 +10,7 @@ class CartRepository {
     }
 
     async getCartById(id) {
+        console.log("estoy en repository ", id);
         return await cartDAO.findById(id);
     }
 
@@ -21,7 +22,7 @@ class CartRepository {
         return await cartDAO.updateCart(id, data);
     }
 
-    async getCartByUserId(userId) {
+    async findCartByUserId(userId) {
         return await cartDAO.findByUserId(userId); // Asegúrate de que esta función esté en cartDAO
     }
 }
