@@ -3,6 +3,14 @@ import jwt from "jsonwebtoken";
 import UserDTO from "../dto/user.dto.js";
 
 class UserController {
+
+    static async renderLogin(req, res) {
+        if (req.session.user) {
+            return res.redirect('/api/sessions/current');
+        }
+        res.render('login'); // Renderiza la vista de login si no está autenticado
+    }
+
     static async register(req, res) {
         // Método para registrar un nuevo usuario
         const { nombre, apellido, age, email, password } = req.body;

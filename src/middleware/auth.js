@@ -17,5 +17,13 @@ const authenticateAdmin = (req, res, next) => {
     }
 };
 
-export { authenticateUser, authenticateAdmin };
+const isAuthenticated = (req, res, next) => {
+    if (req.session.user) {
+        // El usuario está autenticado, redirigir a la vista home
+        return res.redirect('/api/sessions/current');
+    }
+    next();
+};
+
+export { authenticateUser, authenticateAdmin, isAuthenticated };
 
