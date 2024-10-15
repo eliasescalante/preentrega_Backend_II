@@ -24,10 +24,17 @@ Se agrego un "login", "registro de usuarios nuevos" y una vista "home".
 - 2 . inicia el server con "npm start"
 - 3 . la pagina inicial describe los metodos a utilizar
 
-# Funcionalidades agregadas en esta pre-entrega:
+# COMENTARIOS:
+## Fue todo un desafio realizar este proyecto. Realice un front basico para que el proyecto sea un poco mas amigable.
+
+# Funcionalidades agregadas en esta ENTREGA:
 - `login` : permite iniciar sesion.
 - `register` : permite registrar un nuevo usuario.
 - `home` : muestra una vista con un mensaje de bienvenida y un boton para deslogearse.
+- `productos` : permite ver todos los productos. solo si estas logeado y permite agregarlos al carrito del usuario logeado.
+- `carts` : permite ver los productos del carrito del usuario logeado.
+- `realTimerProduct` : Ahora solo puede tener acceso el admin.
+- `admin` : PARA PROBAR EL ADMIN => mail= `eli@eli.com` y pass = `1234`.
 
 # Implementaciones:
 - Se agrego el uso de el paquete bcrypt para encriptar la contraseña.
@@ -43,7 +50,6 @@ Se agrego un "login", "registro de usuarios nuevos" y una vista "home".
 - Patron Repository
 - Variables de entorno
 - uso de DTO
-- 
 
 ----
 
@@ -73,23 +79,6 @@ Se agrego un "login", "registro de usuarios nuevos" y una vista "home".
 <img src="https://github.com/eliasescalante/proyectoFinal_api_commerce/blob/main/public/img/capture_gestion_carritos.png" width="600" />
 <img src="https://github.com/eliasescalante/proyectoFinal_api_commerce/blob/main/public/img/capture_detalle_carrito.png" width="600" />
 <img src="https://github.com/eliasescalante/proyectoFinal_api_commerce/blob/main/public/img/capture_detalle_producto.png" width="600" />
-
-----
-
-<div align="center">
-
-### Node.js
-<img src="https://img.icons8.com/color/48/000000/nodejs.png" alt="Node.js Logo" width="48"/>
-
-### Express.js
-<img src="https://img.icons8.com/ios/50/000000/express-js.png" alt="Express.js Logo" width="48"/>
-
-### JavaScript
-<img src="https://img.icons8.com/color/48/000000/javascript.png" alt="JavaScript Logo" width="48"/>
-
-</div>
-
-
 
 ----
 
