@@ -28,9 +28,9 @@ class CartDAO {
         return await Cart.findByIdAndUpdate(id, data, { new: true });
     }
 
-    async findByUserId(userId) {
+    async findByUserId(cardId) {
     // Método para encontrar un carrito por el ID del usuario
-        return await Cart.findOne({ userId });
+        return await Cart.findOne({ cardId });
     }
 }
 export default new CartDAO();

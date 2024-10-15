@@ -20,5 +20,15 @@ class ProductDAO {
     // Método para eliminar un producto por su id
         return await Product.findByIdAndDelete(id);
     }
+
+    async findByIdAndUpdate(productId, updateData) {
+        try {
+            const updatedProduct = await Product.findByIdAndUpdate(productId, updateData, { new: true });
+            return updatedProduct;
+        } catch (error) {
+            console.error('Error actualizando el producto:', error);
+            throw new Error('Error actualizando el producto');
+        }
+    }
 }
 export default new ProductDAO();

@@ -40,6 +40,7 @@ class UserController {
         const { email, password } = req.body;
         try {
             const user = await userService.loginUser(email, password);
+            console.log("Usuario logueado:", user);
             req.session.user = { id: user._id, name: user.first_name, role: user.role, cart: user.cart };
             // genero el token
             const token = jwt.sign({

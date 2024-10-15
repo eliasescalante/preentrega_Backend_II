@@ -1,4 +1,5 @@
 import productRepository from '../repositories/product.repository.js';
+import productModel from '../dao/models/productModel.js';
 
 class ProductService {
     async addProduct(data) {
@@ -40,6 +41,26 @@ class ProductService {
         }
         return deletedProduct;
     }
-}
 
+    async updateProductStock(productId, quantity) {
+        const product = await productRepository.findById(productId); // Asegúrate de que este método esté definido
+        if (!product) {
+            throw new Error('Producto no encontrado');
+        }
+        const newStock = product.stock - quantity;
+        if (newStock < 0) {
+            throw new Error('Stock insuficiente');
+        }
+        return await productRepository.updateProductStock(productId, newStock);
+    }
+
+    async getProductById(productId){
+        try {
+            const product = await productModel.findById(productId);
+            return product;
+        } catch (error) {
+            throw new Error('Error al obtener el producto por ID');
+        }
+    }
+}
 export default new ProductService();

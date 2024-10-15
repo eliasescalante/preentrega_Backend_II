@@ -1,4 +1,10 @@
 import cartService from '../services/cart.service.js';
+import CartModel from '../dao/models/cartModel.js';
+import ProductModel from '../dao/models/productModel.js';
+import TicketService from '../services/ticket.service.js';
+import UsuarioModel from '../dao/models/userModel.js';
+import UserRepository from '../repositories/user.repository.js';
+import cartRepository from '../repositories/cart.repository.js';
 
 class CartController {
 
@@ -42,12 +48,12 @@ class CartController {
             res.status(500).json({ message: 'Error al crear carrito' });
         }
     }
-
+/*
     async viewCartManage(req, res) {
         // metodo obtener el carrito del usuario y mostrarlo
         try {
-            const userId = req.user._id;
-            const cart = await cartService.getCartByUserId(userId);
+            const cartId = req.user.cart;
+            const cart = await cartService.getCartByUserId(cartId);
             
             if (!cart) {
                 return res.status(404).send('Carrito no encontrado');
@@ -58,6 +64,22 @@ class CartController {
             res.status(500).send('Error al cargar el carrito del usuario');
         }
     };
+*/
+
+    async viewCartManage(req, res) {
+        try {
+            const cartId = req.user.cart; // Obtiene el ID del carrito del usuario
+            const cart = await cartService.getCartById(cartId); // Busca el carrito usando el ID del carrito
+            
+            if (!cart) {
+                return res.status(404).send('Carrito no encontrado');
+            }
+            res.render('manageCarts', { cart });
+        } catch (error) {
+            console.error('Error al cargar el carrito del usuario:', error);
+            res.status(500).send('Error al cargar el carrito del usuario');
+        }
+    }
 
     async detailCart(req, res) {
         // metodo para obtener el detalle del carrito
@@ -141,7 +163,46 @@ class CartController {
             console.error("Error al vaciar el carrito:", error.message);
             res.status(500).json({ message: "Error al vaciar el carrito" });
         }
-    }   
+    }
+
+    async purchaseCart(req, res) {
+        try {
+            const cartId = req.params.cid; // Obtener el ID del carrito
+            const userId = req.user._id; // Obtener el ID del usuario logueado
+    
+            // Obtener el carrito usando el cartId
+            const cart = await cartRepository.getCartById(cartId);
+    
+            if (!cart) {
+                return res.status(404).send({ message: "Carrito no encontrado" });
+            }
+            // Asegúrate de calcular el amount a partir del carrito
+            const amount = cart.products.reduce((total, item) => {
+                const price = item.product.price; // Asegúrate de acceder al precio correctamente
+                const quantity = item.quantity; // Asegúrate de que la cantidad esté definida
+                return total + (price * quantity); // Multiplica el precio por la cantidad
+            }, 0);
+
+            // Obtiene el usuario del carrito
+            const usuarioDelCarrito = await UserRepository.getUserById(userId);
+    
+            if (!usuarioDelCarrito) {
+                return res.status(404).send({ message: "Usuario no encontrado" });
+            }
+    
+            // Llama al servicio para generar el ticket
+            const ticket = await TicketService.generateTicket(usuarioDelCarrito, amount);
+    
+            if (!ticket) {
+                return res.status(500).send({ message: "Error al crear el ticket." });
+            }
+    
+            res.status(201).send({ message: "Ticket creado con éxito", ticket });
+        } catch (error) {
+            console.error("Error al procesar la compra:", error);
+            res.status(500).send({ message: "Error al procesar la compra" });
+        }
+    }
 }
 
 export default new CartController();

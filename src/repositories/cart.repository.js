@@ -26,9 +26,9 @@ class CartRepository {
         return await cartDAO.updateCart(id, data);
     }
 
-    async findCartByUserId(userId) {
+    async findCartByUserId(cardId) {
     // Obtiene un carrito por el id del usuario
-        return await cartDAO.findByUserId(userId);
+        return await cartDAO.findByUserId(cardId);
     }
 }
 

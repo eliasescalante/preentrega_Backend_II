@@ -16,7 +16,7 @@
         </div>
     {{/each}}
         <button class="btn btn-danger" onclick="emptyCart('{{cart._id}}')">Vaciar Carrito</button>
-        <button class="btn" onclick="finalizePurchase('{{cart._id}}')">Finalizar Compra</button>
+        <button class="btn" onclick="finalizarCompra('{{cart._id}}')">Finalizar Compra</button>
     {{else}}
         <p class="empty-cart btn btn-danger">Carrito vacío</p>
     {{/if}}

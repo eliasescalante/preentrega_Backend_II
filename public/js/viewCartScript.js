@@ -101,41 +101,49 @@ function emptyCart(cartId) {
     });
 }
 
-async function finalizePurchase(cartId) {
-//para finalizar la compra
+// Script en la vista
+// Función de compra en el frontend
+async function finalizarCompra(cartId) {
     try {
-        const response = await fetch(`/carts/:cid/purchase`, {
+        const response = await fetch(`/carts/${cartId}/purchase`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ cartId }),
+                'Content-Type': 'application/json'
+            }
         });
-
         if (response.ok) {
-            const ticket = await response.json();
+            const data = await response.json();
+            //ticket en SweetAlert
             Swal.fire({
-                title: 'Compra finalizada!',
-                text: `Tu ticket es: ${ticket.code}`,
-                icon: 'success',
-                confirmButtonText: 'Aceptar'
+                title: 'Compra finalizada con éxito',
+                html: `
+                    <p><strong>Ticket ID:</strong> ${data.ticket.id}</p>
+                    <p><strong>Total:</strong> $${data.ticket.amount}</p>
+                    <p><strong>Comprador:</strong> ${data.ticket.purchaser}</p>
+                    <p>${data.productosNoDisponibles.length > 0 ? 
+                        'Algunos productos no estaban disponibles en stock:' : 
+                        'Todos los productos fueron comprados con éxito'}</p>
+                    ${data.productosNoDisponibles.map(productId => `<p>Producto ID: ${productId}</p>`).join('')}
+                `,
+                icon: 'success'
             });
         } else {
             const errorData = await response.json();
             Swal.fire({
-                title: 'Error!',
-                text: errorData.message,
-                icon: 'error',
-                confirmButtonText: 'Aceptar'
+                title: 'Error al finalizar la compra',
+                text: errorData.message || 'Ocurrió un error inesperado',
+                icon: 'error'
             });
         }
     } catch (error) {
         console.error('Error al finalizar la compra:', error);
         Swal.fire({
-            title: 'Error!',
-            text: 'Error interno del servidor',
-            icon: 'error',
-            confirmButtonText: 'Aceptar'
+            title: 'Error',
+            text: 'No se pudo completar la compra.',
+            icon: 'error'
         });
     }
 }
+
+
+

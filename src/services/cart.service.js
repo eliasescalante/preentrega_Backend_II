@@ -1,5 +1,6 @@
 import cartRepository from '../repositories/cart.repository.js';
 import mongoose from 'mongoose';
+import Cart from '../dao/models/cartModel.js';
 
 class CartService {
     async getAllCarts() {
@@ -102,15 +103,28 @@ class CartService {
         }
     }
 
-    async getCartByUserId(userId) {
+    async getCartByUserId(cardId) {
     // Método para obtener un carrito por id de usuario
         try {
-            return await cartRepository.findCartByUserId(userId);
+            return await cartRepository.findCartByUserId(cardId);
         } catch (error) {
             console.error('Error al obtener el carrito del usuario:', error);
             throw error;
         }
     }
+
+    // cartService.js
+
+    async getCartById(cartId) {
+        try {
+            const cart = await Cart.findById(cartId).populate('products.product'); // Si deseas obtener los detalles del producto
+            return cart; // Devuelve el carrito encontrado
+        } catch (error) {
+            console.error('Error al obtener el carrito:', error);
+            throw error; // Lanza el error para manejarlo en el controlador
+        }
+    }
+
 }
 
 export default new CartService();
