@@ -14,9 +14,7 @@
 ## Descripción del Proyecto
 
 Este servidor proporciona una API para manejar productos y carritos de compra. Los productos y carritos se almacenan en una base de datos y el servidor permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre la misma.
-Se agrego Websockets al proyecto y vistas con plantillas (Motores de Plantillas "Handlebars"). Ademas de usar MongoDB como persistencia de los datos. (DB subida en la nube)
-Se usa como ODM la libreria mongoose.
-Se agrego un "login", "registro de usuarios nuevos" y una vista "home".
+Para acceder a las diferentes opciones de la API es necesario logearse.
 
 ## Cómo Ejecutar el Proyecto
 
@@ -28,12 +26,15 @@ Se agrego un "login", "registro de usuarios nuevos" y una vista "home".
 ## Fue todo un desafio realizar este proyecto. Realice un front basico para que el proyecto sea un poco mas amigable.
 
 # Funcionalidades agregadas en esta ENTREGA:
-- `login` : permite iniciar sesion.
-- `register` : permite registrar un nuevo usuario.
-- `home` : muestra una vista con un mensaje de bienvenida y un boton para deslogearse.
-- `productos` : permite ver todos los productos. solo si estas logeado y permite agregarlos al carrito del usuario logeado.
-- `carts` : permite ver los productos del carrito del usuario logeado.
-- `realTimerProduct` : Ahora solo puede tener acceso el admin.
+- `login` : permite iniciar sesion. (solo es visible si no estas logeado en el server)
+- `register` : permite registrar un nuevo usuario. / para iniciar en la API es necesario deslogearse y volver a logearse.
+- `home` : muestra una vista con un mensaje de bienvenida y un boton para deslogearse. (solo es visible si esta logeado en el server)
+- `productos` : Permite ver todos los productos. Solo si estas logeado y permite agregarlos al carrito del usuario logeado.
+- `carts` : Permite ver los productos del carrito del usuario logeado.
+- `carts`: Permite ver el detalle, ademas de modificar la cantidad de los productos en el carrito ademas de eliminarlos o vaciar el carrito.
+- `carts`: Permite tambien finalizar la compra, generando un ticket y mostrandolo en pantalla. El stock del producto se descuenta de la base de datos.
+- `realTimerProduct` : Ahora solo puede tener acceso el admin, en esta vista permite eliminar productos, agregar nuevos o modificarlos.
+- `carts/:cid/purchase` : Permite finalizar la compra del carrito del usuario logeado. Para esto ya esta definido en el front.
 - `admin` : PARA PROBAR EL ADMIN => mail= `eli@eli.com` y pass = `1234`.
 
 # Implementaciones:
@@ -50,6 +51,10 @@ Se agrego un "login", "registro de usuarios nuevos" y una vista "home".
 - Patron Repository
 - Variables de entorno
 - uso de DTO
+- Uso de un modelo de usuario
+- Uso de un modelo de carrito
+- Uso de un modelo de producto
+- Uso de un modelo de ticket
 
 ----
 
