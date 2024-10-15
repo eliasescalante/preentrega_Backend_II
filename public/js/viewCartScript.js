@@ -125,7 +125,12 @@ async function finalizarCompra(cartId) {
                         'Todos los productos fueron comprados con éxito'}</p>
                     ${data.productosNoDisponibles.map(productId => `<p>Producto ID: ${productId}</p>`).join('')}
                 `,
-                icon: 'success'
+                icon: 'success',
+                confirmButtonText: 'OK',
+            }).then(async () => {
+                // Solo vacía el carrito y recarga la página después de presionar "OK"
+                await fetch(`/carts/${cartId}/empty`, { method: 'PUT' });
+                window.location.reload();
             });
         } else {
             const errorData = await response.json();
@@ -140,7 +145,8 @@ async function finalizarCompra(cartId) {
         Swal.fire({
             title: 'Error',
             text: 'No se pudo completar la compra.',
-            icon: 'error'
+            icon: 'error',
+            confirmButtonText: 'OK',
         });
     }
 }
