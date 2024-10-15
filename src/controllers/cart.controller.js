@@ -48,28 +48,12 @@ class CartController {
             res.status(500).json({ message: 'Error al crear carrito' });
         }
     }
-/*
-    async viewCartManage(req, res) {
-        // metodo obtener el carrito del usuario y mostrarlo
-        try {
-            const cartId = req.user.cart;
-            const cart = await cartService.getCartByUserId(cartId);
-            
-            if (!cart) {
-                return res.status(404).send('Carrito no encontrado');
-            }
-            res.render('manageCarts', { cart });
-        } catch (error) {
-            console.error('Error al cargar el carrito del usuario:', error);
-            res.status(500).send('Error al cargar el carrito del usuario');
-        }
-    };
-*/
 
     async viewCartManage(req, res) {
+        // metodo para obtener el carrito del usuario y mostrarlo
         try {
-            const cartId = req.user.cart; // Obtiene el ID del carrito del usuario
-            const cart = await cartService.getCartById(cartId); // Busca el carrito usando el ID del carrito
+            const cartId = req.user.cart; 
+            const cart = await cartService.getCartById(cartId);
             
             if (!cart) {
                 return res.status(404).send('Carrito no encontrado');
@@ -166,9 +150,11 @@ class CartController {
     }
 
     async purchaseCart(req, res) {
+        // metodo para realizar una compra del carrito
+        // tiene un bug - por ahora no consigo que funcione
         try {
-            const cartId = req.params.cid; // Obtener el ID del carrito
-            const userId = req.user._id; // Obtener el ID del usuario logueado
+            const cartId = req.params.cid;
+            const userId = req.user._id; 
     
             // Obtener el carrito usando el cartId
             const cart = await cartRepository.getCartById(cartId);
@@ -176,11 +162,11 @@ class CartController {
             if (!cart) {
                 return res.status(404).send({ message: "Carrito no encontrado" });
             }
-            // Asegúrate de calcular el amount a partir del carrito
+            
             const amount = cart.products.reduce((total, item) => {
-                const price = item.product.price; // Asegúrate de acceder al precio correctamente
-                const quantity = item.quantity; // Asegúrate de que la cantidad esté definida
-                return total + (price * quantity); // Multiplica el precio por la cantidad
+                const price = item.product.price; 
+                const quantity = item.quantity; 
+                return total + (price * quantity); 
             }, 0);
 
             // Obtiene el usuario del carrito

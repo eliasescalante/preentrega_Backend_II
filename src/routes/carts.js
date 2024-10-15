@@ -32,13 +32,13 @@ router.put('/:cartId/products/:productId/quantity', cartController.updateProduct
 //finalizar compra
 //router.post("/:cartId/purchase", authenticateUser, cartController.purchaseCart);
 
-
 router.post("/:cid/purchase", authenticateUser, async (req, res) => {
-    const cartId = req.params.cid; // Cambiado a cartId
-    console.log(`Buscando carrito con ID: ${cartId}`); // Usa cartId aquí
+    //purchase sin patron...
+    const cartId = req.params.cid;
+    console.log(`Buscando carrito con ID: ${cartId}`);
 
     try {
-        const carrito = await CartModel.findById(cartId); // Cambiado a cartId
+        const carrito = await CartModel.findById(cartId);
         if (!carrito) {
             return res.status(404).json({ error: 'Carrito no encontrado' });
         }
@@ -56,24 +56,24 @@ router.post("/:cid/purchase", authenticateUser, async (req, res) => {
                 await product.save();
                 productosComprados.push(item);
                 // Calcula el total del monto
-                totalAmount += product.price * item.quantity; // Asegúrate de que 'price' es un campo en tu modelo de producto
+                totalAmount += product.price * item.quantity;
             } else {
                 productosNoDisponibles.push(item);
             }
         }
 
-        const usuarioDelCarrito = await UsuarioModel.findOne({ cart: cartId }); // Cambiado a cartId
-        const code = `TICKET-${Date.now()}-${Math.floor(Math.random() * 1000)}`; // Generación del código
+        const usuarioDelCarrito = await UsuarioModel.findOne({ cart: cartId }); 
+        const code = `TICKET-${Date.now()}-${Math.floor(Math.random() * 1000)}`; 
         const ticket = new TicketModel({
             code: code,
             purchase_datetime: new Date(),
-            amount: totalAmount, // Asigna el monto total calculado
+            amount: totalAmount, 
             purchaser: usuarioDelCarrito.email,
         });
 
         await ticket.save();
 
-        carrito.products = productosNoDisponibles; // Mantén los productos no disponibles en el carrito
+        carrito.products = productosNoDisponibles; 
         await carrito.save();
 
         res.json({
@@ -86,7 +86,7 @@ router.post("/:cid/purchase", authenticateUser, async (req, res) => {
             productosNoDisponibles: productosNoDisponibles.map((item) => item.product),
         });
     } catch (error) {
-        console.error("Error al crear el ticket:", error); // Agregar log de error
+        console.error("Error al crear el ticket:", error); 
         res.status(500).send("Error del servidor al crear ticket");
     }
 });
