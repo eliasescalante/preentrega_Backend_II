@@ -87,3 +87,9 @@ Para acceder a las diferentes opciones de la API es necesario logearse.
 
 ----
 
+![GitHub repo size](https://img.shields.io/github/repo-size/eliasescalante/preentrega_Backend_II
+)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/eliasescalante/preentrega_Backend_II
+)
+![GitHub last commit](https://img.shields.io/github/last-commit/eliasescalante/preentrega_Backend_II
+)
