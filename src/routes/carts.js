@@ -1,10 +1,10 @@
 import express from 'express';
 import cartController from '../controllers/cart.controller.js';
 import {authenticateUser, isAuthenticated} from '../middleware/auth.js';
-import UsuarioModel from "../dao/models/userModel.js";
-import TicketModel from '../dao/models/ticket.model.js';
-import CartModel from '../dao/models/cartModel.js';
-import ProductModel from "../dao/models/productModel.js";
+//import UsuarioModel from "../dao/models/userModel.js";
+//import TicketModel from '../dao/models/ticket.model.js';
+//import CartModel from '../dao/models/cartModel.js';
+//import ProductModel from "../dao/models/productModel.js";
 const router = express.Router();
 
 // Obtiene el carrito del usuario logueado
@@ -27,10 +27,11 @@ router.delete('/:id/products/:productId', cartController.deleteProductFromCart);
 router.put('/:id/empty', cartController.emptyCart);
 // Ruta para modificar la cantidad de un producto en un carrito específico
 router.put('/:cartId/products/:productId/quantity', cartController.updateProductQuantity);
-
 //finalizar compra
-//router.post("/:cartId/purchase", authenticateUser, cartController.purchaseCart);
-//finalizar la compra - idea general
+router.post("/:cid/purchase", authenticateUser, cartController.purchaseCart);
+
+/*
+//finalizar la compra - idea general para el ticket -
 router.post("/:cid/purchase", authenticateUser, async (req, res) => {
     //purchase sin patron...
     const cartId = req.params.cid;
@@ -89,5 +90,5 @@ router.post("/:cid/purchase", authenticateUser, async (req, res) => {
         res.status(500).send("Error del servidor al crear ticket");
     }
 });
-
+*/
 export default router;

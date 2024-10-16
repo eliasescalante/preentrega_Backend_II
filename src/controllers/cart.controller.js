@@ -1,10 +1,6 @@
 import cartService from '../services/cart.service.js';
-import CartModel from '../dao/models/cartModel.js';
-import ProductModel from '../dao/models/productModel.js';
-import TicketService from '../services/ticket.service.js';
-import UsuarioModel from '../dao/models/userModel.js';
-import UserRepository from '../repositories/user.repository.js';
-import cartRepository from '../repositories/cart.repository.js';
+import ticketService from '../services/ticket.service.js';
+
 
 class CartController {
 
@@ -150,43 +146,22 @@ class CartController {
     }
 
     async purchaseCart(req, res) {
-        // metodo para realizar una compra del carrito
-        // tiene un bug - por ahora no consigo que funcione
+        const cartId = req.params.cid;
         try {
-            const cartId = req.params.cid;
-            const userId = req.user._id; 
-    
-            // Obtener el carrito usando el cartId
-            const cart = await cartRepository.getCartById(cartId);
-    
-            if (!cart) {
-                return res.status(404).send({ message: "Carrito no encontrado" });
-            }
-            
-            const amount = cart.products.reduce((total, item) => {
-                const price = item.product.price; 
-                const quantity = item.quantity; 
-                return total + (price * quantity); 
-            }, 0);
+            const { ticket, productosNoDisponibles } = await ticketService.processPurchase(cartId);
 
-            // Obtiene el usuario del carrito
-            const usuarioDelCarrito = await UserRepository.getUserById(userId);
-    
-            if (!usuarioDelCarrito) {
-                return res.status(404).send({ message: "Usuario no encontrado" });
-            }
-    
-            // Llama al servicio para generar el ticket
-            const ticket = await TicketService.generateTicket(usuarioDelCarrito, amount);
-    
-            if (!ticket) {
-                return res.status(500).send({ message: "Error al crear el ticket." });
-            }
-    
-            res.status(201).send({ message: "Ticket creado con éxito", ticket });
+            res.json({
+                message: "Compra generada",
+                ticket: {
+                    id: ticket._id,
+                    amount: ticket.amount,
+                    purchaser: ticket.purchaser,
+                },
+                productosNoDisponibles,
+            });
         } catch (error) {
-            console.error("Error al procesar la compra:", error);
-            res.status(500).send({ message: "Error al procesar la compra" });
+            console.error("Error al crear el ticket:", error);
+            res.status(500).send("Error del servidor al crear ticket");
         }
     }
 }
