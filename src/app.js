@@ -16,7 +16,6 @@ import initializePassport from "./config/passport.config.js";
 import configObject from './config/config.js';
 import mongoose from 'mongoose';
 import session from 'express-session';
-import sessionRoutes from './routes/sessions.js';
 import {authenticateUser, authenticateAdmin} from './middleware/auth.js';
 
 const {mongo_url, puerto } = configObject;

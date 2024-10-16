@@ -95,8 +95,8 @@ class CartService {
             const cart = await cartRepository.getCartById(cartId);
             if (!cart) throw new Error('Carrito no encontrado');
 
-            cart.products = [];  // Vaciar los productos
-            return await cartRepository.updateCart(cartId, cart);  // Guardar los cambios
+            cart.products = [];
+            return await cartRepository.updateCart(cartId, cart);
         } catch (error) {
             console.error("Error al vaciar el carrito:", error.message);
             throw new Error("Error al vaciar el carrito");
@@ -113,15 +113,13 @@ class CartService {
         }
     }
 
-    // cartService.js
-
     async getCartById(cartId) {
         try {
-            const cart = await Cart.findById(cartId).populate('products.product'); // Si deseas obtener los detalles del producto
-            return cart; // Devuelve el carrito encontrado
+            const cart = await Cart.findById(cartId).populate('products.product');
+            return cart;
         } catch (error) {
             console.error('Error al obtener el carrito:', error);
-            throw error; // Lanza el error para manejarlo en el controlador
+            throw error; 
         }
     }
 
