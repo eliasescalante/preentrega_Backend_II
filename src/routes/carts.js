@@ -8,9 +8,9 @@ import ProductModel from "../dao/models/productModel.js";
 const router = express.Router();
 
 // Obtiene el carrito del usuario logueado
-router.get('/current', authenticateUser, cartController.getCurrentCart.bind(cartController));
+router.get('/current', authenticateUser, cartController.getCurrentCart);
 // Ruta para agregar un producto a un carrito específico
-router.put('/:cartId/products/:productId/add', cartController.addProductCart.bind(cartController));
+router.put('/:cartId/products/:productId/add', cartController.addProductCart);
 // Endpoint para obtener todos los carritos
 router.get('/all', cartController.getCart);
 // Ruta para crear un carrito
