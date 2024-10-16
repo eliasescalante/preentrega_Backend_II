@@ -22,6 +22,7 @@ class ProductDAO {
     }
 
     async findByIdAndUpdate(productId, updateData) {
+    // Método para actualizar un producto por su id
         try {
             const updatedProduct = await Product.findByIdAndUpdate(productId, updateData, { new: true });
             return updatedProduct;

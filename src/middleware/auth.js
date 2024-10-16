@@ -7,7 +7,7 @@ const authenticateUser = (req, res, next) => {
         return res.status(401).json({ message: 'Debes estar logueado para acceder' });
     }
 };
-
+//para autenticar si es admin
 const authenticateAdmin = (req, res, next) => {
     if (req.session.user && req.session.user.role === 'admin') {
         req.user = req.session.user;
@@ -16,7 +16,7 @@ const authenticateAdmin = (req, res, next) => {
         return res.status(403).json({ message: 'Acceso denegado: Se requiere rol de administrador' });
     }
 };
-
+//para autenticar si es cliente
 const isAuthenticated = (req, res, next) => {
     if (req.session.user) {
         return res.redirect('/api/sessions/current');

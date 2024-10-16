@@ -114,6 +114,7 @@ class CartService {
     }
 
     async getCartById(cartId) {
+    // Método para obtener un carrito por id
         try {
             const cart = await Cart.findById(cartId).populate('products.product');
             return cart;

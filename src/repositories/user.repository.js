@@ -1,4 +1,3 @@
-//Importamos el dao: 
 import UserDao from "../dao/user.dao.js"; 
 
 class UserRepository {

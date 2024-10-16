@@ -5,6 +5,7 @@ import UsuarioModel from '../dao/models/userModel.js';
 
 class TicketService {
     async processPurchase(cartId) {
+        // para procesar la compra y generar el ticket
         const cart = await CartModel.findById(cartId);
         if (!cart) throw new Error('Carrito no encontrado');
 

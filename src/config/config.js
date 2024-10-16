@@ -3,6 +3,7 @@ import program from "../utils/commander.js";
 
 const {mode} = program.opts(); 
 //Aca me llega "desarrollo" o "produccion" segun lo que colocamos en la consola al ejecutar el proceso. 
+//POR DEFECTO DEJO SETEADO PRODUCCION
 
 dotenv.config({
     path: mode === "desarrollo"?"./.env.desarrollo": "./.env.produccion"

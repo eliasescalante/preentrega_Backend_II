@@ -23,12 +23,13 @@ class ProductRepository {
     }
 
     async updateProductStock(productId, newStock) {
+        // Actualiza el stock de un producto en la base de datos
         return await productDAO.findByIdAndUpdate(productId, { stock: newStock });
     }
 
     async findById(productId) {
+        // Busca un producto por su ID en la base de datos
         try {
-            // Busca un producto por su ID en la base de datos
             const product = await productModel.findById(productId).exec();
             return product;
         } catch (error) {

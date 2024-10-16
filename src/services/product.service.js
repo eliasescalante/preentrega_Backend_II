@@ -43,6 +43,7 @@ class ProductService {
     }
 
     async updateProductStock(productId, quantity) {
+    // Método para actualizar el stock de un producto
         const product = await productRepository.findById(productId);
         if (!product) {
             throw new Error('Producto no encontrado');
@@ -55,6 +56,7 @@ class ProductService {
     }
 
     async getProductById(productId){
+    // Método para buscar un producto por su id
         try {
             const product = await productModel.findById(productId);
             return product;
