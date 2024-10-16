@@ -30,10 +30,10 @@ class ProductRepository {
         try {
             // Busca un producto por su ID en la base de datos
             const product = await productModel.findById(productId).exec();
-            return product; // Retorna el producto encontrado, o null si no existe
+            return product;
         } catch (error) {
             console.error('Error al buscar el producto por ID:', error);
-            throw new Error('Error al buscar el producto'); // Manejo de errores
+            throw new Error('Error al buscar el producto');
         }
     }
 }

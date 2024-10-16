@@ -91,7 +91,7 @@ class CartController {
     async addProductCart(req, res) {
         // metodo para agregar producto al carrito
         try {
-            const { cartId, productId } = req.params; // Asegúrate de que estos son los nombres correctos
+            const { cartId, productId } = req.params;
             const { quantity } = req.body;
             if (!cartId || !productId || quantity === undefined) {
                 return res.status(400).json({ message: "Faltan parámetros necesarios" });

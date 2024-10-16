@@ -43,7 +43,7 @@ class ProductService {
     }
 
     async updateProductStock(productId, quantity) {
-        const product = await productRepository.findById(productId); // Asegúrate de que este método esté definido
+        const product = await productRepository.findById(productId);
         if (!product) {
             throw new Error('Producto no encontrado');
         }

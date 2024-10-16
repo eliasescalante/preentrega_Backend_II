@@ -8,14 +8,13 @@ class UserController {
         if (req.session.user) {
             return res.redirect('/api/sessions/current');
         }
-        res.render('login'); // Renderiza la vista de login si no está autenticado
+        res.render('login');
     }
 
     static async register(req, res) {
         // Método para registrar un nuevo usuario
         const { nombre, apellido, age, email, password } = req.body;
         try {
-            //verifico si ya existe el usuario
             const nuevoUsuario = await userService.registerUser({first_name: nombre, last_name:apellido, email, age, password});
             const token = jwt.sign({
                 usuario: `${nuevoUsuario.first_name} ${nuevoUsuario.last_name}`,
@@ -79,8 +78,8 @@ class UserController {
                 console.error("Error al cerrar sesión:", err);
                 return res.status(500).json({ message: "Error al cerrar sesión" });
             }
-            res.clearCookie("cookieToken"); // Limpiar la cookie si es necesario
-            res.redirect("/api/sessions/login"); // Redirigir a la página de login
+            res.clearCookie("cookieToken");
+            res.redirect("/api/sessions/login");
         });
     }
 }

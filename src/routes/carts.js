@@ -11,8 +11,6 @@ const router = express.Router();
 router.get('/current', authenticateUser, cartController.getCurrentCart.bind(cartController));
 // Ruta para agregar un producto a un carrito específico
 router.put('/:cartId/products/:productId/add', cartController.addProductCart.bind(cartController));
-//ruta para finalizar la compra
-//router.post('/:cartId/purchase', authenticateUser,cartController.purchase.bind(cartController));
 // Endpoint para obtener todos los carritos
 router.get('/all', cartController.getCart);
 // Ruta para crear un carrito
@@ -29,9 +27,10 @@ router.delete('/:id/products/:productId', cartController.deleteProductFromCart);
 router.put('/:id/empty', cartController.emptyCart);
 // Ruta para modificar la cantidad de un producto en un carrito específico
 router.put('/:cartId/products/:productId/quantity', cartController.updateProductQuantity);
+
 //finalizar compra
 //router.post("/:cartId/purchase", authenticateUser, cartController.purchaseCart);
-
+//finalizar la compra - idea general
 router.post("/:cid/purchase", authenticateUser, async (req, res) => {
     //purchase sin patron...
     const cartId = req.params.cid;
@@ -46,7 +45,7 @@ router.post("/:cid/purchase", authenticateUser, async (req, res) => {
         const arrayProductos = carrito.products;
         const productosNoDisponibles = [];
         const productosComprados = [];
-        let totalAmount = 0; // Inicializa el monto total
+        let totalAmount = 0;
 
         for (const item of arrayProductos) {
             const productId = item.product;

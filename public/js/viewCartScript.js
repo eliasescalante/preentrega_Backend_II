@@ -128,7 +128,6 @@ async function finalizarCompra(cartId) {
                 icon: 'success',
                 confirmButtonText: 'OK',
             }).then(async () => {
-                // Solo vacía el carrito y recarga la página después de presionar "OK"
                 await fetch(`/carts/${cartId}/empty`, { method: 'PUT' });
                 window.location.reload();
             });

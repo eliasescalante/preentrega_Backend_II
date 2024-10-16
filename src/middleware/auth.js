@@ -10,7 +10,7 @@ const authenticateUser = (req, res, next) => {
 
 const authenticateAdmin = (req, res, next) => {
     if (req.session.user && req.session.user.role === 'admin') {
-        req.user = req.session.user; // Establecer req.user desde la sesión
+        req.user = req.session.user;
         next();
     } else {
         return res.status(403).json({ message: 'Acceso denegado: Se requiere rol de administrador' });
@@ -19,7 +19,6 @@ const authenticateAdmin = (req, res, next) => {
 
 const isAuthenticated = (req, res, next) => {
     if (req.session.user) {
-        // El usuario está autenticado, redirigir a la vista home
         return res.redirect('/api/sessions/current');
     }
     next();
