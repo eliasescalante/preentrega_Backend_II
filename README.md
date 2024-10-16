@@ -13,8 +13,8 @@
 
 ## Descripción del Proyecto
 
-Este servidor proporciona una API para manejar productos y carritos de compra. Los productos y carritos se almacenan en una base de datos (MongoDB) y el servidor permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre la misma. Permite ademas agregar productos al carrito y finalizar la compra generando un ticket con el valor total de la misma y descontando del stock de los productos comprados los mismos que fueron agregados al carrito.
-Para acceder a las diferentes opciones de la API es necesario logearse.
+Este servidor proporciona una API para gestionar productos y carritos de compra, almacenados en una base de datos MongoDB. Permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) tanto para productos como para carritos. Además, los usuarios pueden agregar productos al carrito y, al finalizar la compra, el sistema genera un ticket con el valor total de la transacción, descontando automáticamente del stock los productos adquiridos. Para acceder a las diferentes funciones de la API, es necesario iniciar sesión.
+----
 
 ## Cómo Ejecutar el Proyecto
 
