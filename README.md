@@ -1,4 +1,4 @@
-# API - COMMERCE 
+# API - COMMERCE - v.1.0
 ### Proyecto final del curso de CODER HOUSE - 
 ### Programación Backend II: Diseño y Arquitectura Backend
 
@@ -13,7 +13,7 @@
 
 ## Descripción del Proyecto
 
-Este servidor proporciona una API para manejar productos y carritos de compra. Los productos y carritos se almacenan en una base de datos y el servidor permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre la misma.
+Este servidor proporciona una API para manejar productos y carritos de compra. Los productos y carritos se almacenan en una base de datos (MongoDB) y el servidor permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre la misma. Permite ademas agregar productos al carrito y finalizar la compra generando un ticket con el valor total de la misma y descontando del stock de los productos comprados los mismos que fueron agregados al carrito.
 Para acceder a las diferentes opciones de la API es necesario logearse.
 
 ## Cómo Ejecutar el Proyecto
@@ -23,16 +23,16 @@ Para acceder a las diferentes opciones de la API es necesario logearse.
 - 3 . la pagina inicial describe los metodos a utilizar
 
 # COMENTARIOS:
-## Fue todo un desafio realizar este proyecto. Realice un front basico para que el proyecto sea un poco mas amigable.
+## Fue todo un desafio realizar este proyecto. Realice un front basico para que el proyecto sea un poco mas amigable y se pueda probar las diferentes fucniones
 
 # Funcionalidades agregadas en esta ENTREGA:
-- `login` : permite iniciar sesion. (solo es visible si no estas logeado en el server)
-- `register` : permite registrar un nuevo usuario. / para iniciar en la API es necesario deslogearse y volver a logearse.
-- `home` : muestra una vista con un mensaje de bienvenida y un boton para deslogearse. (solo es visible si esta logeado en el server)
-- `productos` : Permite ver todos los productos. Solo si estas logeado y permite agregarlos al carrito del usuario logeado.
+- `login` : permite iniciar sesion. (solo es visible si no estas logeado en el server).
+- `register` : permite registrar un nuevo usuario. / para iniciar en la API es `necesario deslogearse y volver a logearse.`
+- `home` : muestra una vista con un mensaje de bienvenida y un boton para deslogearse. (solo es visible si estas logeado en el server)
+- `productos` : Permite ver todos los productos solo si estas logeado y permite agregarlos al carrito del usuario.
 - `carts` : Permite ver los productos del carrito del usuario logeado.
-- `carts`: Permite ver el detalle, ademas de modificar la cantidad de los productos en el carrito ademas de eliminarlos o vaciar el carrito.
-- `carts`: Permite tambien finalizar la compra, generando un ticket y mostrandolo en pantalla. El stock del producto se descuenta de la base de datos.
+- `carts`: Permite ver el detalle, ademas de modificar la cantidad de los productos en el carrito y tambien eliminarlos o vaciar el carrito.
+- `carts`: Permite tambien finalizar la compra, generando un ticket y mostrandolo en pantalla. El stock del producto se descuenta de la base de datos. y al finalizar vacia el carrito
 - `realTimerProduct` : Ahora solo puede tener acceso el admin, en esta vista permite eliminar productos, agregar nuevos o modificarlos.
 - `carts/:cid/purchase` : Permite finalizar la compra del carrito del usuario logeado. Para esto ya esta definido en el front.
 - `admin` : PARA PROBAR EL ADMIN => mail= `eli@eli.com` y pass = `1234`.
