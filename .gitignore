@@ -1,2 +1,4 @@
 # Ignorar node_modules
 /node_modules/
+.env.desarrollo
+.env.produccion
